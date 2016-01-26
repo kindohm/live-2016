@@ -1,0 +1,11 @@
+bps (200/120)
+
+-- m 2.2
+m $ slow 16 $ note "[60,62,67] [57,59,64] [58,60,65] ~" |+| dur "4 4 7 ~"
+
+-- erebus
+let this_pent = [0, 2, 4, 7, 9, 12, 14,16,19]
+let prog = "[48 45 46 46]/16"
+
+k7 $ (|+| note prog) $ density 2 $ every 2 (|+| note "12") $ note (runMidi this_pent 8)
+|+| modwheel (scale 0 1 $ slow 8.23 sine1)

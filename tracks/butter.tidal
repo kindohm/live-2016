@@ -1,0 +1,14 @@
+bps (400/120)
+
+m $ slow 8 $ whenmod 16 8 (|+| note "-5") $
+stack [chooseMidi' "45" mpent [0,12,0,-12,-24] "{0 ~ ~ ~ ~}%4"
+|+| dur (scale 1 2 $ shift' 2 $ rand),
+chooseMidi' "57" mpent [0,12,0,-12,-24] "{0 ~ ~}%8"
+|+| dur (scale 1 2 $ shift' 3 $  rand)]
+
+k7 $ slow 2 $ whenmod 16 8 (|+| note "-5") $
+chooseMidi' "45" mpent [0,12,0] "0?"
+|+| dur (scale 0.1 0.5 $ rand)
+|+| modwheel (rand)
+
+-- butk/buts
