@@ -1,0 +1,12 @@
+bps (200/120)
+
+k7 $ every 4 (within (0.25,0.75) (slow 8)) $ density 4 $ stack [ note "43",
+chooseMidi "55" mpent "[~ 0]" ]
+|+| modwheel (rand)
+
+
+d1 $ sound "k*2"
+
+k7 silence
+
+d1 silence
