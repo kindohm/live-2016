@@ -9,3 +9,7 @@ let prog = "[48 45 46 46]/16"
 
 k7 $ (|+| note prog) $ density 2 $ every 2 (|+| note "12") $ note (runMidi this_pent 8)
 |+| modwheel (scale 0 1 $ slow 8.23 sine1)
+
+
+k7 silence
+m silence
