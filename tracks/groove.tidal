@@ -6,3 +6,11 @@ chooseMidi "55" mpent "[~ 0]" ]
 
 -- 1m 2.4
 m $ slow 4 $ sometimes (|+| note "12") $ chooseMidi "55" mpent "0" |+| dur "2"
+
+keys $ slow 4 $ sometimes (|+| note "12") $ chooseMidi "67" mpent "0" |+| dur "2"
+
+k7 silence
+
+keys silence
+
+k7 $ note "55" |+| dur "1"

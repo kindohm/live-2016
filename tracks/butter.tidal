@@ -1,18 +1,28 @@
-bps (400/120)
+bps (200/120)
 
+-- m 2.1
 m $ slow 8 $ whenmod 16 8 (|+| note "-5") $
-stack [chooseMidi' "45" mpent [0,12,0,-12,-24] "{0 ~ ~ ~ ~}%4"
+stack [(|+| note (choose[0,12,0,-12,-24])) $ shift' 71 $ chooseMidi "45" mpent "{0 ~ ~ ~ ~}%4"
 |+| dur (scale 1 2 $ shift' 2 $ rand),
-chooseMidi' "57" mpent [0,12,0,-12,-24] "{0 ~ ~}%8"
+(|+| note (choose[0,12,0,-12,-24])) $ shift' 7 $ chooseMidi "57" mpent "{0 ~ ~}%8"
 |+| dur (scale 1 2 $ shift' 3 $  rand)]
 
-k7 $ slow 1 $ whenmod 16 8 (|+| note "-5") $
-chooseMidi' "45" mpent [0,12,0] "0?"
-|+| dur (scale 0.1 0.5 $ rand)
-|+| modwheel (rand)
+k7 $ density 2 $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose[0,12,0])) $ shift' 81 $
+degrade $ shift' 82 $ chooseMidi "45" mpent "0"
+|+| dur (scale 0.1 0.5 $ shift' 14 $ rand)
+|+| modwheel (shift' 13 $ rand)
 
 -- butk/buts
+
+keys $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
+chooseMidi "57" mpent "{0*4 0*4 ~ [~ 0] ~}%2" |+| dur "0.15"
 
 m silence
 
 k7 silence
+
+keys silence
+
+d1 $ slow 2 $ sound "butk buts"
+
+hush
