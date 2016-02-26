@@ -1,7 +1,7 @@
 bps (200/120)
 
 -- m 2.2
-m $ slow 16 $ note "[60,62,67] [57,59,64] [58,60,65] ~" |+| dur "4 4 7 ~"
+m $ slow 16 $ note "[60,62,67] [57,59,64] [58,60,65] ~" |+| dur "4 4 4 ~"
 
 -- erebus
 let this_pent = [0, 2, 4, 7, 9, 12, 14,16,19]
@@ -14,3 +14,8 @@ k7 $ (|+| note prog) $ density 2 $ every 2 (|+| note "12") $ note (runMidi this_
 
 k7 silence
 m silence
+
+k10 $ stack [note "{60 60 [60 ~ ~ 60] ~ ~}%2",
+note "{~ 61 ~}%2", note "{~ 62 ~ ~}%2", note "63*8?",
+note "{~ [64 ~ ~ 64] ~ ~ 64*2? 64*4?}%4",
+note "{~ 65*2 ~ ~ ~ ~ 65*2 ~}%4"]

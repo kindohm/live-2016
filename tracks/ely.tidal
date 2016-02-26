@@ -50,3 +50,34 @@ note "[-5 -10] ~ ~ ~ -5 ~ [~ 2] ~"] |+| dur "0.17"
 keys silence
 m silence
 k7 silence
+
+d1 $
+whenmod 11 9 (spike') $
+whenmod 16 14 (iter 4) $
+every 4 (gap 4) $
+every 5 (chop 4) $
+every 7 (|=| accelerate "-1 1") $
+every 8 (slow (4/3)) $
+every 12 (rip' 0 1 8 0.2 0.1) $
+every 11 (rip 0.2 0.1) $
+every 10 (|=| speed "-8 8") $
+every 9 (|=| crush "-5 4 -3 6") $
+whenmod 7 5 (jux (iter 4)) $
+every 6 (|=| coarse "16 8 24") $
+whenmod 7 3 (degradeBy 0.25) $
+stack [
+sound (samples "k*4 [s] [k cp] k*4" (run 20)),
+foldEvery [3,4] (3.25 <~) $
+slowcat [
+sound (samples "funky*8" (irand 30)) |=| unit "c" |=| speed "8" |+| shape "0.5",
+sound (samples "amenall*8" (irand 30)) |=| unit "c" |=| speed "8" |+| shape "0.5",
+sound (samples "jung1*8" (irand 30)) |=| unit "c" |=| speed "8" |+| shape "0.3",
+sound (samples "jung3*8" (irand 30)) |=| unit "c" |=| speed "8",
+sound (samples "brk1*8" (irand 30)) |=| unit "c" |=| speed "8",
+sound (samples "brkh1*8" (irand 30)) |=| unit "c" |=| speed "8",
+sound (samples "nu*8" (irand 30)) |=| unit "c" |=| speed "8"]]
+|=| delay "0"
+|=| delaytime "0"
+|=| delayfeedback "0"
+
+hush
