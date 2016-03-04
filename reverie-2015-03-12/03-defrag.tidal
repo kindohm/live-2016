@@ -1,8 +1,8 @@
 bps (210/120)
 
 -- bass
-bass $ slow 8 $ note "66 68 63 [63 51]/2" |+| dur "2.2"
-bass $ slow 8 $ note ((subtract 12) <$> ("61 [60 63]/2 58 58")) |+| dur "2.2"
+k7 $ slow 8 $ note "66 68 63 [63 51]/2" |+| dur "2.2"
+k7 $ slow 8 $ note ((subtract 12) <$> ("61 [60 63]/2 58 58")) |+| dur "2.2"
 
 -- start here, lazy bones...
 d1 $ stack [
