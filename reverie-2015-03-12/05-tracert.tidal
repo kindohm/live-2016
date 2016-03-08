@@ -1,7 +1,21 @@
 bps (200/120)
 
--- ML 007
+-- ML 102
 m $ slow 2 $ stut' 1 (0.0625) (|+| note "-12") $ rev $ (|+| note "55") $ mel phryg 16 ( foldEvery [3] (density ((4/3))) $ "0*4")
 
+d1 $
+stack [
+slow 2 $ sound "k*4? sdeep k*4? psh",
+sound "~ ride:1" |+| gain "0.9" |+| cut "2"]
+|+| delaytime "0.4" |+| delayfeedback "0.4"
 
-d1 $ sound (samples "jung1*2 [jung2 jung4] jung3*2 jung5*2" (every 2 (0.25 <~) $ run 20)) |+| cut "1" |+| unit "c" |+| speed "8"
+k7 $ slow 2 $ note "[~ 43]*2 ~ ~ ~"
+
+keys $ slow 2 $ note "~ 79"
+
+hush
+
+keys silence
+
+k7 silence
+m silence
