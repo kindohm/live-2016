@@ -2,6 +2,28 @@ bps (170/120)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 d1 $ density 2 $ whenmod 17 14 (iter 4) $
 every 9 (rip' 0 1 8 0.2 0.1) $ whenmod 10 8 (|+| crush "-5 4 -3 7") $
 every 12 (# speed "-1") $

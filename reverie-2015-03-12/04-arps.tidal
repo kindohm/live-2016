@@ -15,16 +15,40 @@ k7 silence
 
 keys $ (|+| note (choose[0,12,-12])) $ (|+| note prog) $ slow 2 $  note "[~ 0]*2 ~ ~ 0*4" |+| dur "0.1"
 
-
-
-d1 $ stack [
-sound (samples "k*4? sdeep/2" (run 20)) ]
-
 keys silence
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1 $ stack [
+sound "k:10*4? [sdeep/2]" ]
+
+hush
+d1 silence
 
 k7 silence
 m silence

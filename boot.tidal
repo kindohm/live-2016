@@ -60,3 +60,16 @@ let remPos num den = if x<0 then x+den else x where x = rem num den
     runMidi xs len = (xs !!) <$> (run $ fromIntegral $ len)
     chooseMidi root xs pat = (|+| note root) $ (|+| note (choose xs)) $ note pat
     chooseMidi' root xs ranges pat = (|+| note (choose ranges)) $ shift $ chooseMidi root xs pat
+
+
+bps (240/120)
+
+k7 $ note "57" |+| dur "1"
+
+m $ note "57" |+| dur "1"
+
+keys $ note "57" |+| dur "1"
+
+m silence
+k7 silence
+keys silence

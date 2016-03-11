@@ -21,6 +21,31 @@ m silence
 k7 silence
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 d1 silence
 
 d1 $ whenmod 11 9 (spike')$
@@ -40,3 +65,6 @@ shift' 5 $ degrade $ shift' 3 $ sound (samples "{peri*2 pson doru*2 doru*2 wet*2
 |=| delay "0"
 |=| delaytime "0"
 |=| delayfeedback "0"
+
+hush
+keys silence
