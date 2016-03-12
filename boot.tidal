@@ -1,3 +1,7 @@
+-- erebus: 5
+-- ML: 6
+-- keys: 7
+
 import Sound.Tidal.MIDI.Output
 import Sound.Tidal.MidiRack2
 keyStreams <- midiproxy 1 "Scarlett 18i8 USB" [(rack, 1),(rack, 2),(rack, 3),(rack, 4),(rack, 5),(rack, 6),(rack, 7),(rack, 8),(rack, 9),(rack, 10),(rack, 11),(rack, 12),(rack, 13),(rack, 14),(rack, 15),(rack, 16)]
@@ -64,6 +68,7 @@ let remPos num den = if x<0 then x+den else x where x = rem num den
 
 bps (240/120)
 
+-- A
 k7 $ note "57" |+| dur "1"
 
 m $ note "57" |+| dur "1"

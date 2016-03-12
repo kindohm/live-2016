@@ -1,5 +1,9 @@
 bps (170/120)
 
+let ry = sound (samples "{[ch]*2 k*4? [s cp] ch*2 cp/2}%4" (run 30))
+
+
+
 
 
 
