@@ -7,6 +7,9 @@ import Sound.Tidal.MidiRack2
 keyStreams <- midiproxy 1 "Scarlett 18i8 USB" [(rack, 1),(rack, 2),(rack, 3),(rack, 4),(rack, 5),(rack, 6),(rack, 7),(rack, 8),(rack, 9),(rack, 10),(rack, 11),(rack, 12),(rack, 13),(rack, 14),(rack, 15),(rack, 16)]
 [k1,k2,k3,k4,k5,k6,k7,k8,nord,k10,k11,k12,k13,brute,m,keys] <- sequence keyStreams
 
+(cps, getNow) <- bpsUtils
+(d1, t1) <- superDirtSetters getNow
+(d2, t2) <- superDirtSetters getNow
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
