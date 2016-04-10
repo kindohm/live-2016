@@ -12,9 +12,9 @@ k7 $ (|+| note "12") $ (|+| note prog) $ density 2 $ every 2 (|+| note "12") $ n
 
 keys $ (|+| note (choose[0,12,-12])) $ (|+| note prog) $ slow 2 $  note "[~ 0]*2 ~ ~ 0*4" |+| dur "0.1"
 
-
-
-
+keys silence
+k7 silence
+m silence
 
 
 

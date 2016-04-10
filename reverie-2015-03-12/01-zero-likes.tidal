@@ -16,7 +16,9 @@ degrade $ shift' 82 $ chooseMidi "45" mpent "0"
 keys $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
 chooseMidi "57" mpent "{0*4 0*4 ~ ~ ~ ~ ~}%2" |+| dur "0.15"
 
-
+m silence
+k7 silence
+keys silence
 
 
 
