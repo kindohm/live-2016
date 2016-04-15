@@ -81,3 +81,6 @@ keys $ note "57" |+| dur "1"
 m silence
 k7 silence
 keys silence
+
+-- ravey
+up "[~ 0 6 ~] [-1 -1 ~ 11] [~ 12 ~ ~] [~ ~ 0 0]"
