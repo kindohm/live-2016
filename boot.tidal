@@ -84,3 +84,12 @@ keys silence
 
 -- ravey
 up "[~ 0 6 ~] [-1 -1 ~ 11] [~ 12 ~ ~] [~ ~ 0 0]"
+
+
+-- stealing blaerg's stuff
+
+let vinyl p = ((|+| unit "c") . (|+| cut "1") . (|+| accelerate "{0.2 10 3 -1}%2") . (|+| pan "{0.4 0.6 0.3 0.7}%8")) p
+    headrush p = (trunc 0.5 . density 2 . (|+| vowel "o a o e") . (|+| cut "2") . spin 2) p
+    grit p = (trunc 0.5 . density 0.5 . (|+| coarse "12 10 5") . rev . striate 4 . (|+| delay "2")) p
+    scrape p = (trunc 0.25 . (|=| crush  "{1 5 7 9}%3") . (|+| cut "2") . spin 3) p
+    thin p = ((|+| hcutoff "0.25 0.5 0.75") . (|+| hresonance "0.75 0.65 0.3") . density 0.5 . (|=| shape "0.7 0.5 0.3")) p
