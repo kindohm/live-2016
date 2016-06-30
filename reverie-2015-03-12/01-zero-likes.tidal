@@ -15,8 +15,11 @@ degrade $ shift' 82 $ chooseMidi "45" mpent "0"
 |+| dur (scale 0.4 0.5 $ shift' 14 $ rand)
 |+| modwheel (shift' 13 $ rand)
 
-keys $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
+keys $ (0.25 <~) $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
 chooseMidi "57" mpent "{0*4 0*4 ~ ~ ~ ~ ~}%2" |+| dur "0.15"
+|=| kvcoegint "0.15"
+
+
 
 m silence
 k7 silence

@@ -11,6 +11,9 @@ keyStreams <- midiproxy 1 "Scarlett 18i8 USB" [(rack, 1),(rack, 2),(rack, 3),(ra
 (d1, t1) <- superDirtSetters getNow
 (d2, t2) <- superDirtSetters getNow
 
+d1 <- stream "127.0.0.1" 57120 dirt {timestamp = BundleStamp}
+d2 <- stream "127.0.0.1" 57121 dirt {timestamp = BundleStamp}
+
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
     spike p = ((|+| delaytime (scale 0.001 0.3 $ slow 7.1 sine1)) . (|+| delayfeedback (scale 0.7 0.99 $ slow 6.71 sine1))) $ p
@@ -93,3 +96,7 @@ let vinyl p = ((|+| unit "c") . (|+| cut "1") . (|+| accelerate "{0.2 10 3 -1}%2
     grit p = (trunc 0.5 . density 0.5 . (|+| coarse "12 10 5") . rev . striate 4 . (|+| delay "2")) p
     scrape p = (trunc 0.25 . (|=| crush  "{1 5 7 9}%3") . (|+| cut "2") . spin 3) p
     thin p = ((|+| hcutoff "0.25 0.5 0.75") . (|+| hresonance "0.75 0.65 0.3") . density 0.5 . (|=| shape "0.7 0.5 0.3")) p
+
+
+
+d1 $ sound "k"
