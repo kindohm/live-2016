@@ -25,13 +25,12 @@ let fill = (|=| gain "[0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1] 1") $ sound "
 
 c1 $ stack [
   kickpat,
-  tompat |=| gain "0.9",
   snarepat |=| gain "1.1",
   every 8 (const $ fill) $ slowcat [nope, nope, nope, nope, nope, nope, nope, nope, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat] ]
   |=| shape "0.2"
   |=| delaytime "0" |=| delayfeedback "0"
 
-c1 $ every 6 (const $ fill) $ sound "~" |=| shape "0.3"
+c1 $ every 8 (const $ fill) $ sound "~" |=| shape "0.3"
 
 
 c1 silence

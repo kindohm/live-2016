@@ -14,10 +14,24 @@ m silence
 
 let pat = "{~ ~ ~ ~ 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8"
 
-c1 $ whenmod 8 6 (jux (iter 4)) $
-every 6 (gap 4) $ every 7 (chop 4) $
-every 8 (|=| accelerate "-1 1") $
-slowspread ($) [id, rev, (|=| speed "1.2 -1.1 0.8 -1"), rip 0.2 0.1, (|=| coarse "16 32 24"), rip' 0 1 8 0.25 0.125] $
+
+c1 $ shift $ every 4 (gap 4) $ every 5 (chop 4) $
+every 6 (|=| coarse "64 16 32") $
+every 7 (|=| crush (scale 1 7 $ density 1.3 $ sine1)) $
+slowspread ($) [id, rev, (|=| speed "1.2 0.8 -1.2"), (|=| accelerate "-1 1 0.5 -0.5"), rip' 0 1 12 0.125 0.125] $
+shift $ whenmod 14 11 (iter 8) $
+foldEvery [3,4] (0.75 ~>) $ stack [
+n pat # sound "8k" |=| gain "0.9",
+(0.0625 ~>) $ n pat # sound "8ch",
+(0.25 ~>) $ sound "8oh(3,8)" |=| cut "1",
+whenmod 25 20 (const $ sound "~") $ foldEvery [3,4] (0.25 <~) $ sound "{8s ~ ~ [~ 8s] ~ ~ ~ ~ ~ ~ ~}%8",
+whenmod 30 20 (const $ sound "~") $ sound "{~ 8cp ~ 8cp ~ ~ ~}%4",
+(0.125 ~>) $ slow 4 $ sound "8cy(3,8)" |=| up (choose [-3,0,-2,-1,1,-4,-5,-6,-7,-8]) ]
+|=| delaytime "0" |=| delayfeedback "0"
+
+c1 silence
+
+c1 $
 stack [
 foldEvery [3,4] (0.25 <~) $ n pat # sound "8k",
 foldEvery [3,4] (0.25 <~) $ (0.0625 ~>) $ n pat # sound "8ch" |=| cut "1",

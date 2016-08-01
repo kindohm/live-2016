@@ -16,7 +16,7 @@ let derp p = stut' 1 0.0625 (|+| note (choose [36,24,12,36,-12])) $ p
               (|=| noise "0") $ p
 
 -- ML 124
-m $ smod $ pmod $ whenmod 20 14 (foldEvery [3,4] (0.25 <~)) $
+m $ whenmod 16 12 (foldEvery [3,4] (0.25 <~)) $ pmod $ smod $ whenmod 20 14 (foldEvery [3,4] (0.25 <~)) $
 density 2 $ note "-8(3,8)"
 
 |=| release "0.3" |=| cutoff "1"
@@ -24,12 +24,17 @@ density 2 $ note "-8(3,8)"
 m silence
 
 -- 4
-c1 $
-stack [rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4", slow 2 $ sound "~ 4cp/2" |=| shape "0.3", rarely (0.25 ~>) $ sound "~ 4s",
-sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4", sound "4cy/7", sound "~ [~ 4cb/4] ~ ~" |=| shape "0.1" ] |=| gain "1.2"
+c1 $ whenmod 16 13 (iter 8) $
+whenmod 9 7 (jux (iter 4)) $ every 6 (gap 4) $ every 7 (|=| coarse "16 32 24") $
+every 8 (rip' 0 1 12 0.25 0.25) $
+every 9 (|=| accelerate "-0.5 -1") $
+every 5 (stut' 1 (0.125*3) (|*| speed "{1.5 0.9 1.25 1 0.8}%16")) $
+whenmod 16 12 (foldEvery [3,4] (0.25 <~)) $
+stack [rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4", slow 2 $ sound "~ 4cp/2" |=| shape "0.1", rarely (0.25 ~>) $ sound "~ 4s",
+sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4", sound "4cy/7", sound "~ [~ 4cb/4] ~ ~" |=| shape "0" ] |=| gain "1.2"
 
 
-erebus $ (|+| note "12") $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $ note "0 4 7 11 12 16 19 23"
+erebus $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $ note "0 4 7 11 12 16 19 23"
 
 r1 silence
 m silence
