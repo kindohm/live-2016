@@ -30,7 +30,7 @@ c1 $ stack [
   |=| shape "0.2"
   |=| delaytime "0" |=| delayfeedback "0"
 
-c1 $ every 8 (const $ fill) $ sound "~" |=| shape "0.3"
+c1 $ jux (iter 8) $ every 2 (const $ fill) $ sound "~" |=| shape "0.3"
 
 
 c1 silence
