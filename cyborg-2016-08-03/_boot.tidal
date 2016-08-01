@@ -3,7 +3,7 @@ import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Kindohm.Rack
 import Sound.Tidal.MIDI.Kindohm.CustomParams
 devs <- midiDevices
-r1 <- midiStream devs "Scarlett 18i8 USB" 1 rackController
+--r1 <- midiStream devs "Scarlett 18i8 USB" 1 rackController
 m <- midiStream devs "Scarlett 18i8 USB" 15 rackController
 erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
 keys <- midiStream devs "Scarlett 18i8 USB" 16 rackController
@@ -74,3 +74,9 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
 
 import Sound.Tidal.MIDI.Context
 displayOutputDevices >>= putStrLn
+
+
+erebus $ note "0/2" |=| dur "1.96"
+
+erebus silence
+hush

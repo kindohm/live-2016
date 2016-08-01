@@ -1,48 +1,21 @@
 bps (200/120)
 
-import Sound.Tidal.MIDI.Kindohm.CustomParams
-
-{-|
-|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)
-|=| shape2 (scale 0 0.95 $ slow 15.57 tri1)
-|=| voicedepth (scale 0 0.7 $ slow 17.31 tri1)
-|=| xmod (scale 0 1 $ slow 20 tri1)
-|=| release (scale 0 0.4 $ slow 22.18 tri1)
--}
-
 let themod = (|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)) . (|=| shape2 (scale 0 0.95 $ slow 15.57 tri1)) . (|=| voicedepth (scale 0 0.7 $ slow 17.31 tri1)) . (|=| xmod (scale 0 1 $ slow 20 tri1)) . (|=| release (scale 0 0.4 $ slow 22.18 tri1))
 let pmod = (|=| pitchmod (scale 0 1 $ slow 16.22 tri1))
 
--- in 5
--- rytm kit F3 (19)
-r1 $ stack [midinote "{0 ~ ~ 0 ~}%8", midinote "8*8", midinote "{[~ 3]/2 ~ ~ ~ ~}%8", (0.0625 <~) $ midinote "9/5",
-midinote "{10/7 ~ ~ ~ ~}%8", midinote "{~ 2/6 ~ ~ ~}%8"]
+
+c1 $
+stack [sound "{2k ~ ~ 2k ~}%8" |=| gain "0.95",
+sound "2ch*8" |=| cut "1",
+(0.0625 <~) $ sound "2oh/4" |=| cut "1",
+sound "{[~ 2cp]/2 ~ ~ ~ ~ }%8",
+sound "{2cy/16 ~ ~ ~ ~}%8",
+sound "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])] |=| shape "0"
 
 -- ML 122
-m $ pmod $ themod $ midinote "{42 ~ ~ 42 ~}%8" # dur "{0.3 ~ ~ 0.15 ~}%8"
+m $ pmod $ themod $ (|+| note "42") $ midinote "{0 ~ ~ 0 ~}%8" # dur "{0.3 ~ ~ 0.15 ~}%8"
+
 m silence
 
 
--- in 7
-r1 $ stack [midinote "{0 ~ ~ 0 ~ 0 ~}%8", midinote "8*8", midinote "{[~ 3]/2 ~ ~ ~ ~ ~ ~}%8", (0.0625 <~) $ midinote "9/5",
-midinote "{~ ~ ~ 10/3 ~ ~ ~}%8", midinote "{~ 2/6 ~ ~ ~ ~ ~}%8"]
-
-m $ pmod $ themod $ midinote "{42 ~ ~ 42 ~ 42 ~}%8" # dur "{0.3 ~ ~ 0.15 ~ 0.15 ~}%8"
-
--- in 9
-r1 $ stack [midinote "{0 ~ ~ 0 ~ 0 ~ 0 ~}%8", midinote "8*8", midinote "{[~ 3]/2 ~ ~ ~ ~ ~ ~ ~ ~}%8", (0.0625 <~) $ midinote "9/5",
-midinote "{~ ~ ~ 10/3 ~ ~ ~ ~ ~}%8", midinote "{~ 2/6 ~ ~ ~ ~ ~ ~ ~}%8"]
-
-m $ pmod $ themod $ midinote "{42 ~ ~ 42 ~ 42 ~ 42 ~}%8" # dur "{0.3 ~ ~ 0.15 ~ 0.15 ~ 0.15 ~}%8"
-
--- in 6
-r1 $ stack [midinote "{~ ~ ~ 0 ~ 0}%8", midinote "8*8", midinote "{~ ~ ~ 3 ~ ~}%8", (0.0625 <~) $ midinote "9/5",
-midinote "{10/4 ~ ~ ~ ~ ~}%8", midinote "{~ 2/6 ~ ~ ~ ~}%8"]
-
-m $ pmod $ themod $ midinote "{~ ~ ~ 42 ~ 42}%8" # dur "{~ ~ ~ 0.15 ~ 0.45}%8"
-
-r1 silence
-m silence
-
-
-r1 $ slow 1.7 $ midinote "2/2"
+hush

@@ -1,0 +1,8 @@
+bps (240/120)
+
+c1 $ (const $ sound "~") $ whenmod 16 13 (spike') $
+every 6 (|=| coarse "4 8 16") $
+foldEvery [2,3,4] (|+| begin "0.1") $
+sound "ringsurfing([3 7 5 4]/4,8)"
+|=| begin "{0.73 0.77 0.75}%1" |=| cut "1"
+|=| delaytime "0" |=| delayfeedback "0"

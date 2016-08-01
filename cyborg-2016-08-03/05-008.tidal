@@ -10,28 +10,23 @@ chooseMidi' "-13" mpent [-12,0,12,24] "0/2"] |=| dur "0.9"
 erebus  $ (|+| note "[0 0 0]/64") $ density 2 $ foldEvery [2,3,5] (0.25 ~>) $
 whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
 
--- kit 25
-
-whenmod 14 13 (|=| perf1 (scale 0 1 $ rand)) $
-whenmod 10 7 (|=| perf2 (scale 0 1 $ shift' 4 $ rand)) $
-whenmod 16 14 (|=| perf3 (scale 0 1 $ shift' 3 $ rand)) $
-whenmod 12 9 (|=| perf4 (scale 0 1 $ shift' 3 $ rand)) $
-
-
-r1 $
-stack [
-whenmod 22 16 (const $ midinote "~") $ foldEvery [3,4] (0.25 <~) $ midinote "{~ ~ ~ [~] 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8",
-foldEvery [3,4] (0.25 <~) $ midinote "{~ ~ ~ [~] ~ ~ ~ [~ 8] [~ 8] [~ 8] [~ 8]}%8",
-(0.25 ~>) $ midinote "9(3,8)",
-whenmod 25 20 (const $ midinote "~") $ foldEvery [3,4] (0.25 <~) $ midinote "{1 ~ ~ [~ 1] ~ ~ ~ ~ ~ ~ ~}%8",
-whenmod 30 20 (const $ midinote "~") $ midinote "{~ 3 ~ 3 ~ ~ ~}%4",
-(0.125 ~>) $ midinote "10/8" |=| dur "0.5" ]
-|=| perf1 "0.0001" |=| perf2 "0.0001" |=| perf3 "0.0001" |=| perf4 "0.0001"
-
-
-r1 silence
 m silence
+
+let pat = "{~ ~ ~ ~ 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8"
+
+c1 $ whenmod 8 6 (jux (iter 4)) $
+every 6 (gap 4) $ every 7 (chop 4) $
+every 8 (|=| accelerate "-1 1") $
+slowspread ($) [id, rev, (|=| speed "1.2 -1.1 0.8 -1"), rip 0.2 0.1, (|=| coarse "16 32 24"), rip' 0 1 8 0.25 0.125] $
+stack [
+foldEvery [3,4] (0.25 <~) $ n pat # sound "8k",
+foldEvery [3,4] (0.25 <~) $ (0.0625 ~>) $ n pat # sound "8ch" |=| cut "1",
+(0.25 ~>) $ sound "8oh(3,8)" |=| cut "1",
+whenmod 25 20 (const $ sound "~") $ foldEvery [3,4] (0.25 <~) $ sound "{8s ~ ~ [~ 8s] ~ ~ ~ ~ ~ ~ ~}%8",
+whenmod 30 20 (const $ sound "~") $ sound "{~ 8cp ~ 8cp ~ ~ ~}%4",
+(0.125 ~>) $ slow 3 $ sound "8cy(3,8)" |=| up (choose [-3,0,-2,-1,1,-4,-5,-6,-7,-8])  ]
+
+c1 silence
+m silence
+
 erebus silence
-
-
-r1 $ midinote "9" |=| perf1 "0.0001" |=| perf2 "0.0001" |=| perf3 "0.0001" |=| perf4 "0.0001" |=| dur "0.5"
