@@ -4,7 +4,8 @@ import Sound.Tidal.MIDI.Stream
 -- synths
 import Sound.Tidal.MIDI.Synth
 import Sound.Tidal.MIDI.VolcaKeys
-import Sound.Tidal.Rytm
+import Sound.Tidal.MIDI.Kindohm.Rytm
+import Sound.Tidal.MIDI.Kindohm.Minilogue
 
 -- "Scarlett 18i8 USB"
 -- "Elektron Analog Rytm"
@@ -13,21 +14,9 @@ devs <- midiDevices
 
 -- rytm
 r1 <- midiStream devs "Elektron Analog Rytm" 1 rytmController
-r2 <- midiStream devs "Elektron Analog Rytm" 2 rytmController
-r3 <- midiStream devs "Elektron Analog Rytm" 3 rytmController
-r4 <- midiStream devs "Elektron Analog Rytm" 4 rytmController
-r5 <- midiStream devs "Elektron Analog Rytm" 5 rytmController
-r6 <- midiStream devs "Elektron Analog Rytm" 6 rytmController
-r8 <- midiStream devs "Elektron Analog Rytm" 8 rytmController
-r9 <- midiStream devs "Elektron Analog Rytm" 9 rytmController
-r10 <- midiStream devs "Elektron Analog Rytm" 10 rytmController
-r11 <- midiStream devs "Elektron Analog Rytm" 11 rytmController
-r12 <- midiStream devs "Elektron Analog Rytm" 12 rytmController
-r13 <- midiStream devs "Elektron Analog Rytm" 13 rytmController
-r14 <- midiStream devs "Elektron Analog Rytm" 14 rytmController
 
 -- minilogue on 15
-m <- midiStream devs "Minilogue" 15 keysController
+m <- midiStream devs "MIDIOUT2 (minilogue)" 15 minilogueController
 
 -- erebus on 7
 erebus <- midiStream devs "Scarlett 18i8 USB" 7 synthController

@@ -1,0 +1,37 @@
+bps (180/120)
+
+-- 129
+m $ (|+| note "[0 0 0]/64") $
+stack [foldEvery [2,3,4] (0.25 <~) $ chooseMidi' "-13" mpent [0,12,24,36] "0*2?",
+chooseMidi' "-13" mpent [-12,0,12,24] "0/2"] |=| dur "0.9"
+|=| cutoff (scale 0.7 0.99 $ slow 8.5 tri1)
+|=| xmod (scale 0 0.4 $ slow 10 tri1)
+
+erebus  $ (|+| note "[0 0 0]/64") $ density 2 $ foldEvery [2,3,5] (0.25 ~>) $
+whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
+
+-- kit 25
+
+whenmod 14 13 (|=| perf1 (scale 0 1 $ rand)) $
+whenmod 10 7 (|=| perf2 (scale 0 1 $ shift' 4 $ rand)) $
+whenmod 16 14 (|=| perf3 (scale 0 1 $ shift' 3 $ rand)) $
+whenmod 12 9 (|=| perf4 (scale 0 1 $ shift' 3 $ rand)) $
+
+
+r1 $
+stack [
+whenmod 22 16 (const $ midinote "~") $ foldEvery [3,4] (0.25 <~) $ midinote "{~ ~ ~ [~] 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8",
+foldEvery [3,4] (0.25 <~) $ midinote "{~ ~ ~ [~] ~ ~ ~ [~ 8] [~ 8] [~ 8] [~ 8]}%8",
+(0.25 ~>) $ midinote "9(3,8)",
+whenmod 25 20 (const $ midinote "~") $ foldEvery [3,4] (0.25 <~) $ midinote "{1 ~ ~ [~ 1] ~ ~ ~ ~ ~ ~ ~}%8",
+whenmod 30 20 (const $ midinote "~") $ midinote "{~ 3 ~ 3 ~ ~ ~}%4",
+(0.125 ~>) $ midinote "10/8" |=| dur "0.5" ]
+|=| perf1 "0.0001" |=| perf2 "0.0001" |=| perf3 "0.0001" |=| perf4 "0.0001"
+
+
+r1 silence
+m silence
+erebus silence
+
+
+r1 $ midinote "9" |=| perf1 "0.0001" |=| perf2 "0.0001" |=| perf3 "0.0001" |=| perf4 "0.0001" |=| dur "0.5"
