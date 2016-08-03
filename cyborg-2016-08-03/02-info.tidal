@@ -1,24 +1,16 @@
 bps (170/120)
 
 let ry = sound (samples "{[ch]*2 k*4? [s cp] ch*2 cp/2}%4" (run 30))
-let sfill = const $ stack [sound (samples "{seq2 ch k}%16" (run 20)) |+| cut "-1"]
+    sfill = const $ stack [sound (samples "{seq2 ch k}%16" (run 20)) |+| cut "-1"]
 
 c2 $ spike' $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
 (|=| cutoff (scale 0.01 0.2 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:1" "[0 1]/8") |+| resonance "0.1"
 
-c1 $ degrade $
-whenmod 7 5 (jux (iter 4)) $
-every 5 (gap 4) $ every 4 (chop 4) $
-every 6 (|=| coarse "16 32 24") $
-every 7 (|=| accelerate "-1 1") $
-every 8 (rip' 0 1 8 0.25 0.125) $
-every 9 (rip 0.125 0.25) $
-whenmod 11 9 (sfill) $
-stack [sound (samples "seq1/3" (irand 20)),
-sound (samples "{seq2 ~ ~ ~ ~}%2" (irand 30)),
-sound (samples "{seq3 ~ ~}%2" (irand 30)),
-ry,
-sound "cy/4" |=| cut "-1"]
+c1 $ stack [
+gtfo $ sometimes (density 2) $ shift $ rarely (|+| begin "0.5") $ shift $ sometimes (0.125 ~>) $ slow 1 $ sound (samples "seq1" (irand 20)) |+| cut "4",
+gtfo $ ry,
+gtfo $ sound (samples "{~ seq2 ~}%2" (irand 20)) |+| cut "2" |+| speed "{1 -1 1}%16",
+gtfo $ sound (samples "{seq3 ~ ~ ~ ~}%2" (irand 20)) |+| cut "5"]
 
 
 c1 silence

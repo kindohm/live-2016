@@ -26,19 +26,6 @@ m silence
 erebus silence
 keys silence
 
-c1 $ spike' $
-whenmod 12 9 (iter 8) $
-every 5 (gap 4) $ every 4 (chop 4) $
-whenmod 8 6 (jux (iter 4)) $
-every 6 (rip' 0 1 8 0.25 0.125) $
-every 7 (|=| coarse "32 16 24") $
-every 8 (|=| accelerate "-1 1") $
-foldEvery [3,4] (0.25 <~) $ stack [
-slow 2 $ sound (samples "k*4? k*4? sdeep:0/2 cp" (irand 30)),
-every 3 (|=| coarse "16") $ slow 2 $ sound "~ ~ ~ cpr/4" |=| speed "{1 1 -1}%16",
-degrade $ shift' 11 $ sound (samples "{peri*2 doru peri*2 tite*2 peri*2}%4" (irand 30)) |=| speed (choose [1,2,1.5,1.25]),
-foldEvery [2,3] (density 2) $ sound "ch:7*2" |=| gain "0.8" ]
-|=| delaytime "0" |=| delayfeedback "0"
 
 
 c1 silence
