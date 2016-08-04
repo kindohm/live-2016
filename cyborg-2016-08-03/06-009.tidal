@@ -4,16 +4,24 @@ let prog = (|+| note "{0 0 0 2 2}%1")
 let progup = (|+| up "{0 0 0 2 2}%1")
 
 
-c1 $ progup $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "383"
+c1 $
+progup $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "383"
 
 
 -- 26
 c1 $
 stack [progup $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "383",
-whenmod 30 22 (const $ sound "~") $ whenmod 16 8 (0.125 ~>) $ sound "9cp*4",
-whenmod 18 14 (const $ sound "~") $ whenmod 9 6 (0.0625 <~) $ sound "~ 9s",
-whenmod 22 16 (const $ sound "~") $ whenmod 14 9 (slow (4/3)) $ sound "{9ch*6 9ch*4 9ch*4 9oh 9ch*4}%4",
-sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1" ] |=| shape "0.2"
+gtfo $ whenmod 30 22 (const $ sound "~") $ whenmod 16 8 (0.125 ~>) $ sound "9cp*4",
+gtfo $ whenmod 18 14 (const $ sound "~") $ whenmod 9 6 (0.0625 <~) $ sound "~ 9s",
+gtfo $ whenmod 22 16 (const $ sound "~") $ whenmod 14 9 (slow (4/3)) $ sound "{9ch*6 9ch*4 9ch*4 9oh 9ch*4}%4",
+gtfo $ sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1" ] |=| shape "0.2"
+
+c1 silence
+
+
+c2 $ slow 8 $ sound "heem heem" |=| speed "{0.125 0.3 0.25}%16"
+|=| delaytime "0.5" |=| delayfeedback "0.5" |=| delay "0.5"
+|=| shape "0.3"
 
 
 -- m 130

@@ -5,7 +5,6 @@ erebus $ every 3 (slow 2) $ slow 2 $ preplace (1,3) (note "{1 [~ 1] ~ 1*1 ~ ~ ~ 
 |=| dur "{0.1 0.2 0.05 0.1 0.2}%8"
 |=| modwheel (shift' 6 $ rand)
 
-
 -- ml 103
 m $ slow 18 $ (|+| note (choose [0,12,0])) $
 (|+| note "0") $ note "[{0 -5 -3 -8 -2}%4, {0 5 7 -2 9 11 14}%4, {4 0 12 11 9 5}%4]" |=| dur "4"
@@ -13,16 +12,21 @@ m $ slow 18 $ (|+| note (choose [0,12,0])) $
 keys $ (|+| note (choose[12,24,0])) $ (|+| note "0") $ chooseMidi "0" pent "{0*4 0*4 0*4 ~ ~ ~ ~ ~ ~ ~ ~}%4"
 
 
-c1 $ stack [
-gtfo $ sometimes (density 2) $ sound (samples "{vixbd vixch ~ ~ vixcy/3 ~ vixbt/2}%4" (irand 20)),
-gtfo $ sound "{~ ~ ~ ~ [~ vixsd/2]}%4",
-gtfo $ slow 2 $ sound "~ vixcp ~ ~",
-gtfo $ sound "~ ~ vixch*2 ~",
-gtfo $ sound "{[~ vixrs] ~ vixrs ~ ~}%2" ] # delay "0" # delaytime "0" # delayfeedback "0"
+c1 $ jux (iter 4) $
+every 7 (|=| coarse "16 32 64") $
+slow 16 $ striate' 256 (1/10) $
+stack [
+sometimes (density 2) $ sound (samples "{vixbd vixch ~ ~ vixcy/3 ~ vixbt/2}%4" (irand 20)) |=| shape "0.1",
+sound "{~ ~ ~ ~ [~ vixsd/2]}%4",
+slow 2 $ sound "~ vixcp ~ ~",
+sound "~ ~ vixch*2 ~",
+sound "{[~ vixrs] ~ vixrs ~ ~}%2" ]
+|=| delay "0" # delaytime "0" # delayfeedback "0"
 
-
-
-
+m silence
+erebus silence
+keys silence
+c1 silence
 
 
 
