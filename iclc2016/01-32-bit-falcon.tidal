@@ -3,11 +3,11 @@ bps (200/120)
 c1 $
 stack [
 sound "2ch*8" |=| cut "1",
-(0.0625 <~) $ sound "2oh/4" |=| cut "1",
+(0.0625 <~) $ sound "2oh/3" |=| cut "1",
 sound "{2k ~ ~ 2k ~}%8" |=| gain "1",
-sound "{[~ 2cp]/2 ~ ~ ~ ~ }%8",
+sound "{[~ 2cp]/2 ~ ~ ~ ~ }%8" |=| shape "0.3",
 sound "{2cy/16 ~ ~ ~ ~}%8",
-sound "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])] 
+sound "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])]
 
 keys $ (|+| note "0") $ (|+| note "-18") $  note "{0 ~ ~ 0 ~}%8"
 # dur "{0.3 ~ ~ 0.15 ~}%8"
@@ -17,3 +17,5 @@ keys $ (|+| note "0") $ (|+| note "-18") $  note "{0 ~ ~ 0 ~}%8"
 |=| voice "[0.2]/30"
 |=| klforate "0.001"
 |=| klfopitchint "0.001"
+
+hush
