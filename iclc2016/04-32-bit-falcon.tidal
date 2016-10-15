@@ -15,8 +15,8 @@ let kickpat = kickpat6
 
 c1 $
 stack [
-gtfo $ sound "2ch*8" |=| cut "1",
-gtfo $ (0.0625 <~) $ sound "2oh/3" |=| cut "1",
+gtfo $ sound "2ch*8" |=| cut "1" |=| gain "1.2",
+gtfo $ (0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "1.2",
 gtfo $ n kickpat # s "2k" |=| gain "0.9",
 gtfo $ n clappat # s "2cp" |=| shape "0.4",
 gtfo $ n cypat # s "2cy" |=| gain "1.2",
