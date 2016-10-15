@@ -24,6 +24,7 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rep' n p = stut' (n-1) (0.125/2*3) (|*| gain "1") $ p
     rep'' n p = stut' (n-1) (0.125/4*3) (|*| gain "1") $ p
     beginend bpat durpat = (begin bpat) # (end $ (+) <$> bpat <*> durpat)
+    brakk samps = ((|=| unit "c") . (|=| speed "8")) $ sound (samples samps (irand 30))
     remPos num den = if x<0 then x+den else x where x = rem num den
     scaleElt scale n = fromIntegral . (scale !!) $ fromIntegral $ remPos n (fromIntegral $ length scale)
     scaleOctave scale n = (12 *) . fromIntegral . floor . ((fromIntegral n) /) $ fromIntegral $ length scale
