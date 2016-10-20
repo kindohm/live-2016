@@ -1,35 +1,18 @@
-bps (200/120)
+d1 $ whenmod 10 7 (|+| n "-12") $ whenmod 6 3 (|+| n "-12") $
+every 3 (rev) $ density 2 $ every 2 (|+| n "12") $ (|+| n "-8") $
+  n "0 4 7 11 12 16 19 23" # s "mike"
+  # sustain (scale 0.07 0.2 $ slow 9 tri1)
+  # cutoff (scale 200 10000 $ slow 7 tri1)
+  # resonance (scale 0.001 0.1 $ slow 6.33 tri1)
 
-keys $ whenmod 12 6 (|+| note "-2") $
-  whenmod 8 4 (|+| note "-12") $ every 2 (|+| note "12") $ note "{0 3 7 10 14}%8"
-  # voice "0.2"
-  # detune "0.01"
-  # kcutoff (scale 0.01 0.2 $ slow 5 sine1)
-  # vcfegint "0.5"
-  # vcoegint "0.001"
-  # klforate (scale 0 1 $ slow 4.5 sine1)
-  # klfocutoffint (scale 0 1 $ slow 5.33 sine1)
-  # kattack "0.001"
-  # kdecay "1"
-  # ksustain "1"
+    # dur "0.6"
 
-keys silence
 
-c1 $ degradeBy 0.7 $ foldEvery [3,4] (0.25 <~) $
-whenmod 6 4 (jux (iter 8)) $
-every 5 (chop 4) $ every 6 (|=| accelerate "-1 1") $
-every 7 (|=| coarse "16 32 24") $
-every 8 (rip 0.2 0.1) $
-every 9 (rip' 0 1 8 0.25 0.25) $
-stack [
-slow 2 $ sound (samples "k*8 ~ ~ ~" (run 30)),
-slow 2 $ sound (samples "~ sdeep" "0"),
-sound "~ teks [~ teks] ~",
-sound (samples "{b [~ b] ~ ~ b ~ ~ [~ b] ~}%2" (run 30)) |=| cut "1",
-foldEvery [3,4] (density 2) $ sound "ch*4",
-degradeBy 0.1 $ slowcat [
-sound (samples "akuma1*8" (irand 30)) |=| unit "c" |=| speed "8",
-sound (samples "akuma5*8" (irand 30)) |=| unit "c" |=| speed "8",
-sound (samples "akuma4*8" (irand 30)) |=| unit "c" |=| speed "8",
-sound (samples "akuma2*8" (irand 30)) |=| unit "c" |=| speed "8",
-sound (samples "akuma3*8" (irand 30)) |=| unit "c" |=| speed "8"] ]
+  hush
+
+  keys $ (|+| note "[0 -2]/8") $ whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
+  every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+    note "0 4 7 11 12 16 19 23" |=| dur "0.1"
+
+
+c1 $ sound "ch:1*2" |=| nudge "0.07" |=| shape "0.3"

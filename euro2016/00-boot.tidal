@@ -3,7 +3,7 @@ import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Kindohm.Rack
 import Sound.Tidal.MIDI.Kindohm.CustomParams
 devs <- midiDevices
-keys <- midiStream devs "Scarlett 18i8 USB" 16 rackController
+keys <- midiStream devs "LoopBe Internal MIDI" 1 rackController
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
@@ -76,28 +76,8 @@ displayOutputDevices >>= putStrLn
 
 c1 $ sound "k*8?"
 
-keys <- midiStream devs "01. Internal MIDI" 1 rackController
-keys2 <- midiStream devs "02. Internal MIDI" 2 rackController
+keys2 <- midiStream devs "LoopBe Internal MIDI" 2 rackController
 
 bps (170/120)
 
-keys $ note "0*2 0*4" # dur "0.15"
-
-keys2 $ (|+| note "[0 -2]/8") $ rarely (density 2) $ (1 <~) $
-sometimes (density 2) $  (|+| note "-12") $ (|+| note "-8") $ note "0 4 7 11" # dur "0.15"
-
-
-keys $ (|+| note "12") $ (|+| note "[0 -2]/8") $ whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
-every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
-  note "0 4 7 11 12 16 19 23" |=| dur "0.09"
-
-
-c1 $ sound "ch:1*4" |=| gain "2.5"
-
-c1 $ degradeBy 0.2 $ slowcat [brakk "akuma2*8", brakk "akuma3*8", brakk "fur1*8" ]  |=| gain "2.8"
-
-keys2 silence
-
-keys silence
-
-hush
+keys $ note "0*4 12*2" # dur "0.1"
