@@ -1,23 +1,15 @@
-bps (170/120)
+bps (200/120)
 
-keys $ every 3 (|=| reverb "0.001 0.7 0.001") $ (|=| x (scale 0.2 0.6 $ slow 2.33 tri1)) $
-  (|=| y (scale 0 1 $ slow 9.66 tri1)) $
-  (|=| z (scale 0 1 $ slow 10.66 tri1)) $
-  (|=| ab (scale 0.0 1 $ slow 12.33 tri1)) $
-(|+| note "[0 -2]/8") $ whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
-every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
-  note "0 4 7 11 12 16 19 23"
-  |=| dur "0.09"
-  |=| gain "0.5"
+c1 $ jux (iter 8) $ slow 256 $ striate' 10000 (1/500) $ sound "algo"
 
-c1 $ stack [
-slow 2 $ sound (samples "k*8 ~ ~ ~" (run 30)),
-slow 2 $ sound "~ sdeep ~ psh/2",
-sound "~ cpr/3",
-degradeBy 0.3 $ slowcat [brakk "akuma1*8", brakk "akuma2*8" ]
-]
+hush
 
+gran $ slow 4 $
+stack [note "0"]
+|=| dur "4"
+|=| x (scale 0.3 0.7 $ shift' 1 $ rand)
+|=| y (scale 0.501 0.7 $ shift' 2 $ rand)
 
-c1 silence
+gran silence
 
-keys silence
+hush

@@ -1,0 +1,15 @@
+bpm 155
+
+c1 $ sound "burnch*4"
+
+c2 silence
+
+c1 $ stack [
+sometimes (slow 2) $ superimpose (|=| coarse "{8 16 24}%4") $ sound "electrowave*8"
+|=| begin (scale 0 0.7 $ rand) |=| cut "1"
+|=| speed "0.9" |=| gain "0.9",
+sound "fk:1*8?",
+sound "burnch*4"]
+
+-- break
+c1 $ sound (samples "k*8 [burns ~ ~ [k*2 sub:0]/2]" (run 20))
