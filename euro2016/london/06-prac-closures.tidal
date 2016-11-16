@@ -13,6 +13,8 @@ density 2 $ foldEvery [2,3,5] (0.25 <~) $
 whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
 |=| dur "0.05"
 
+-- boring.
+c2 $ sound "r" |=| cut "3"
 
 c1 $
 stack [
