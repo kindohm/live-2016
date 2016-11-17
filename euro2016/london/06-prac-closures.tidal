@@ -15,6 +15,13 @@ whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note 
 
 -- boring.
 c2 $ sound "r" |=| cut "3"
+c2 silence
+hush
+
+c3 $ stack [
+foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ shift $ s "pracpad*2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 12 $ rand),
+slow (3.5/3) $ foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ s "pracpad/2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 13 $ rand)
+]
 
 c1 $
 stack [
@@ -23,9 +30,7 @@ gtfo $ foldEvery [3,4] (0.25 <~) $ n hatpat # s "8ch",
 gtfo $ (0.25 ~>) $ s "8oh(3,8)",
 gtfo $ (0.125 ~>) $ whenmod 25 20 (gtfo) $ foldEvery [3,4] (0.25 <~) $ n "{0 ~ ~ [~ 0] ~ ~ ~ ~ ~ ~ ~}%8" # s "8s",
 gtfo $ whenmod 30 20 (gtfo) $ n "{~ 0 ~ 0 ~ ~ ~}%4" # s "cp",
-gtfo $ (0.125 ~>) $ sound "8cy/6",
-foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ shift $ s "pracpad*2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 12 $ rand),
-slow (3.5/3) $ foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ s "pracpad/2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 13 $ rand) ]
+gtfo $ (0.125 ~>) $ sound "8cy/6" |=| shape "0.5"]
 
 
 hush
