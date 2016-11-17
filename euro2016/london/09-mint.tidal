@@ -3,6 +3,8 @@ bpm 170
 let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
     pmod1' p = sometimesBy 0.1 (sometimesBy 0.1 (pmod1) . shift' 1 . sometimesBy 0.1 (pmod1) . shift' 1 . pmod1) $ p
 
+c1 $ sound "r" |=| cut "1"
+
 keys $
 (|=| x (scale 0.15 0.4 $ slow 15 tri1)) $
 (|=| y (scale 0.1 0.7 $ slow 10 tri1)) $

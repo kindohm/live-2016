@@ -1,15 +1,13 @@
-bps (200/120)
-
-c1 $ jux (iter 8) $ slow 256 $ striate' 10000 (1/500) $ sound "algo"
-
-hush
-
-gran $ slow 4 $
-stack [note "0"]
-|=| dur "4"
-|=| x (scale 0.3 0.7 $ shift' 1 $ rand)
-|=| y (scale 0.501 0.7 $ shift' 2 $ rand)
-
-gran silence
+c1 $ spike' $ every 5 (|=| coarse "24 12 16") $
+whenmod 20 17 (iter 8) $
+foldEvery [2,3] (|+| begin "0.05") $
+whenmod 25 20 (density 2) $
+whenmod 18 14 (density 2) $
+whenmod 22 18 (slow 2) $
+sound "ringsurfing([3 5 7 6]/4,8)" |=| cut "1"
+|=| begin "{0.8 0.22 0.8}%2"
+|=| delaytime "0" |=| delayfeedback "0"
 
 hush
+
+c1 $ sound "r" |=| cut "1"
