@@ -26,8 +26,15 @@ stack [
 kick]
 
 c1 $
+every 4 (|=| up "-2") $
+foldEvery [3,4] (0.25 ~>) $
+whenmod 9 7 (jux (iter 4)) $
+every 5 (rip' 0 1 8 0.25 0.125) $
+every 6 (rip 0.25 0.125) $
+every 7 (|=| coarse "12 32 16") $
+every 8 (|=| accelerate "-1 1") $
 stack [
-onepad,
+twopads,
 rarely (one) $ kick2,
 whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "454cp" |=| gain "1",
 s "{454kit 454kit*2 454kit ~ [~ 454kit]*2 ~ 454kit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "0.95",
