@@ -18,14 +18,12 @@ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
   |=| dur "0.1"
   |=| gain "0.65"
 
-
-
 keys silence
 hush
 
 c1 $
 stack [
-  gtfo $ rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "0.95",
+  gtfo $ rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "0.9",
   gtfo $ rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
   gtfo $ rarely (0.25 ~>) $ sound "~ 4s",
   gtfo $ sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",

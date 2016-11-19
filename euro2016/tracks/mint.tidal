@@ -19,8 +19,8 @@ hush
 
 c1 $
 stack [
-  gtfo $ rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4",
-  gtfo $ rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
+  rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "0.9",
+  rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
   gtfo $ rarely (0.25 ~>) $ sound "~ 4s",
   gtfo $ sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",
   gtfo $ sound "{4cy/6 ~ ~ ~ ~}%4" |=| cut "-1",

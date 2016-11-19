@@ -1,13 +1,9 @@
-c1 $ spike' $ every 5 (|=| coarse "24 12 16") $
-whenmod 20 17 (iter 8) $
-foldEvery [2,3] (|+| begin "0.05") $
-whenmod 25 20 (density 2) $
-whenmod 18 14 (density 2) $
-whenmod 22 18 (slow 2) $
-sound "ringsurfing([3 5 7 6]/4,8)" |=| cut "1"
-|=| begin "{0.8 0.22 0.8}%2"
-|=| delaytime "0" |=| delayfeedback "0"
+cps 1
 
-hush
+c1 $ sound "~ pson:2"
 
-c1 $ sound "r" |=| cut "1"
+c2 $ every 2 (|+| n "2") $
+slowcat [ s "[~ kl]*2 s", s "k*4 ~", s "[~ b]*2 ~",
+s "gab(3,8)" |=| gain "0.9",
+s "[c64 sub] peri pson peri*2",
+s "fur1*2 fur2*2 fur3*2 fur4*2" |=| unit "c" |=| speed "8"] # n (run 10) # cut "-1"
