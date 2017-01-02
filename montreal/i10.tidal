@@ -1,0 +1,27 @@
+-- ml 143
+
+cps 1.2
+
+let
+    k = s "i10k"
+    cp = s "i10cp"
+    oh = s "i10oh"
+    ch = s "i10ch"
+
+do
+  m $ (|+| note "7") $ note "{3 2 0}%8"
+    |=| pitchmod (scale 0.501 0.99 $ slow 23 tri1)
+    |=| decay (scale 0.1 0.3 $ slow 25 tri1)
+    |=| release (scale 0.1 0.6 $ slow 26 tri1)
+    |=| sustain (scale 0.1 0.6 $ slow 27 tri1)
+    |=| xmod (scale 0.01 0.7 $ slow 24 tri1)
+    |=| oct2 "[0.66 0.99]/30"
+  c1 $ stack [
+    n "{1 ~ ~}%4" # k |=| cut "-1",
+    n "{1 1 1}%8" # ch |=| cut "1" |=| gain "0.8",
+    n "{1 ~ ~}%8" # oh |=| cut "1" |=| gain "0.8",
+    n "{~ ~ ~ 0 ~ ~}%4"  # s "i10cp" ]
+
+hush
+
+  m silence
