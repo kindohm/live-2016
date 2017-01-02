@@ -1,0 +1,18 @@
+cps 0.85
+
+let k = s "i07k"
+    cp = s "i07cp"
+    ch = s "i07ch" |=| cut "-1"
+    oh = s "i07oh" |=| cut "-1"
+    b = s "i07b" |=| n (irand 100)
+
+let pat = slowcat ["{0 1 0 1 1 0 ~ ~ 1 1 ~ ~ ~ ~}%8"]
+
+do
+  let pat = slowcat ["{0 1 0 1 1 0 ~ ~ 1 1 ~ ~ ~ ~ ~}%8"]
+  let x = gain (pat)
+  let y = gain (inverse <$> pat)
+  c1 $  stack [
+    (|+| gain "0.2") $
+      x # b,
+    y # k]

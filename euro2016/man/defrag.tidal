@@ -8,18 +8,15 @@ bass $ slow 8 $ note ((subtract 12) <$> ("61 [60 63]/2 58 58")) |=| dur "2.2"
 
 
 -- start here, lazy bones...
-c1 $ stack [
-gtfo $ slow 2 $ sound "kl:1(3,8) defs" |=| gain "0.9 1",
-gtfo $ rarely (density 2) $ shift' 1 $  degradeBy 0.2 $ slow 2 $ slowcat [
-sound (samples "defkit1*16" (irand 20)) |=| end "0.5" |=| speed "2",
-sound (samples "defkit2*16" (irand 20)) |=| end "0.5" |=| speed "2"] |=| cutoff (scale 0.06 0.2 $ slow 3 sine1) |=| resonance "0.2",
+c1 $
+stack [
 slow 8 $ sound (samples "defb*4" "[3 4 5 5 3 6 5 5]/2") |=| up "[0 0 0 -12]",
 slow 16 $ sound "gnarl:2 gnarl:3",
-slow 2 $ sound "~ ~ defdo defdo:1" ]
+slow 2 $ sound "~ ~ defdo defdo:1" ] |=| delay "0.5"
 
 -- lessb...
 
-
+c1 silence
 
 
 
