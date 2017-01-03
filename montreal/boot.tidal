@@ -72,6 +72,7 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     cy = midinote "10"
     cb = midinote "11"
     bpm x = bps (x/120)
+    brakk samps = ((|=| unit "c") . (|=| speed "8")) $ sound (samples samps (irand 30))
 
 import Sound.Tidal.MIDI.Context
 displayOutputDevices >>= putStrLn
