@@ -7,6 +7,8 @@ let pat0 = "{0 ~ ~ ~ ~}%4"
 hush
 
 c1 silence
+m silence
+erebus silence
 
 c2 $ slow 2 $
 sound "milong:2([9 7 11 10]/4,16)"

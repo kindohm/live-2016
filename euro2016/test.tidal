@@ -14,6 +14,8 @@ c1 silence
 
 c2 $ slow 2 $ sound "lessb" |=| cut "-1"
 
-keys $ note "44/2"
+keys $ note "0 11 22"
 
 keys silence
+
+hush

@@ -1,0 +1,29 @@
+bpm 170
+
+hush
+
+keys $
+(|=| x (scale 0.15 0.3 $ slow 11 tri1)) $
+(|=| y (scale 0.01 0.3 $ slow 10 tri1)) $
+(|=| z (scale 0.01 0.3 $ slow 9 tri1)) $
+(|=| ab (scale 0.01 0.3 $ slow 8.33 tri1)) $
+whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
+every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+  note "0 4 7 11 12 16 19 23"
+  |=| dur "0.1"
+
+c1 $ every 7 (|=| coarse "{16 32 24 8 12}%16") $
+  every 6 (rip 0.25 0.25) $
+  every 8 (rip' 0 1 8 0.25 0.25) $
+  every 9 (|=| accelerate "-1 1") $
+  whenmod 8 6 (jux (iter 8)) $
+  tmod $
+  stack [
+    rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "1.1",
+    rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
+    rarely (0.25 ~>) $ sound "~ 4s",
+    sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",
+    sound "{4cy/8 ~ ~ ~ ~}%4" |=| cut "-1",
+    sound "~ [~ 4cb/4] ~ ~" |=| gain "1.1",
+    density 2 $ s "4stab(3,8)" |=| n (slow 190 $ run 33) |=| gain "1.2" ]
+  |=| delaytime "0" |=| delayfeedback "0"

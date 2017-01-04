@@ -13,18 +13,43 @@ let k = s "i08k"
 
 let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
 
+
+
+
+
+
 do
-  let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+  let pat = ("{1 0 1 1*2 1 1*2 0 0*2 1 ~ 1 0*2 1 1 0 0*2}%8")
   let x = gain pat
   let y = gain (inverse <$> pat)
-  let mod p = id $ p
-  c1 $
+  c1 $ 
       stack [
-      x # b,
-      y # k,
-      x # cp,
-      y # ch,
-      x # oh]
+      gtfo $ x # b,
+      y # k |=| speed "[1]",
+      gtfo $ (0.125 <~) $ y # t,
+      gtfo $ x # cp,
+      gtfo $ y # ch,
+      gtfo $ x # oh,
+      gtfo $ (0.25 <~) $ y # sd]
 
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m silence
+erebus silence
 
 hush
