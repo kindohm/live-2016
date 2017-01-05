@@ -27,8 +27,3 @@ do
       y # ch,
       x # oh,
       y # sd]
-
-m silence
-erebus silence
-
-hush
