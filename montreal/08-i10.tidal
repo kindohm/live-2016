@@ -15,13 +15,16 @@ do
     |=| release (scale 0.1 0.6 $ slow 26 tri1)
     |=| sustain (scale 0.1 0.6 $ slow 27 tri1)
     |=| xmod (scale 0.01 0.7 $ slow 24 tri1)
-    |=| oct2 "[0.66 0.99]/30"
-  c1 $ stack [
-    n "{1 ~ ~}%4" # k |=| cut "-1",
-    n "{1 1 1}%8" # ch |=| cut "1" |=| gain "0.8",
-    n "{1 ~ ~}%8" # oh |=| cut "1" |=| gain "0.8",
-    n "{~ ~ ~ 0 ~ ~}%4"  # s "i10cp" ]
+    |=| oct2 "[0.66 0.99]/32"
+  c1 $ gtfo $ stack [
+    n "{1 1 1 1 1 1}%8" # k |=| cut "-1" |=| gain "1.2",
+    gtfo $ n "{1 1 1}%8" # ch |=| cut "1" |=| gain "1",
+    gtfo $ n "{~ ~ ~ 1 ~ ~}%8" # oh |=| cut "1" |=| gain "1.3",
+    gtfo $ n "{~ ~ ~ 0 ~ ~}%4"  # cp ] |=| gain "1.2"
 
 hush
 
   m silence
+
+
+erebus silence

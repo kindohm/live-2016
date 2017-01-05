@@ -1,3 +1,5 @@
+-- ML 124
+
 bpm 170
 
 let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
@@ -11,23 +13,31 @@ let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
               (|=| noise (scale 0 0.7 $ shift' 2 $ rand)) $ p
     tmod p = whenmod 20 14 (foldEvery [3,4] (0.25 <~)) $ p
 
-do
-  erebus $ gtfo $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
-    note "0 4 7 11 12 16 19 23"
-  c1 $ gtfo $
-    tmod $
-    stack [
-      degradeBy 0.1 $ slowcat [brakk "brkh1*8", brakk "brkh2*8", brakk "nu*8", brakk "jung1*8"],
-      rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4",
-      rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
-      rarely (0.25 ~>) $ sound "~ 4s",
-      sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",
-      sound "{4cy/8 ~ ~ ~ ~}%4" |=| cut "-1",
-      sound "~ [~ 4cb/4] ~ ~" |=| gain "1.1"]
-    |=| delaytime "0" |=| delayfeedback "0"
+erebus $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+  note "0 4 7 11 12 16 19 23"
+
+erebus silence
+
+hush
+
+c1 $
+  tmod $
+  stack [
+    rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "1.1",
+    rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
+    rarely (0.25 ~>) $ sound "~ 4s",
+    sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",
+    sound "{4cy/16 ~ ~ ~ ~}%4" |=| cut "-1",
+    sound "~ [~ 4cb/4] ~ ~" |=| gain "1.1"]
+  |=| delaytime "0" |=| delayfeedback "0"
 
 -- ML 124
-m $ density 2 $ note "-8(3,8)" # release "0.2" # cutoff "0.5"
+m $ density 2 $ note "-8(3,8)" # release "0.2" # cutoff "0.7"
+m $ smod $ density 2 $ note "-8(3,8)"
+m $ pmod1' $ smod $ tmod $ density 2 $ note "-8(3,8)"
+
+
+-- ML 124
 m $ smod $ density 2 $ note "-8(3,8)"
 m $ pmod1' $ smod $ tmod $ density 2 $ note "-8(3,8)"
 
@@ -36,4 +46,4 @@ do
   erebus silence
   hush
 
-  
+r1 silence

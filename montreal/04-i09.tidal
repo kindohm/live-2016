@@ -1,6 +1,13 @@
 -- ml 142
 -- erebus O1=8 saw, short decay/release full env
 
+c2 $ slow 9 $ sound "hawk heem" |=| speed "0.125"
+|=| delay "0.5"
+|=| delaytime "0.5"
+|=| delayfeedback "0.5"
+
+hush
+
 bps (240/120)
 
 let k = s "i09k"
@@ -13,14 +20,18 @@ let k = s "i09k"
 let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
 
 do
-  let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
+  let pat = "{0 1 1 0 0 1 1 ~ 0 0 0 0 1 1 1 1 }%8"
   let x = gain pat
   let y = gain (inverse <$> pat)
   let xx = velocity pat
   let yy = velocity (inverse <$> pat)
   c1 $
       stack [
-      (|+| up "[0 2]/8") $ y # k]
+      (|+| up "[0 2]/8") $ x # k,
+      y # ch,
+      x # oh,
+      y # cp,
+      e 3 8 $ sd]
   m $
     (|+| note "[0 2]/8") $ (|+| note "-4") $ rarely (jump) $
     yy # note "0" |=| dur "0.2"
@@ -30,4 +41,28 @@ do
     xx #
     (every 3 (|+| note "12") $ every 2 (rev) $ note "{0 3 5 14 7 10}%8")
 
+do
+  c1 silence
+  m silence
+  erebus silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       hush
+
+      m silence
+      erebus silence
