@@ -6,15 +6,6 @@ c3 $ slow 9 $ sound "hawk heem" |=| speed "0.125"
 |=| delaytime "0.5"
 |=| delayfeedback "0.5"
 
-c2 silence
-c1 silence
-<<<<<<< HEAD
-erebus silence
-m silence
-=======
->>>>>>> dc026831504105a918ece4f11554c20fa4ce1534
-
-cps 1.4
 bps (336/120)
 
 let
@@ -37,38 +28,20 @@ do
   let pat = "{1 0 1 1 1 1 1 0 1 ~ 0 1  0  ~ ~ ~ 0 0 0}%8"
   let x = velocity pat
   let y = velocity (inverse <$> pat)
-<<<<<<< HEAD
   m $ (|+| note "[-12 0]/16") $
     x # ml
   r1 $
     stack [
       x # bd,
-      (0.125 <~) $ slow 7 $ cb,
-      x # sd,
-      x # cp,
-      x # ch,
-      y # oh]
-      |=| perf1 (scale 0.01 0.9 $ slow 14 tri1)
-      |=| perf2 (scale 0.01 0.9 $ slow 13 tri1)
-      |=| perf3 (scale 0.01 0.9 $ slow 15 tri1)
-=======
-  m $ (|+| note "[-12]/16") $
-    x # ml
-  r1 $
-    stack [
-      x # bd]
+      gtfo' $ (0.125 <~) $ slow 7 $ cb,
+      gtfo' $ y # sd,
+      gtfo' $ y # cp,
+      gtfo' $ y # ch,
+      gtfo' $ y # oh]
       |=| perf1 (scale 0.01 0.1 $ slow 14 tri1)
       |=| perf2 (scale 0.01 0.1 $ slow 13 tri1)
       |=| perf3 (scale 0.01 0.1 $ slow 15 tri1)
->>>>>>> dc026831504105a918ece4f11554c20fa4ce1534
 
 do
   r1 silence
   m silence
-<<<<<<< HEAD
-
-
-
-hush
-=======
->>>>>>> dc026831504105a918ece4f11554c20fa4ce1534

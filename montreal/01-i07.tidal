@@ -19,7 +19,7 @@ do
   let y = gain (inverse <$> pat)
   let yy = velocity (inverse <$> pat)
   c1 $ stack [
-    gtfo $ y # k,
+    y # k,
     gtfo $ density 2 $ cp,
     gtfo $ x # ch,
     gtfo $ y # oh,

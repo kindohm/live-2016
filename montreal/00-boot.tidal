@@ -3,6 +3,7 @@ import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Kindohm.Rack
 import Sound.Tidal.MIDI.Kindohm.CustomParams
 devs <- midiDevices
+r1 <- midiStream devs "Scarlett 18i8 USB" 1 rackController
 m <- midiStream devs "Scarlett 18i8 USB" 15 rackController
 erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
 

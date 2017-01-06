@@ -14,16 +14,17 @@ let k = s "i08k"
 let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
 
 do
-  let pat = ("{1 0*2 ~  1*2 1 0*2 0 1*2 1*2 0*2 1 ~ ~ 1}%8")
+  let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
   let x = gain pat
   let y = gain (inverse <$> pat)
   c1 $
-      every 7 (rip 0.25 0.125) $
       stack [
       x # b,
       y # k,
-      (0.125 <~) $ y # t,
+      gtfo $ (0.125 <~) $ y # t,
       x # cp,
       y # ch,
       x # oh,
-      y # sd]
+      gtfo $ y # sd]
+
+hush
