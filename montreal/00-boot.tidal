@@ -5,6 +5,9 @@ import Sound.Tidal.MIDI.Kindohm.CustomParams
 devs <- midiDevices
 m <- midiStream devs "Scarlett 18i8 USB" 15 rackController
 keys <- midiStream devs "LoopBe Internal MIDI" 1 rackController
+erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
+coast <- midiStream devs "Scarlett 18i8 USB" 14 rackController
+rytm <- midiStream devs "Scarlett 18i8 USB" 1 rackController
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
@@ -100,3 +103,13 @@ m silence
 r1 silence
 
 hush
+
+
+
+erebus $ slow 2 $  note "[0 -12/4] -3/2 3/3 ~ [16 18] ~ 7 5 [18 21] ~" |=| dur "0.2"
+
+erebus $ note "0*8?"
+
+erebus silence
+
+coast silence
