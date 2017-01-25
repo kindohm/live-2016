@@ -18,11 +18,11 @@ do
     |=| xmod (scale 0.01 0.7 $ slow 24 tri1)
     |=| oct2 "[0.66 0.99]/32"
   c1 $ stack [
-    n "{1 ~ ~}%4" # k |=| cut "-1",
+    n "{1 ~ ~ ~ ~ ~}%8" # k |=| cut "-1" |=| gain "1.2",
     n "{1 1 1}%8" # ch |=| cut "1" |=| gain "1",
-    n "{1 ~ ~}%4" # oh |=| cut "1" |=| gain "1",
-    gtfo $ n "{~ ~ ~ 0 ~ ~}%4"  # cp ]
-
-hush
+    n "{1 ~ ~ 1 ~ ~}%8" # oh |=| cut "1" |=| gain "1.3",
+    gtfo $ n "{~ ~ ~ 0 ~ ~}%4"  # cp ] |=| gain "1.2"
 
 m silence
+hush
+r1 silence
