@@ -1,0 +1,66 @@
+-- rytm 45
+-- ml 142
+
+-- osc1 8
+
+cps 1
+
+let
+    gtfo p = (const $ midinote "~") $ p
+    jump p = stut' 1 (0.125) ((|+| note "7")) $ p
+    ch = sound "sockch"
+    oh = sound "sockoh"
+    bd = sound "sockk"
+    sd = sound "socks(3,8)"
+    cp = sound "sockcp"
+
+let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
+
+do
+  let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
+  let x = velocity pat
+  let y = velocity (inverse <$> pat)
+  let xx = gain pat
+  let yy = gain (inverse <$> pat)
+  m $ sometimes (jump) $
+    (|+| note "[0 2]/8") $ (|+| note "-4") $
+    y # note "0" |=| dur "0.1"
+  c1 $ stack [ (|+| up "[0 2]/8") $
+    yy # bd,
+    gtfo $ xx # cp,
+    gtfo $ density 2 $ cp,
+    gtfo $ xx # ch,
+    gtfo $ yy # oh |=| cut "-1",
+    sd ]
+  erebus $ 
+    (|+| note "[0 2]/8") $
+    (|+| note "-4") $ (|+| note "-12") $ rarely (|+| note "{24 36 24}%16") $
+    x #
+    (every 3 (|+| note "12") $ every 2 (rev) $ note "{0 3 5 14 7 10}%8")
+
+
+  r1 $ gtfo $ stack [
+    (|+| note "[0 2]/8") $
+    x # bd,
+    y # cp,
+    gtfo $ density 2 $ cp,
+    x # ch,
+    y # oh,
+    gtfo $ midinote "1(3,8)"]
+
+
+
+do
+  m silence
+  erebus silence
+  hush
+
+  r1 $ midinote "1"
+
+r1 $ slow 1.4 $ midinote "9"
+
+erebus silence
+
+erebus $ note "0"
+
+m $ note "~ 0"

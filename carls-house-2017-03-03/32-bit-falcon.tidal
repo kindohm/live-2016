@@ -1,0 +1,37 @@
+-- ML 122
+
+bps (200/120)
+
+let themod = (|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)) . (|=| shape2 (scale 0 0.95 $ slow 15.57 tri1)) . (|=| voicedepth (scale 0 0.7 $ slow 17.31 tri1)) . (|=| xmod (scale 0 1 $ slow 20 tri1)) . (|=| release (scale 0 0.4 $ slow 22.18 tri1))
+    pmod = (|=| pitchmod (scale 0 1 $ slow 16.22 tri1))
+
+m $ pmod $ themod $ midinote "{42 ~ ~ 42 ~}%8" # dur "{0.3 ~ ~ 0.15 ~}%8"
+
+
+let kickpat = "{0 ~ ~ 0 ~}%8"
+    clappat = "{[~ 0]/2 ~ ~ ~ ~}%8"
+    cypat = "{0/16 ~ ~ ~ ~}%8"
+    kickpat6 = "{~ ~ ~ 0 ~ 0}%8"
+    clappat6 = "{~ ~ ~ 0 ~ ~}%8"
+    cypat6 = "{0/16 ~ ~ ~ ~ ~}%8"
+
+let kickpat = kickpat6
+    keyspat = keyspat6
+    clappat = clappat6
+    cypat = cypat6
+    durpat = durpat6
+
+c1 $ 
+stack [
+sound "2ch*8" |=| cut "1" |=| gain "1",
+(0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "1",
+n kickpat # s "2k" |=| gain "0.9",
+n clappat # s "2cp" |=| shape "0.4",
+n cypat # s "2cy" |=| gain "1.1",
+s "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])|=| shape "0.5"]
+|=| delaytime "0" |=| delayfeedback "0"
+
+
+do
+    hush
+    m silence
