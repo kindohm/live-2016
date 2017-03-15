@@ -1,0 +1,51 @@
+-- rytm 53
+-- ml 149
+
+bps (210/120)
+
+
+-- start
+let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+let tmod p = foldEvery [2,3] (0 <~) $ p
+
+do
+  let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+  let xx = velocity pat
+  let yy = velocity (inverse <$> pat)
+  sytrus $
+    (|+| note (choose[0,0,0,0,0,0,0])) $ xx # note "-12"
+    |=| dur (scale 0.2 0.5 $ shift' 3 $ rand)
+    |=| x (shift' 2 $ rand)
+    |=| y (shift $ rand)
+  r1 $ yy # midinote "0"
+  d1 $ sound "ch*4"
+
+d1 $ sound "4k*8" |=| gain "1 0" |=| legato "1"
+
+sytrus $ slow 3 $ note "-12 -24 0" 
+  |=| dur "0.2"
+
+|=| legato "0.1"
+
+
+do
+  sytrus silence
+  r1 silence
+  hush
+
+  d1 $ sound "ch s"
+
+  r1 $ midinote "2 7"
+
+
+hush
+
+
+do
+  let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+  let xx = gain pat
+  let yy = gain (inverse <$> pat)
+  d1 $
+    xx # s "chab" |=| legato "1"
+
+hush

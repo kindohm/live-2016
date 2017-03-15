@@ -1,0 +1,28 @@
+-- rytm 53
+
+bps (210/120)
+
+
+-- start
+let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+let tmod p = foldEvery [2,3] (0 <~) $ p
+
+do
+  hush
+  let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+  let xx = velocity pat
+  let yy = velocity (inverse <$> pat)
+  cha $
+    (|+| note (choose[0,0,0,0,0,0,0])) $ xx # note "-12"
+    |=| dur (scale 0.2 0.5 $ shift' 3 $ rand)
+    |=| x (shift' 2 $ rand)
+    |=| y (shift $ rand)
+  r1 $ gtfo' $ yy # midinote "0"
+
+
+do
+  hush
+  fourteen silence
+  cha silence
+  r1 silence
+

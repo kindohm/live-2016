@@ -1,0 +1,18 @@
+bps (140/120)
+
+
+
+d9 $ 
+    slow 32 $ (striate' 512 (1/200) $ s "algo")
+    # hcutoff "100"
+    # gain "0.9"
+
+do
+    let pat = "{1 ~ ~ 1 ~ ~ ~}%2"
+    d1 $
+        stack [        
+            degradeBy 0.2 $ rep' 8 $ gain pat # s "alstab" 
+            |=| cut "1"]
+
+
+hush

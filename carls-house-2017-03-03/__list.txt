@@ -1,10 +1,10 @@
-32-bit falcon
+socket
 mint
 risc-chip
 bit dust
 .lean()
-infonormality
-- kick duet
-socket
 ~./
+infonormality
 ignore file
+32-bit falcon
+cha

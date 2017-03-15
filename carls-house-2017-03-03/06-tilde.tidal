@@ -16,6 +16,8 @@ let
 
 let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
 
+
+
 do
   let pat = "{0 1 1 0 1 0 0 1 1 0 1 0 1 1 1 1}%8"
   let x = velocity pat
@@ -31,36 +33,9 @@ do
     gtfo $ density 2 $ cp,
     gtfo $ xx # ch,
     gtfo $ yy # oh |=| cut "-1",
-    sd ]
-  erebus $ 
+    gtfo $ sd ]
+  erebus $
     (|+| note "[0 2]/8") $
     (|+| note "-4") $ (|+| note "-12") $ rarely (|+| note "{24 36 24}%16") $
     x #
     (every 3 (|+| note "12") $ every 2 (rev) $ note "{0 3 5 14 7 10}%8")
-
-
-  r1 $ gtfo $ stack [
-    (|+| note "[0 2]/8") $
-    x # bd,
-    y # cp,
-    gtfo $ density 2 $ cp,
-    x # ch,
-    y # oh,
-    gtfo $ midinote "1(3,8)"]
-
-
-
-do
-  m silence
-  erebus silence
-  hush
-
-  r1 $ midinote "1"
-
-r1 $ slow 1.4 $ midinote "9"
-
-erebus silence
-
-erebus $ note "0"
-
-m $ note "~ 0"

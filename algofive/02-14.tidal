@@ -1,0 +1,13 @@
+cps (220/120)
+
+-- r1 kit 14
+
+do
+    let pat = "{1 0 ~ 1 1 0 0 ~ 0 0 1 1 0}%4"
+    let xx = velocity pat
+    let yy = velocity (inverse <$> pat)
+    fourteen $ xx # note "-3"
+    r1 $ stack [
+        yy # midinote "0",
+        (0.125 <~) $ yy # midinote "1"]
+

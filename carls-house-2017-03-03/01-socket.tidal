@@ -13,20 +13,23 @@ let k = s "i08k"
 
 let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
 
-
-
 do
-  let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+  let pat = ("{1*2 0*2 1*2 0*2 1*2 1*2 0 0 0 1 1 0 0*2 0*2}%8")
   let x = gain pat
   let y = gain (inverse <$> pat)
   c1 $
       stack [
       x # b |=| shape "0.3",
       y # k,
-      gtfo $ (0.125 <~) $ y # t,
-      x # cp,
-      y # ch,
-      x # oh,
-      gtfo $ y # sd]
+      (0.125 <~) $ y # t,
+      y # cp,
+      x # ch,
+      y # oh,
+      (0.125 ~>) $ y # sd]
+
 
 hush
+
+do
+  erebus silence
+  m silence

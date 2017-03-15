@@ -26,6 +26,14 @@ stack [
 kick]
 
 c1 $
+  every 11 (stut' 1 (0.0625*3) (|*| speed "1.5")) $
+every 8 (rev) $
+every 12 (|*| speed "-1") $
+every 9 (|=| accelerate "-1 1") $
+every 5 (chop 4) $
+every 6 (rip 0.25 0.25) $
+whenmod 10 9 (|=| coarse "{32 16 24 12 8}%16") $
+whenmod 6 4 (|=| up "-2") $
 stack [
 twopads,
 rarely (one) $ kick2,
