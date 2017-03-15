@@ -83,4 +83,34 @@ displayOutputDevices >>= putStrLn
 bps (160/120)
 
 
-erebus $ note "0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1 $ density 2 $ density 512 $ stack [
+        degradeBy 0.2 $ 
+            sound "alstab([3 7 5]/3,8)" |=| cut "1" |=| speed (scale 0.4 0.6 $ rand),
+        sound "k:8*8? alcp" |=| cut "3"]
+
+
+
+
+hush
+
+
+d1 $ sound "k*4? cp"
+
+
