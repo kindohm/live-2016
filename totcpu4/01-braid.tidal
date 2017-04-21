@@ -1,0 +1,60 @@
+-- ml 140
+
+cps 0.9
+
+let gtfo p = (const $ midinote "~") $ p
+    jump p = stut' 1 (0.125) ((|+| note "-12")) $ p
+    ml = note "-5"
+    left p = (0.25 <~) $ p
+    left' p = (0.125 <~) $ p
+    right p = (0.25 ~>) $ p
+    right' p = (0.125 ~>) $ p
+    bd = sound "braidk"
+    cp = sound "braidcp"
+    bt = sound "braidt" # gain "1.1"
+    ch = sound "braidch"
+    oh = sound "braidoh" # cut "-1"
+
+-- goot starting point
+let pat = "{0 0 1 1 0 1 0 ~ ~ 1 0 1 0 1}%8"
+
+do
+  let pat = "{0 0 1 1 0 1 0 ~ ~ 1 0 1 0 1}%8"
+  let x = velocity pat
+  let y = velocity (inverse <$> pat)
+  let x' = gain pat
+  let y' = gain (inverse <$> pat)
+  m $ y # ml
+      |=| shape1 (scale 0.01 0.99 $ slow 13 tri1)
+      |=| shape2 (scale 0.01 0.99 $ slow 15 tri1)
+      |=| release (scale 0.2 0.3 $ slow 14.331 tri1)
+      |=| egrelease (scale 0.2 0.3 $ slow 14.331 tri1)
+      |=| voicedepth (scale 0.01 0.1 $ slow 9 tri1)
+      |=| dur "0.05"
+  d1 $ stack [
+      x' # bd,
+      gtfo $ y' # cp,
+      gtfo $ density 2 $ cp,
+      gtfo $ (0.25 <~) $ whenmod 18 10 (gtfo) $ y' # bt,
+      y' # ch,
+      gtfo $ x' # oh]
+  erebus $ gtfo' $ rarely (|+| note "12") $
+    every 3 (|+| note "12") $
+    every 4 (|+| note "-12") $
+    every 5 (|+| note "-12") $
+    every 6 (|+| note "12") $
+    x # note (every 2 (rev) $ "{0 3 14 7 10}%16") # dur "0.05"
+
+
+do
+  m silence
+  d1 silence
+  erebus silence
+
+
+  erebus silence
+
+  coast silence
+
+
+coast $ note "0"

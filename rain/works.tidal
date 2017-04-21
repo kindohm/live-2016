@@ -1,0 +1,41 @@
+-- 0.788 seconds/cycle
+
+cps (1/0.788)
+
+d1 $ sound "rainfull/2"
+hush
+
+d1 $ sound "rain1z" |=| cut "1"
+
+do
+    now' <- getNow
+    let now = nextSam now'
+    d1 $ (now-1) ~> do { 
+        sound "rain1z2x*2" |=| cut "1" |=| begin (scale 0 0.5 $ slow 50 saw1)}
+
+d1 $ sound "rain1z" |=| cut "1"
+
+do
+    now' <- getNow
+    let now = nextSam now'
+        iters = 200
+        slowness = iters*2
+        sample = "rain1z"
+    d1 $ (now-1) ~> do {
+        x <- slow (slowness) $ run iters; 
+            jux (((x/iters) ~>) . (# speed "1.005")) $ sound sample}
+
+
+d1 $
+    jux (iter 200) $ 
+    spread' (striate' 128) ((*0.1) <$> slow 13 tri1) $
+    sound "rain1z" # speed (scale 0.9 1.1 $ slow 123 tri1)
+    # room "0"
+
+hush
+
+
+
+now' <- getNow
+let now = nextSam now'
+let retrig = (now ~>)

@@ -1,0 +1,19 @@
+bps (160/120)
+
+do
+  let pat = "{0 ~ 0 0 ~ 0 [~ 0] ~ 1 1 1 0 ~ 1 1 1 1 1 1 1 1 1 1 ~ ~ ~ ~  ~}%16"
+  let xx = gain pat
+  let yy = gain (inverse <$> pat)
+  d1 $ 
+    every 7 (|=| accelerate "-1 1") $
+    every 5 (rip 0.25 0.25) $
+    every 6 (jux rev) $ 
+    stack [
+    degradeBy 0.3 $ slowcat [brakk "jung1*8", brakk "jung6*8" ],
+    ghost $ every 4 (density 2) $ s "cp(3,8)",
+    xx # n (run 5) # s "faller" |=| cut "1",
+    yy # n (run 5) # s "wipers" |=| cut "2" ]
+    |=| room "0"
+    
+
+hush

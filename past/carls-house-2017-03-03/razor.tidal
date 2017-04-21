@@ -1,14 +1,11 @@
 bps (160/120)
 
 do
-  let pat = "{1*2 1*2}%8"
+  let pat = "{0 ~ ~ ~ 0 ~ ~}%8"
   let xx = gain pat
   let yy = gain (inverse <$> pat)
-  c1 $
+  d1 $
       stack [
       xx # n (run 5) # s "faller" |=| cut "1",
       yy # n (run 5) # s "wipers" |=| cut "2" ]
-      |=| delaytime "0" |=| delayfeedback "0"
 
-c2 silence
-hush

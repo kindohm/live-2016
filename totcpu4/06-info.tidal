@@ -1,13 +1,14 @@
 bpm 170
 
 do
-  hush
-  r1 silence
-  fourteen silence
+  c1 silence
+  c2 silence
+  erebus silence
+  m silence
 
 d3 $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
 (|=| cutoff (scale 100 1000 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:1" "[0 1]/8")
-|=| resonance "0.1" |=| gain "1"
+|=| resonance "0.1" |=| gain "1.1"
 
 
 d1 $

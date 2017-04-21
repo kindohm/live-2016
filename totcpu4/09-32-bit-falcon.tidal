@@ -1,0 +1,36 @@
+-- ML 122
+
+bps (200/120)
+
+let themod = (|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)) . (|=| shape2 (scale 0 0.95 $ slow 15.57 tri1)) . (|=| voicedepth (scale 0 0.7 $ slow 17.31 tri1)) . (|=| xmod (scale 0 1 $ slow 20 tri1)) . (|=| release (scale 0 0.4 $ slow 22.18 tri1))
+    pmod = (|=| pitchmod (scale 0 1 $ slow 16.22 tri1))
+
+
+hush
+
+let kickpat = "{0 ~ ~ 0 ~}%8"
+    clappat = "{[~ 0]/2 ~  ~ ~ ~}%8"
+    cypat = "{0/16 ~ ~ ~ ~}%8"
+
+-- in 6, if you dare
+let kickpat = "{~ ~ ~ 0 ~ 0}%8"
+    clappat = "{~ ~ ~ 0 ~ ~}%8"
+    cypat = "{~ ~ ~ ~ ~ 0/16}%8"
+
+-- 0.3 0.15, etc
+m $ pmod $ themod $ (|+| note "42") $ midinote "{0 ~ ~ 0 ~}%8" # dur "{0.3 ~ ~ 0.15 ~}%8"
+
+d1 $
+stack [
+  sound "2ch*8" |=| cut "1" |=| gain "0.95",
+  (0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "0.95",
+  n kickpat # s "2k" |=| gain "1",
+  n clappat # s "2cp" |=| gain "1.1",
+  n cypat # s "2cy" |=| gain "1.1",
+  s "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7]) |=| gain "1.1"]
+
+
+do
+    hush
+    m silence
+    erebus silence

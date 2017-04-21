@@ -1,12 +1,14 @@
+{-
 import Sound.Tidal.Context
 import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Kindohm.Rack
 import Sound.Tidal.MIDI.Kindohm.CustomParams
-devs <- midiDevices
 
+devs <- midiDevices
 cha <- midiStream devs "LoopBe Internal MIDI" 1 rackController
 fourteen <- midiStream devs "LoopBe Internal MIDI" 2 rackController
 r1 <- midiStream devs "Scarlett 18i8 USB" 1 rackController
+-}
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
@@ -80,7 +82,6 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
 import Sound.Tidal.MIDI.Context
 displayOutputDevices >>= putStrLn
 
-bps (160/120)
 
 
 
@@ -96,14 +97,16 @@ bps (160/120)
 
 
 
+let inverse 1 = 0
+    inverse 0 = 1
+
+do
+    let pat = "[1 1 0/2 0 1/2 1 0 1]"
+    d1 $ gain pat # sound "9k" 
+       # cut "1"
+    d2 $ gain (inverse <$> pat) # sound "b:8" # cut "2"
 
 
-
-
-d1 $ density 2 $ density 512 $ stack [
-        degradeBy 0.2 $ 
-            sound "alstab([3 7 5]/3,8)" |=| cut "1" |=| speed (scale 0.4 0.6 $ rand),
-        sound "k:8*8? alcp" |=| cut "3"]
 
 
 
@@ -111,6 +114,5 @@ d1 $ density 2 $ density 512 $ stack [
 hush
 
 
-d1 $ sound "k*4? cp"
 
 

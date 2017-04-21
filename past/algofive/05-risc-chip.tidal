@@ -1,0 +1,42 @@
+bpm 140
+
+let pat0 = "{0 ~ ~ ~ ~}%4"
+    pat1 = "{1 ~ ~ ~ ~}%4"
+    patmod p = foldEvery [2,3,4] (0.25 ~>) $ rep' 5 $ p
+
+flood "this song is called RISC Chip. "
+
+
+d2 $ slow 2 $
+sound "milong:2([9 7 11 10]/4,16)"
+|=| begin "{0.05 0.05 0.05}%1" |=| cut "921" |=| gain "0.9"
+
+d2 $ sound "milong:2/4" |=| cut "921" |=| gain "0.9"
+
+hush
+
+bps (220/120)
+
+d1 $ 
+  every 10 (density 1.25) $
+  whenmod 14 11 (iter 8) $
+  foldEvery [3,4] (0.75 ~>) $
+  every 4 (chop 4) $
+  every 5 (rip 0.25 0.25) $
+  every 6 (rip' 0 1 8 0.25 0.125) $
+  every 7 (|=| coarse "{16 32 24 8 12}%16") $
+  every 8 (|=| accelerate "{1 -0.5 0.5 1 0.75 -0.75}%16") $
+  every 9 (stut' 2 (0.125*2) (|*| speed "1.5")) $
+  stack [ 
+    sound "loon/6",
+    sound "b:8/3",
+    degrade $ slow 2 $ sound "sub(3,8)",
+    degradeBy 0.1 $ slowcat [
+        brakk "funky*8", brakk "amenall2*8", brakk "jung6*8"]]
+    |=| delaytime "0" |=| delayfeedback "0"
+
+
+flood "lower caps: thanks! "
+
+
+hush

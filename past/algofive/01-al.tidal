@@ -1,0 +1,33 @@
+bps (140/120)
+
+flood "OH HAI!! "
+
+d9 $ (|=| room (scale 0.1 0.9 $ slow 10 tri1)) $ jux (rev) $
+    slow 32 $ (striate' 512 (1/100) $ s "algo")
+    # hcutoff "100"
+    # gain "0.7"
+    # speed "[0.5]"
+
+do
+    let pat = "{1 ~ ~ 1 ~ ~ ~}%2"
+    d1 $ degrade $ whenmod 13 10 (iter 8) $
+        whenmod 7 5 (jux (rev)) $
+        every 5 (|=| coarse "{16 24 8 12 32}%16") $
+        every 7 (|=| accelerate "-1 1") $
+        every 8 (stut' 2 (0.125) (|*| speed "1.5")) $
+        every 6 (rip 0.25 0.25) $
+        foldEvery [3,4] (0.25 <~) $ stack [        
+        rarely (stut' 1 (0.125/2) (|=| gain "1")) $ 
+            degradeBy 0.2 $ rep' 8 $ gain pat # s "alk" |=| cut "2"
+            # n "[2 0]/4",
+        foldEvery [2,3] (density 2) $ s "ch*4" |=| gain "0.8",
+        s "alcp(3,8)" |=| gain "1",
+        s "~ als:1"]
+
+d1 silence
+
+-- yo
+
+
+
+
