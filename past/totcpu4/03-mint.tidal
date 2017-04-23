@@ -18,20 +18,27 @@ hush
 erebus $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
   note "0 4 7 11 12 16 19 23"
 
+hush
 
 
 d1 $ tmod $
+  whenmod 8 6 (jux (iter 8)) $
+  every 5 (rip 0.25 0.125) $
+  every 6 (rip' 0 1 8 0.25 0.125) $
+  every 7 (|=| coarse "{16 24 8 12}%16") $
+  every 8 (|=| accelerate "-1 1") $
   stack [
+    degradeBy 0.2 $ slowcat [brakk "brk1*8", brakk "ion1*8", brakk "brk3*8", brakk "brk4*8"],
     rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| cut "-1" |=| gain "1",
     rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2" |=| gain "1.1",
-    rarely (0.25 ~>) $ sound "~ 4s" |=| gain "1",
+    rarely (0.25 ~>) $ sound "~ 4s" |=| gain "0.95",
     sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82" |=| gain "0.9",
     sound "{4cy/16 ~ ~ ~ ~}%4" |=| cut "-1",
     sound "~ [~ 4cb/4] ~ ~" |=| gain "1"]
   |=| delaytime "0" |=| delayfeedback "0"
 
 -- ML 124
-m $ density 2 $ note "-8(3,8)" # release "0.2"
+m $ density 2 $ note "-8(3,8)" # cutoff "0.7" # release "0.2"
 m $ smod $ density 2 $ note "-8(3,8)"
 m $ pmod1' $ smod $ tmod $ density 2 $ note "-8(3,8)"
 

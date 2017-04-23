@@ -10,7 +10,7 @@ d1 $ sound "rain1z" |=| cut "1"
 do
     now' <- getNow
     let now = nextSam now'
-    d1 $ (now-1) ~> do { 
+    d1 $ (now-1) ~> do {
         sound "rain1z2x*2" |=| cut "1" |=| begin (scale 0 0.5 $ slow 50 saw1)}
 
 d1 $ sound "rain1z" |=| cut "1"
@@ -22,20 +22,35 @@ do
         slowness = iters*2
         sample = "rain1z"
     d1 $ (now-1) ~> do {
-        x <- slow (slowness) $ run iters; 
+        x <- slow (slowness) $ run iters;
             jux (((x/iters) ~>) . (# speed "1.005")) $ sound sample}
 
+d1 $ sound "rain1z" |=| cut "1"
 
-d1 $
-    jux (iter 200) $ 
-    spread' (striate' 128) ((*0.1) <$> slow 13 tri1) $
-    sound "rain1z" # speed (scale 0.9 1.1 $ slow 123 tri1)
-    # room "0"
+-- part 2
+d2 $ s "trump3*32?" # cut "4"
+
+d1 silence
+
+cps(1/3.531)
+
+d2 $ s "trump3" # cut "4"
 
 hush
 
+do
+    now' <- getNow
+    let now = nextSam now'
+        iters = 150
+        slowness = iters
+        spat = s "trump3"
+    d2 $ (now-1) ~> do {
+        x <- slow (slowness) $ run iters;
+          stack [
+            spat # pan "0" # cut "4",
+            ((x/iters) ~>) $ spat # pan "1" # speed "1.008" # cut "5"]}
 
 
-now' <- getNow
-let now = nextSam now'
-let retrig = (now ~>)
+d2 $ slow 8 $ (spread' (striate' 64) ((*0.1) <$> slow 3 tri1) $ s "trump3")
+
+hush

@@ -16,16 +16,24 @@ let pad1intro = rep' 7 $ s "{454pad1 ~ ~ ~ ~ ~ ~}%4" # n "{[0 1]/4 ~ ~ ~ ~ ~ ~}%
 
 hush
 
-d1 $
+d1 silence
+
+d2 $
 stack [
 (# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
 
-d1 $
+d2 $
 stack [
 (# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
 kick]
 
-d1 $
+d2 $ whenmod 16 14 (density 1.25) $
+foldEvery [3,4] (0.25 ~>) $
+every 5 (rip 0.25 0.25) $
+every 6 (|=| coarse "{16 8 12 20 24}%16") $
+every 7 (rip' 0 1 8 0.25 0.125) $
+every 8 (|=| accelerate "-0.5 0.5") $
+whenmod 6 4 (|=| up "-2") $
 stack [
 twopads,
 rarely (one) $ kick2,
@@ -36,7 +44,7 @@ rarely (stut' 4 (0.0625*3) (|*| gain "0.85")) $ s "{~ 454s:1 ~ [~ 454s:1/2] ~}%4
 
 
 -- out
-d1 $
+d2 $
 stack [
 rarely (one) $ kick2,
 whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "454kit:7" |=| gain "1.1",

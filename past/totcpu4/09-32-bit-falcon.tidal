@@ -8,9 +8,9 @@ let themod = (|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)) . (|=| shape2 (scale 0
 
 hush
 
-let kickpat = "{0 ~ ~ 0 ~}%8"
-    clappat = "{[~ 0]/2 ~  ~ ~ ~}%8"
-    cypat = "{0/16 ~ ~ ~ ~}%8"
+let kickpat = "{0 ~ ~ 0 ~ 0 ~ 0 ~}%8"
+    clappat = "{[~ 0]/2 ~  ~ ~ ~ ~ ~ ~ ~}%8"
+    cypat = "{0/16 ~ ~ ~ ~ ~ ~ ~ ~}%8"
 
 -- in 6, if you dare
 let kickpat = "{~ ~ ~ 0 ~ 0}%8"
@@ -18,10 +18,11 @@ let kickpat = "{~ ~ ~ 0 ~ 0}%8"
     cypat = "{~ ~ ~ ~ ~ 0/16}%8"
 
 -- 0.3 0.15, etc
-m $ pmod $ themod $ (|+| note "42") $ midinote "{0 ~ ~ 0 ~}%8" # dur "{0.3 ~ ~ 0.15 ~}%8"
+m $ pmod $ themod $ (|+| note "42") $ midinote "{0 ~ ~ 0 ~ 0 ~ 0 ~}%8" # dur "{0.3 ~ ~ 0.15 ~ 0.15 ~ 0.15 ~}%8"
 
 d1 $
 stack [
+  degradeBy 0.2 $ slowcat [brakk "teeny1*8", brakk "teeny2*8", brakk "fur1*8", brakk "brkh1*8" ],
   sound "2ch*8" |=| cut "1" |=| gain "0.95",
   (0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "0.95",
   n kickpat # s "2k" |=| gain "1",
