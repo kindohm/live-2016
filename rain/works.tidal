@@ -1,8 +1,16 @@
--- 0.788 seconds/cycle
+{-
+IT'S GONNA RAIN
+-}
+
+
+d1 $ sound "ch"
 
 cps (1/0.788)
 
-d1 $ sound "rainfull/2"
+
+
+d1 $ sound "rainfull/4" |=| cut "1"
+
 hush
 
 d1 $ sound "rain1z" |=| cut "1"
@@ -11,46 +19,56 @@ do
     now' <- getNow
     let now = nextSam now'
     d1 $ (now-1) ~> do {
-        sound "rain1z2x*2" |=| cut "1" |=| begin (scale 0 0.5 $ slow 50 saw1)}
+        sound "rain1z2x*2"
+        |=| cut "1"
+        |=| begin (scale 0 0.5 $ slow 50 saw1)}
 
 d1 $ sound "rain1z" |=| cut "1"
 
 do
     now' <- getNow
     let now = nextSam now'
-        iters = 200
-        slowness = iters*2
+        iters = 400
         sample = "rain1z"
     d1 $ (now-1) ~> do {
-        x <- slow (slowness) $ run iters;
-            jux (((x/iters) ~>) . (# speed "1.005")) $ sound sample}
+        x <- slow (iters) $ run iters;
+        jux (((x/iters) ~>) . (# speed "1.005")) $ sound sample}
 
 d1 $ sound "rain1z" |=| cut "1"
 
 -- part 2
-d2 $ s "trump3*32?" # cut "4"
+d2 $ s "trump4*32?" # cut "4"
 
 d1 silence
 
-cps(1/3.531)
+cps(1/2.921)
 
-d2 $ s "trump3" # cut "4"
-
-hush
+d2 $ s "trump4" # cut "4"
 
 do
     now' <- getNow
     let now = nextSam now'
         iters = 150
-        slowness = iters
-        spat = s "trump3"
+        spat = s "trump4"
     d2 $ (now-1) ~> do {
-        x <- slow (slowness) $ run iters;
+        x <- slow (iters) $ run iters;
           stack [
             spat # pan "0" # cut "4",
             ((x/iters) ~>) $ spat # pan "1" # speed "1.008" # cut "5"]}
 
+d2 $ s "trump4" # cut "4"
 
-d2 $ slow 8 $ (spread' (striate' 64) ((*0.1) <$> slow 3 tri1) $ s "trump3")
+d2 $ slow 128 $ jux (iter 16) $
+  (spread' (striate' 1024) ((*0.3) <$> slow 3 tri1) $ s "trump4")
+  |=| speed "[1,1.1]"
+  |=| delay "0.5"
+  |=| delaytime "0.15"
+  |=| delayfeedback "0.9999"
+
+
+
+hush
+
+
 
 hush
