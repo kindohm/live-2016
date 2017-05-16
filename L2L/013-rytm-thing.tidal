@@ -1,0 +1,36 @@
+bps (140/120)
+
+do
+  let pat = "{1 1*2 ~ ~ ~ ~ ~ 1*2 1*2 ~ ~ ~ 1 [~ 1] ~ 1 ~ ~ 1 1}%8"
+      tmod p = id $ whenmod 17 14 (iter 8) $ whenmod 10 5 (foldEvery [3,4] (0.25 ~>)) $ p
+  d1 $ tmod $ every 7 (|=| accelerate "-1 1") $
+      every 8 (rip 0.5 0.1) $
+      every 9 (rip' 0 1 8 0.5 0.1) $
+      every 5 (chop 4) $ every 6 (|=| coarse "{8 12 6 16 4}%16") $ stack [
+      whenmod 12 8 (degrade) $ stack [s "iowakit:2([9 11 7 10 6]/5,16)",
+      whenmod 8 4 (0.125 ~>) $ whenmod 7 4 (slow 2) $ struct "x*2" $ s "iowakit:1",
+      (0.0625 <~) $ struct "{x ~ ~ ~ ~}%4" $ s "iowakit:2",
+      struct pat $ s "iowakit:0"],
+      rarely (stut' 1 (0.125*3) (|*| speed "2")) $
+        gain pat # s "iowa" # n (irand 69) # cut "2834" # gain "1.1",
+      degradeBy 0.4 $ gain "{1 ~ ~ 1*2 ~ ~ ~}%4" # s "iowab" # n (irand 39) # cut "8111"]
+
+
+hush
+
+do
+  let pat = "{1 1*2 ~ ~ 1*2 1*2 1*2 1*2 1*2 ~ ~ ~ ~ ~ [~ 1] ~ ~ 1 1}%8"
+      tmod p = id $ whenmod 11 8 (iter 8) $
+        foldEvery [3,4] (0.25 <~) $ p
+  d1 $ tmod $ every 7 (|=| accelerate "-1 1") $
+      every 8 (rip 0.5 0.1) $
+      every 6 (rev) $
+      every 10 (|=| room (rand)) $
+      every 9 (rip' 0 1 8 0.5 0.1) $
+      every 5 (chop 4) $ every 6 (|=| coarse "{8 12 6 16 4}%16") $ stack [
+    stack [struct pat $ s "iowakit2" # cut "8329",
+    degrade $ s "iowakit2:2([9 11 7 10 6]/5,16)",
+    whenmod 8 4 (0.125 ~>) $ whenmod 7 4 (slow 2) $ struct "x*2" $ s "iowakit2:1"],
+    gain pat # s "iowa2" # cut "2262" # gain "1.1",
+    (0.5 ~>) $ gain pat # s "iowab2" # cut "1771" # gain "1.05"
+    ]
