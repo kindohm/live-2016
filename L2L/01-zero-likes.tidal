@@ -88,3 +88,13 @@ hush
 keys silence
 erebus silence
 m silence
+
+
+d2 $ gain "{1*4 1*4 ~ ~ ~}%2" # s "zlkeys2" # n (irand 30) # cut "783"
+  # cutoff (scale 1000 2000 $ slow 7 tri1)
+  # delay "0.4"
+  # delaytime "0.5"
+  # delayfeedback "0.6"
+  # pan rand
+
+hush
