@@ -5,17 +5,16 @@ let progwav = (|+| up "{0 0 0 2 2}%1")
     basspat = "{009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ ~}%16"
     basspat2 = "{leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ ~}%16"
 
-d2 $
+d1 $
 stack [
-  progwav $ s basspat2 |=| n (shift $ irand 12) |=| gain "0.9" # cut "1112",
-  progwav $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "2",
-  whenmod 7 4 (0.125 ~>) $ sound "9cp*4",
-  sound "~ 9s" |=| gain "1.1",
-  foldEvery [2,3] (density 2) $ sound "ch*8" |=| gain "0.8",
-  sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1",
-  sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
+  progwav $ s basspat |=| n (shift $ irand 12) |=| gain "1" # cut "1112",
+  gtfo $ progwav $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "2",
+  gtfo $ whenmod 7 4 (0.125 ~>) $ sound "9cp*4",
+  gtfo $ sound "~ 9s" |=| gain "1.1",
+  gtfo $ foldEvery [2,3] (density 2) $ sound "ch*8" |=| gain "0.8",
+  gtfo $ sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1",
+  gtfo $ sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
     sound (samples "{009m2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" |=| cut "81"]
-  |=| delaytime "0" |=| delayfeedback "0"
 
 
 hush

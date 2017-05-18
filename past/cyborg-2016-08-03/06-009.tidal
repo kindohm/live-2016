@@ -65,3 +65,11 @@ m silence
 erebus $ note "0" |=| nudge "0.02"
 
 hush
+
+
+
+
+
+erebus $ slow 1.5 $
+(|+| note (choose [0,-12,12])) $ (|+| note "-7") $ note "{0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ ~}%16"
+|=| modwheel (rand) |=| nudge "0"

@@ -3,24 +3,17 @@ hush
 
 flood "do NOT use rip, okay?? "
 
-d2 $
-  move' $
-  whenmod 8 6 (jux (rev)) $
-  every 7 (|=| accelerate "-1 1") $
-  every 8 (|=| coarse "{4 8 16 12 24 20}%18") $
-  every 4 (rev) $
+d2 $ move' $
   stack [
   sound "kr/2" |=| cut "4" |=| shape "0.4",
   every 4 ((|=| speed "-1")) $ every 3 ((|=| speed "0.5")) $
     sound "~ defdo:1/2 nau/2 defdo/3" |=| delay "0.4" |=| cutoff "1000" |=| resonance "0.01",
-  gtfo $ whenmod 7 5 ((|=| speed "[1.5, 1.4]") . (|=| gain "0.9")) $ whenmod 12 8 (|=| gain "0") $
+  whenmod 7 5 ((|=| speed "[1.5, 1.4]") . (|=| gain "0.9")) $ whenmod 12 8 (|=| gain "0") $
     sound "ch*4 [monst:2/5 monst/4] [~ ch*2] [~ beak:1*2?]" |=| shape "0 0.5 0 0",
   sound "~ beas:1" |=| speed "1.5",
-  degradeBy 0.1 $
-    slowcat [brakk "ion1*8", brakk "ion2*8", brakk "ion3*8" ],
-  gtfo $ whenmod 17 10 (const $ sound "~") $ every 3 (|=| speed "0.5") $ slow 6 $
+  whenmod 17 10 (const $ sound "~") $ every 3 (|=| speed "0.5") $ slow 6 $
     (striate 128 $ sound "alonevox*2") |=| speed "[0.8, 0.7]",
-  gtfo $ density 2 $ sound "fk*4? beas",
+  density 2 $ sound "fk*4? beas",
   jux (|=| speed "1.1") $ slow 2 $ sound "~ ~ beak*8? ~",
   slow 2 $ sound "~ [~ b18b/2] ~ sub/3"
     |=| gain "1.1 1" |=| shape "0.1 0.001"]
@@ -28,7 +21,7 @@ d2 $
 
 
 -- orig
-d1 $ whenmod 20 15 (slow 1.25) $
+d2 $ whenmod 20 15 (slow 1.25) $
   whenmod 11 8 (|=| crush (scale 1.25 10 $ slow 2.1 sine1)) $
 slowspread ($) [id, rev, rip 0.25 0.125, id,
   (|=| speed "-1.2 0.75 1.5 0.8"), id, rip 0.25 0.5, (|=| coarse "16 32 64")] $

@@ -3,21 +3,15 @@ bps (140/120)
 do
     let pat = "{1 ~ ~ 1 ~ ~ ~}%2"
         reppat = degradeBy 0.2 $ rep' 8 $ gain pat
-        npat = n "[2 5 3]/6"
+        npat = n "[0]/6"
         nmod p = (whenmod 6 4 (|+| n "2")) $ p
-    d2 $ foldEvery [3,4] (0.25 <~) $
-        whenmod 8 6 (jux (iter 8)) $
-        every 5 (rip 0.25 0.25) $
-        every 6 (rip' 0 1 8 0.25 0.125) $
-        every 7 (|=| accelerate "-0.5 0.5") $
-        every 8 (|=| coarse "{4 8 16 12 24}%18") $
+    d2 $
         stack [
-        degradeBy 0.3 $  slowcat [brakk "jung1*8", brakk "jung3*8", brakk "jung4*8" ],
         reppat # s "alstab" # npat |=| cut "323" # gain "1",
-        reppat # s "alk" # npat |=| cut "2",
-        sound "~ als:1",
-        foldEvery [2,3] (density 2) $ sound "ch*8" # gain "0.9",
-        degrade $ sound "revkit*16" # n (run 30) # gain "0.9" # cut "83"]
+        gtfo $ reppat # s "alk" # npat |=| cut "2",
+        gtfo $ sound "~ als:1",
+        gtfo $ foldEvery [2,3] (density 2) $ sound "ch*8" # gain "0.9",
+        degradeBy 0.4 $ move' $ sound "revkit*16" # n (run 30) # gain "0.9" # cut "83"]
 
 do
   hush

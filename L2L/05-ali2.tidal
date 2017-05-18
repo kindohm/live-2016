@@ -6,21 +6,21 @@ let rep3 n p = stut' (n-1) ((1/6)*3) (|*| gain "1") $ p
     rep3' n p = stut' (n-1) ((1/12)*3) (|*| gain "1") $ p
     rep3'' n p = stut' (n-1) ((1/24)*3) (|*| gain "1") $ p
 
+do
+  d1 silence
+  m silence
 
 do
     let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
-    d1 $
+    d2 $ degrade $
         stack [
         degrade $
             gain "1*16" # sound "[007kit1 007kit2]/10" # n (irand 10) |=| cut "-1",
-        rep' 3 $ struct struc $ sound "007kicks" # n "[0 1]/6" |=| cut "2",
-        foldEvery [2,4,6] (|+| n "2") $
-        rep' 3 $ struct struc $ sound "007stabs" # n "[6 7]/6"
+        gtfo $ rep' 3 $ struct struc $ sound "007kicks" # n "[0 1]/6" |=| cut "2",
+        rep' 3 $ struct struc $ sound "007stabs" # n "[0 1]/6"
             |=| cut "1" # speed "[0.5 0.75 0.5 1]/13" # shape "0.2",
-        whenmod 15 10 (gtfo) $ sound "~ 007cp",
-        struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "007snares" # n "[0 1 2]/32" # speed "1.5"
+        whenmod 15 11 (gtfo) $ sound "~ 007cp",
+        gtfo $ struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "007snares" # n "[0 1 2]/32" # speed "1.5"
             # delay "0.3"
             # delaytime (scale 0.005 0.333 $ slow 3 tri1)
             # delayfeedback (scale 0.5 0.95 $ slow 4.33 tri1) ]
-
-      
