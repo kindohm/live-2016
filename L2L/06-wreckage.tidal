@@ -15,7 +15,13 @@ m $ slow 18 $ (|+| note (choose [0,12,0])) $
 
 d2 silence
 
-d1 $ degrade $
+d1 $ move $ every 10 (rev) $
+whenmod 8 6 (jux rev) $
+every 5 (chop 4) $
+every 6 (rip 0.5 0.1) $
+every 7 (rip' 0 1 8 0.5 0.1) $
+every 8 (|=| accelerate "-1 1") $
+every 9 (stut' 3 (0.125*3) (|*| speed "1.25")) $
 stack [
   sometimes (density 2) $ sound "{vixbd vixch ~ ~ vixcy/5 ~ vixbt/2}%4" # n (irand 20),
   sound "{~ ~ ~ ~ [~ vixsd/2]}%4",

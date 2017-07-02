@@ -18,12 +18,12 @@ let gtfo p = (const $ midinote "~") $ p
 let pat = "{0 0 1 1 0 1 0 ~ ~ 1 0 1 0 1}%8"
 
 do
-  let pat = "{0 0 1 1 0 1 0 ~ ~ 1 0 1 0 1}%8"
+  let pat = "{0 ~ ~ 1 1 1 1 ~ 0 1 1 0 ~ 1 1 0 1 1 ~ 1 0 1 0 1 0 1}%8"
   let x = velocity pat
   let y = velocity (inverse <$> pat)
   let x' = gain pat
   let y' = gain (inverse <$> pat)
-  m $ y # ml
+  m $ gtfo' $ y # ml
       |=| shape1 (scale 0.01 0.3 $ slow 13 tri1)
       |=| shape2 (scale 0.01 0.3 $ slow 15 tri1)
       |=| release (scale 0.2 0.4 $ slow 14.331 tri1)
@@ -33,11 +33,11 @@ do
   d1 $ stack [
       x' # bd,
       gtfo $ x' # cp,
-      gtfo $ density 2 $ cp,
+      density 2 $ cp,
       gtfo $ (0.25 <~) $ whenmod 18 10 (gtfo) $ y' # bt,
-      gtfo $ x' # ch,
-      gtfo $ y' # oh]
-  erebus $ gtfo $ rarely (|+| note "12") $
+      x' # ch,
+      y' # oh]
+  erebus $gtfo' $ rarely (|+| note "12") $
     every 3 (|+| note "12") $
     every 4 (|+| note "-12") $
     every 5 (|+| note "-12") $

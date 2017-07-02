@@ -1,17 +1,28 @@
-bps (140/120)
+bps (300/120)
+
+hush
 
 do
-    let pat = "{1 ~ ~ 1 ~ ~ ~}%2"
+    let pat = "{1 ~ ~ 1 ~ ~ ~ 1 ~ ~}%2"
         reppat = degradeBy 0.2 $ rep' 8 $ gain pat
-        npat = n "[0]/6"
+        reppat2 p = degradeBy 0.2 $ rep' 8 $ p
+        npat = n "[0 1]/6"
         nmod p = (whenmod 6 4 (|+| n "2")) $ p
-    d2 $
+    d2 $ 
         stack [
-        reppat # s "alstab" # npat |=| cut "323" # gain "1",
-        gtfo $ reppat # s "alk" # npat |=| cut "2",
-        gtfo $ sound "~ als:1",
+        reppat # s "alstab" # npat |=| cut "323" # gain "1" # speed "0.5",
+        reppat # s "alk" # npat |=| cut "2" # rel "0.8",
+        jux (iter 8) $ sound "~ als:0" # rel "0.4",
         gtfo $ foldEvery [2,3] (density 2) $ sound "ch*8" # gain "0.9",
-        degradeBy 0.4 $ move' $ sound "revkit*16" # n (run 30) # gain "0.9" # cut "83"]
+        degradeBy 0.4 $ move' $ sound "revkit*16" # n (run 30) # gain "0.9" # cut "83"
+          # pan (rand)]
+    asdf $ 
+        (|+| y (scale (-0.5) 0.5 $ slow 11.1 $ sine1)) $
+        (|=| x (scale (-2) 2 $ slow 20.1 $ sine1)) $ 
+        (|=| z (scale (-2) 2 $ slow 30.1 $ sine1)) $ 
+        reppat2 $ y pat # thing "sphere" 
+        # duration 5
+
 
 do
   hush

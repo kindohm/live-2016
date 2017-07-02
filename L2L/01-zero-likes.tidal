@@ -23,21 +23,28 @@ degrade $ shift' 82 $ (|+| note "-24") $ (|+| note "9") $  (|+| note (choose mpe
 |=| modwheel (shift' 13 $ rand)
 
 
-d1 $
+d1 $ whenmod 9 6 (move) $
+every 5 (chop 4) $
+every 10 (stut' 1 (0.125*3) (|*| speed "1.5")) $
+every 6 (rip 0.25 0.125) $
+every 7 (rip' 0 1 8 0.25 0.125) $
+every 8 (|=| accelerate "-1 1") $
+every 9 (|=| coarse "{8 4 6 12}%16") $
 stack [
 slow 2 $ sound "k*4 ~ ~ ~" # n (run 30),
-gtfo $ slow 2 $ sound "~ ~ sdeep/2 cp/3" # n (irand 30),
+slow 2 $ sound "~ ~ sdeep/2 cp/3" # n (irand 30),
 every 4 (|=| speed "-1") $
 sound "~ cpr/3" |=| coarse "{0 4 8 16 32}%8",
 gtfo $ foldEvery [2,3,4] (density 2) $ sound "ch:8*2" |=| gain "0.8",
-gtfo $ sound "~ teks [~ teks] ~" # cutoff "2000",
-degrade $ sound "{peri*2 doru*2 peri*2 tite peri*2}%4" # n (run 33) # speed "2" # end "0.5" ]
+sound "~ teks [~ teks] ~" # cutoff "2000",
+degradeBy 0.5 $ sound "{peri*2 doru*2 peri*2 tite peri*2}%4" # n (run 33) # speed "2" # end "0.5" ]
 
 d2 $ stut' 8 (0.125*3) (|*| gain "0.9") $
+    rarely (|*| speed "0.5") $
   gain "{1*4 1*4 ~ ~ ~ ~ ~}%2" # s "zlkeys2" # n (irand 30) # cut "783"
   # cutoff (scale 1000 2000 $ slow 7 tri1)
   # pan rand
-  # gain "0.9"
+  # gain "1"
 
 d1 silence
 d2 silence
@@ -98,3 +105,6 @@ m silence
 
 
 hush
+
+
+erebus $ note "0" # dur "0.2"

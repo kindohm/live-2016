@@ -3,8 +3,15 @@ hush
 
 flood "do NOT use rip, okay?? "
 
-d2 $ move' $
+d1 $ whenmod 20 15 (slow 1.25) $ move' $
+  whenmod 8 6 (jux rev) $
+  every 8 (rev) $
+  every 6 (|=| coarse "16 12 8 4") $
+  every 7 (|=| accelerate "-0.5 0.5") $
+  every 8 (rip' 0 1 8 0.5 0.1) $
+  every 5 (rip 0.5 0.1) $
   stack [
+  degradeBy 0.4 $ slowcat [brakk "funky*8", brakk "jung1*8", brakk "brk1*8"],
   sound "kr/2" |=| cut "4" |=| shape "0.4",
   every 4 ((|=| speed "-1")) $ every 3 ((|=| speed "0.5")) $
     sound "~ defdo:1/2 nau/2 defdo/3" |=| delay "0.4" |=| cutoff "1000" |=| resonance "0.01",

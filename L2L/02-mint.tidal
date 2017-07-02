@@ -23,17 +23,22 @@ erebus $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
 hush
 
 
-d1 $
+d1 $  tmod $
+  every 7 (rip' 0 1 8 0.25 0.125) $
+  every 5 (rip 0.5 0.1) $
+  every 8 (|=| accelerate "-1 1") $
+  every 9 (|=| coarse "4 8 6 12") $
   stack [
+    degradeBy 0.4 $ slowcat [brakk "brk1*8", brakk "brk2*8", brakk "funky*8", brakk "jung4*8"],
     rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| cut "-1" |=| gain "1",
     rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2" |=| gain "1.1",
-    gtfo $ rarely (0.25 ~>) $ sound "~ 4s" |=| gain "0.95",
+    rarely (0.25 ~>) $ sound "~ 4s" |=| gain "0.95",
     sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82" |=| gain "0.9",
     sound "{4cy/16 ~ ~ ~ ~}%4" |=| cut "-1",
     sound "~ [~ 4cb/4] ~ ~" |=| gain "1"]
 
 -- ML 124
-m $ density 2 $ note "-8(3,8)" # cutoff "0.7" # release "0.2"
+m $ density 2 $ note "-8(3,8)" # cutoff "0.6" # release "0.2"
 m $ smod $ density 2 $ note "-8(3,8)"
 m $ pmod1' $ smod $ tmod $ density 2 $ note "-8(3,8)"
 
