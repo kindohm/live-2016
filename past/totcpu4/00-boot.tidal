@@ -55,6 +55,7 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     brakk4 samps = ((|=| unit "c") . (|=| speed "4")) $ sound (samples samps (irand 30))
     replicator text1 = [putStr (text1) | x <- replicate 1000 text1]
     flood text2 = sequence_(replicator text2)
+
     linger n p = density (1/n) $ zoom (0,n) p
 
 import Sound.Tidal.MIDI.Context

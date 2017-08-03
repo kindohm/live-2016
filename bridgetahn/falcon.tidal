@@ -1,0 +1,22 @@
+bpm 200
+
+
+do
+    -- approx 168 samples in sy1 folder so run and slow accordingly.
+    let kickpat = coarse "{0 ~ ~ 0 ~ 0 ~}%8"
+        clappat = coarse "{[~ 0]/2 ~ ~ ~ ~ ~ ~}%8"
+        cypat = coarse "{0/16 ~ ~ ~ ~ ~ ~}%8"
+        sy1pat  = coarse "{0 ~ ~ ~ ~ ~ ~}%8"
+        sy2pat  = coarse "{~ ~ ~ 0 ~ 0 ~}%8"
+    d1 $ stack [
+        sound "falkit:2*8" |=| cut "1" |=| gain "1.2",
+        (0.0625 <~) $ sound "falkit:3/3" |=| cut "1" |=| gain "1.2",
+        kickpat # s "falkit" |=| gain "0.9",
+        clappat # s "falkit:1" |=| shape "0.4",
+        cypat # s "falkit:4" |=| gain "1.2",
+        s "{~ falstab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])|=| shape "0.5",
+        sy1pat # s "falsy1:1" # cut "382",
+        sy2pat # s "falsy2:13" # cut "383"]
+
+
+hush
