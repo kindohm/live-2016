@@ -16,18 +16,18 @@ let pad1intro = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[0 1]/4 ~ ~ ~ ~ ~ ~}%
 
 hush
 
-d1 silence
+c1 silence
 
-d2 $
+c2 $
 stack [
 (# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
 
-d2 $
+c2 $
 stack [
 (# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
 kick]
 
-d2 $
+c2 $
 stack [
 twopads,
 rarely (one) $ kick2,

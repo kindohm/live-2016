@@ -6,17 +6,17 @@ let pat0 = "{0 ~ ~ ~ ~}%4"
 
 do
   bpm 140
-  d1 silence
+  hush
 
-d2 $ slow 2 $
+c2 $ slow 2 $
 sound "milong:2([9 7 11 10]/4,16)"
 |=| begin "{0.05 0.05 0.05}%1" |=| cut "921" |=| gain "0.9"
 
-d2 $ sound "milong:2/4" |=| cut "921" |=| gain "0.9"
+c2 $ sound "milong:2/4" |=| cut "921" |=| gain "0.9"
 
 hush
 
-d1 $ 
+c1 $ 
   stack [
     whenmod 12 9 (gtfo) $ degradeBy 0.3 $ brakk "amenall2*8" # gain "1",
     patmod $ n pat0 # s "risckit" |=| gain "1.1",

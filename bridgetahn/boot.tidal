@@ -1,7 +1,7 @@
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
-    spike p = ((|+| delaytime (scale 0.001 0.3 $ slow 7.1 sine1)) . (|+| delayfeedback (scale 0.7 0.99 $ slow 6.71 sine1))) $ p
-    spike' p = (|+| delay "0.3") $ spike $ p
+    spike p = ((# delaytime (scale 0.001 0.3 $ slow 7.1 sine1)) . (# delayfeedback (scale 0.7 0.99 $ slow 6.71 sine1))) $ p
+    spike' p = (# delay "0.3") $ spike $ p
     ghost'' a f p = superimpose (((a/2 + a*2) ~>) . f) $ superimpose (((a + a/2) ~>) . f) $ p
     ghost' a p = ghost'' a ((|*| gain "0.7") . (|=| end "0.2") . (|*| speed "1.25")) p
     ghost p = ghost' 0.125 p

@@ -12,7 +12,7 @@ let pata1 = "{~ ~ 0 0 0*2 0*2 0*2 ~ ~ ~   ~ 0 ~   ~   [~ 0] [~ 0] ~ 0 0 0}%8"
 do
   let xx = gain (inverse <$> pata1)
   let yy = gain (patb1)
-  d1 $ 
+  c1 $ 
     stack [        
         yy # sound "y0" # n (irand 21) # cut "1" # gain "0.95",
         xx # sound "x" # n "0" # cut "2"]

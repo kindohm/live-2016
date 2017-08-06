@@ -1,6 +1,6 @@
 bps (170/120)
 
-d1 $ foldEvery [3,4] (0.25 ~>) $
+c1 $ foldEvery [3,4] (0.25 ~>) $
   whenmod 22 19 (iter 8) $
   whenmod 20 17 (iter 4) $
   every 5 (rip 0.5 0.1) $
@@ -27,7 +27,7 @@ bps (140/120)
 
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
-  d1 $ (|+| gain "0.1") $ foldEvery [3,4] (0.25 <~) $
+  c1 $ (|+| gain "0.1") $ foldEvery [3,4] (0.25 <~) $
     every 6 (|=| coarse "{32 24 16 12 8 }%16") $
     every 7 (|=| accelerate "-1 1") $
     stack [
@@ -36,7 +36,7 @@ do
       (# n "[1 0 3]/5") $ (|+| gain "[0 -0.1 0]/5") $ rarely (stut' 2 (0.0625) (|*| gain "1")) $
         rep' 8 $ gain pat # sound "alk" # cut "10",
       (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.1 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
-        # cut "1",
+        # cut "1" # speed "<1 1 1 0.5>",
       sound "~ alcp" # gain "1",
       whenmod 14 7 (degrade) $ jux (iter 16) $
         sound "als([5 3 7]/3,8)" # cut "100" # end "0.05" # gain "0.8" # speed "1"
@@ -58,4 +58,3 @@ do
         sound "als([5 3 7]/3,8)" # cut "100" # end "0.025" # gain "0.8" # speed "2"
           # accelerate (choose [-1, 1])
     ]
-

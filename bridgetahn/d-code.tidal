@@ -4,7 +4,7 @@ let npat = "[0 2 4 6]/16"
 
 hush
 
-d1 $ 
+c1 $
   move $
   stack [
     degradeBy 0.3 $ brakk "fur1*8" # gain "0.9",
@@ -21,7 +21,7 @@ d1 $
       slow 2 $ rep 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"]
 
 -- no break
-d1 $ whenmod 20 17 (iter 8) $
+c1 $ whenmod 20 17 (iter 8) $
   every 9 (rev) $
   every 4 (chop 4) $
   every 7 (rip 0.5 0.1) $
@@ -41,7 +41,7 @@ d1 $ whenmod 20 17 (iter 8) $
       whenmod 13 11 (|=| accelerate "1") $
         slow 2 $ rep 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"]
 
-d1 $ move $
+c1 $ move $
   every 9 (rev) $
   every 5 (|=| coarse (shift' 3 $ choose [4,6..18])) $
   every 8 (|=| accelerate "0.5 -0.5") $
