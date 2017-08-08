@@ -1,0 +1,18 @@
+let wchoose weights values = choose $ concatMap (\x -> replicate (fst x) (snd x)) (zip weights values)
+
+d1
+$ spreadChoose _fast [1..49]
+$ degradeBy 0.95
+$ sometimesBy 0.5 (0.125~>)
+$ s (randcat["imp","psin","pmsin","gabor","dirac","cyclo","supergong","superhex","superkick","super808","superhat","supersnare","superclap","superfork"])
+    # n (slow 0.1 $ wchoose [4,1,2,2,1][60,62,63,65,67] - wchoose [1,2,4,8,16][120,108,96,84,72])
+    # hpf (slow 0.11 $ wchoose [1,2,4,8,16,32,64][0,20,40,80,160,320,640])
+    # decay (slow 0.12 $ wchoose [1,2,3,4,5,6,8][0.8,1,1.2,1.4,1.6,1.8,2])
+    # pan (slow 0.14 $ wchoose [1,1,2,2,4,4][1,0,0.75,0.25,0.5])
+    # delay (slow 13 $ scale 0.75 1 $ sine)
+    # delayfb (slow 33 $ scale 0.95 1 $ sine)
+    # delayt (slow 133 $ scale (1/4096) (1/8) $ sine)
+    # sustain (slow 0.17 $ wchoose [1,2,4,8,16,32][0.125,0.25,0.5,1,2,4] / wchoose [8,4,2,1][1,2,4,8])
+    # nudge (slow 128 sine)
+    # room (slow 218 sine)
+    # lpf (slow 18 $ scale 20 20000 $ sine)
