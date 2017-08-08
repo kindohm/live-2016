@@ -1,10 +1,13 @@
 import Sound.Tidal.Context
 import Sound.Tidal.MIDI.Stream
-import Sound.Tidal.MIDI.Kindohm.Rack
-import Sound.Tidal.MIDI.Kindohm.CustomParams
+import Sound.Tidal.MIDI.Kindohm.VolcaKeys
+--import Sound.Tidal.MIDI.Kindohm.CustomParams
 
 devs <- midiDevices
 erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
+volca <- midiStream devs "Scarlett 18i8 USB" 15 rackController
+erebus <- midiStream devs "Scarlett 2i4 USB MIDI 1" 7 volcaController
+volca <- midiStream devs "Scarlett 2i4 USB MIDI 1" 16 volcaController
 
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
@@ -55,7 +58,10 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     brakk4 samps = ((|=| unit "c") . (|=| speed "4")) $ sound (samples samps (irand 30))
     replicator text1 = [putStr (text1) | x <- replicate 1000 text1]
     flood text2 = sequence_(replicator text2)
-
+    randDelay p = 
+        (# delay (scale 0.7 0.99 $ shift' 1881 $ rand)) $ 
+        (# delayt (shift' 1882 $ (choose [(1/4096),(1/2048)..(1/8)]))) $ 
+        (# delayfb (scale 0.7 0.99 $ shift' 1883 $ rand)) $ p
 
 import Sound.Tidal.MIDI.Context
 displayOutputDevices >>= putStrLn
@@ -67,4 +73,30 @@ keys2 <- midiStream devs "LoopBe Internal MIDI" 2 rackController
 
 bps (170/120)
 
-keys $ note "0*4 12*2" # dur "0.1"
+volca $ (|+| note "-24") $ note "0*4 12*2" # dur "0.2"
+
+erebus $ note "[0 12 5 7 24 -12]/4"
+
+
+let randDelay p = 
+        (# delay (scale 0.7 0.99 $ shift' 1881 $ rand)) $ 
+        (# delayt (shift' 1882 $ (choose [(1/4096),(1/2048)..(1/8)]))) $ 
+        (# delayfb (scale 0.7 0.99 $ shift' 1883 $ rand)) $ p
+
+c1 $ whenmod 11 8 (iter 8) $ 
+    whenmod 8 6 (jux (rev)) $
+    every 7 (|=| coarse (choose [1,2..12])) $
+    shift $ 
+    every 8 (|=| crush (scale (-7) 7 $ shift' 383 $ rand)) $
+    every 9 (|=| accelerate "{-0.5 0.5 -0.25 0.25}%7") $
+    sometimesBy 0.5 (randDelay) $ shift' 3 $ every 5 (rip 0.5 0.1) $ every 6 (rip' 0 1 8 0.5 0.1) $ 
+    degradeBy 0.5 $ 
+    s "{peri titel doru peri s kl tite doru cp}%8" # delay "0" # delayfb "0" # delayt "0" 
+    # n (slow 1.7 $ run 30)
+    # cut "-1"
+
+    hush
+
+    erebus silence
+
+    volca silence

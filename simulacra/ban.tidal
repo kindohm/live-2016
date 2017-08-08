@@ -1,0 +1,17 @@
+bps (200/120)
+
+c1 silence
+
+do
+    let pat = "{1 1 0 1 0*2 0 0 1 0*2 0*2 0  ~ 1 0 1 0 0 1*2 1}%8"
+    c1 $ 
+        every 7 (randDelay) $
+        spreadChoose _fast [1..10] $ slow 16 $ striate' 8 (1/5) $
+        stack [
+        sound "[~ sub/4] ~ ~ ~",
+        rarely (stut' 8 (0.0625) (|*| gain "0.95")) $ 
+            gain (pat) # s "[k peri doru]*2" # n (run 10),
+        gain (pat) # s "cp",
+        gain (inverse <$>  pat) # s "[ban ban ban b18b]/3" # n "2"] # delay "0" # delaytime "0" # delayfb "0"
+
+        
