@@ -14,5 +14,7 @@ $ s (randcat["imp","psin","pmsin","gabor","dirac","cyclo","supergong","superhex"
     # delayt (slow 133 $ scale (1/4096) (1/8) $ sine)
     # sustain (slow 0.17 $ wchoose [1,2,4,8,16,32][0.125,0.25,0.5,1,2,4] / wchoose [8,4,2,1][1,2,4,8])
     # nudge (slow 128 sine)
-    # room (slow 218 sine)
+    # room (slow 218 $ shift' 38 $ rand)
     # lpf (slow 18 $ scale 20 20000 $ sine)
+    # gain "0.6"
+

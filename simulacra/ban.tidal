@@ -3,15 +3,23 @@ bps (200/120)
 c1 silence
 
 do
-    let pat = "{1 1 0 1 0*2 0 0 1 0*2 0*2 0  ~ 1 0 1 0 0 1*2 1}%8"
-    c1 $ 
-        every 7 (randDelay) $
-        spreadChoose _fast [1..10] $ slow 16 $ striate' 8 (1/5) $
+    let pat = "{1 ~ 1*2 0 1 ~ ~ 0 0 0 ~ ~ }%8"
+    d1 $ whenmod 20 17 (iter 8) $ 
+        every 3 (randDelay) $
+        every 5 (rip 0.5 0.1)$
+        every 6 (rip' 0 1 8 0.25 0.25) $
         stack [
-        sound "[~ sub/4] ~ ~ ~",
-        rarely (stut' 8 (0.0625) (|*| gain "0.95")) $ 
-            gain (pat) # s "[k peri doru]*2" # n (run 10),
-        gain (pat) # s "cp",
-        gain (inverse <$>  pat) # s "[ban ban ban b18b]/3" # n "2"] # delay "0" # delaytime "0" # delayfb "0"
+            sound "{[~ sub/4] ~ ~ ~ ~}%4",
+            degradeBy 0.7 $ brakk "jung1*8",
+        move $ sound "mi([3 5]/2,8)" # n (slow 30 $ run 15)
+            # rel "0.5" # cut "83",
+        rarely (stut' 3 (0.0625*3) (|*| speed "1.5")) $
+        gain (inverse <$> pat) # s "ban" # gain "1" # speed "0.5"
+            # rel (scale 0.1 0.8 $ slow 20 tri1) # cut "838",
+        gain (pat) # s "k" # rel "0.6" # n "[0 7]/8",
+        gain (pat) # sound "cp" # gain "0.8" # speed "1" ] 
+            # delay "0.5" # delaytime "0.2" # delayfb "0.9"
 
-        
+
+hush
+

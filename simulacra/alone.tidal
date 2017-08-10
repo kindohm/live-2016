@@ -1,28 +1,29 @@
 cps (175/120)
 
-volca $ every 3 (rev) $ foldEvery [4,3] (0.25 ~>) $ (|+| note "[12 0 -12 -24]/4") $ 
+volca $ whenmod 32 16 (|+| note "-3") $ every 3 (rev) $ foldEvery [4,3] (0.25 ~>) $ (|+| note "[12 0 -12 -24]/4") $ 
     note "14 7 4 0"
-    # detune (scale 0 0.4 $ slow 20 tri1)
-    
-    # klfopitchint (scale 0 1 $ slow 18 tri1)
 
-
-erebus $ slow 16 $ note "0 ~ 12 ~ 10 9 ~ 5 7 ~ ~ ~ 17 ~ 16 ~"
+erebus $ whenmod 32 16 (|+| note "-3") $  (|+| note "-12") $ slow 16 $ note "0 ~ 12 ~ 10 9 ~ 5 7 ~ ~ ~ 17 ~ 16 ~"
     # modwheel (scale 0 1 $ slow 17 tri1)
 
-c1 $ (# nudge "0.13") $ 
+d1 $ (# nudge "0.13") $ 
     foldEvery [3,4] (0.25 ~>) $
     every 5 (rip 0.5 0.1) $
     every 6 (rip' 0 1 8 0.5 0.1) $
     every 7 (randDelay) $
     every 9 (const $ degradeBy 0.2 $  brakk "brk1*8") $
     stack [
-        sound "{[k peri] tite*2 s k peri*4 [k tite] cp peri*2 tite*4 doru*2}%2" # n (slow 1.1 $ run 30),
+        sound "{[k peri] tite*2 s k peri*4 [k tite] cp peri*2 tite*4 doru*2}%2" 
+            # n (slow 1.1 $ run 30)
+            # speed "<2 1.5 3 1.5 2.5 1.25>",
         sound "alonevox([5 3 7],8)" # cut "1" # n (slow 6 $ run 10)
         # begin "[0 0.2 0.5]/8" # speed "[0.9 1 1.1]/7"]
     # delayt "0" # delayfb "0" # delay "0"
 
-c1 silence
+d1 silence
 
+hush
 
 volca silence
+
+erebus silence

@@ -1,13 +1,10 @@
 import Sound.Tidal.Context
 import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Kindohm.VolcaKeys
---import Sound.Tidal.MIDI.Kindohm.CustomParams
 
 devs <- midiDevices
-erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
-volca <- midiStream devs "Scarlett 18i8 USB" 15 rackController
-erebus <- midiStream devs "Scarlett 2i4 USB MIDI 1" 7 volcaController
-volca <- midiStream devs "Scarlett 2i4 USB MIDI 1" 16 volcaController
+erebus <- midiStream devs "Scarlett 18i8 USB" 7 volcaController
+volca <- midiStream devs "Scarlett 18i8 USB" 16 volcaController
 
 
 let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
@@ -63,9 +60,9 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
         (# delayt (shift' 1882 $ (choose [(1/4096),(1/2048)..(1/8)]))) $ 
         (# delayfb (scale 0.7 0.99 $ shift' 1883 $ rand)) $ p
 
+
 import Sound.Tidal.MIDI.Context
 displayOutputDevices >>= putStrLn
-
 
 c1 $ sound "k*8?"
 
@@ -100,3 +97,10 @@ c1 $ whenmod 11 8 (iter 8) $
     erebus silence
 
     volca silence
+
+
+
+erebus silence
+
+hush
+

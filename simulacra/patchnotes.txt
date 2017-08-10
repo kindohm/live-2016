@@ -1,0 +1,5 @@
+erebus:
+modwheel -> lfo/r
+env -> vca
+lfo -> echo
+
