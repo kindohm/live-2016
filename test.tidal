@@ -1,25 +1,17 @@
-bps (150/120)
-
-c1 $ whenmod 16 13 (iter 8) $
-  whenmod 9 7 (jux rev) $
-  every 10 rev $
-  whenmod 10 5 (foldEvery [4,3] (0.75 <~)) $
-  every 5 (|=| coarse (choose [4..12])) $
-  every 6 (rip 0.5 0.125) $
-  every 7 (rip' 0 1 8 0.5 0.125) $
-  every 8 (|=| accelerate "-1 1") $
-  stack [
-  degradeBy 0.2 $ shift' 382 $ brakk "amenall2*8",
-  rarely (stut' 2 (0.0625) (|*| gain "0.9")) $ (1 <~) $ rarely (0.0625 <~) $ sound "pitch*4",
-  sound "pitk",
-  sound "~ pits [~ pits] ~" # speed "1.25",
-  sound "pitm?",
-  degradeBy 0.4 $ shift' 3 $ stut' 1 (0.125/2) (|*| speed "2") $
-    (0.5 <~) $ sound "pitm(3,8)" # n "1" # gain "0.8",
-  sound "~ pitcp" # cutoff "22000" # resonance "0.01" # gain "0.9",
-  whenmod 7 4 ((# n "1") . (# gain "1.2")) $
-    sound "pitsub([5 5 7]/3,16)" # cutoff "100" # resonance "0.1" # cut "1324" # gain "1" # shape "0.2" ]
 
 
+d1 $ spreadChoose _fast [2..50] $
+  degradeBy 0.9 $ shift $
+    s (choose["k", "kl"])
+    # lpf (scale 100 1000 $ slow 1.2 rand)
+    # pan (rand)
+    # rel (scale 0.1 0.7 $ slow 1.3 rand)
+    # delay "0.5"
+    # delayt (scale (1/4096) (1/8) $ slow 1.4 rand)
+    # delayfb (scale 0.5 0.9 $ slow 1.5 rand)
 
-hush
+    erebus silence
+
+    volca silence
+
+    hush

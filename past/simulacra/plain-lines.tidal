@@ -1,0 +1,32 @@
+bps (240/120)
+
+
+
+d1 $ stut' 14 (0.125) (|*| gain "0.95") $ 
+    s "{k ~ [~] ~ [~ k] ~ ~}%4" 
+    # n "0"
+    # rel "1"
+    # orbit "0"
+
+d1 silence
+
+d2 $ (# gain "0.7") $ 
+    s "cp*9" 
+    # n "2"
+    # nudge (scale 0 3 $ slow 9 $ sine)
+    # lpf (scale 1000 10000 $ slow 5.891 sine)
+    # pan (scale 0 1 $ slow 7.23423 sine)
+    # room (scale 0.1 0.7 $ slow 8 tri1)
+    # size "0.1"
+    # orbit "1"
+    # delay "0"
+
+hush
+
+volca $ (|+| note "0") $ 
+    stut' 14 (0.125) (|*| velocity "0.85") $ 
+    (|+| note "[-3,11]") $ note "{0 ~ [~] ~ [~ 0] ~ ~}%4"
+    # velocity "1"
+
+volca silence
+
