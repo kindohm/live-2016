@@ -51,22 +51,29 @@ let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     inverse 0 = 1
     inverse 11 = 0
     inverse 10 = 1
-    ch = midinote "8"
-    oh = midinote "9"
-    bd = midinote "36"
-    sd = midinote "1"
-    rs = midinote "2"
-    cp = midinote "3"
-    bt = midinote "4"
-    lt = midinote "5"
-    mt = midinote "6"
-    cy = midinote "10"
-    cb = midinote "11"
     bpm x = bps (x/120)
     brakk samps = ((|=| unit "c") . (|=| speed "8")) $ sound (samples samps (irand 30))
     brakk4 samps = ((|=| unit "c") . (|=| speed "4")) $ sound (samples samps (irand 30))
     move p = foldEvery [3,4] (0.25 <~) $ p 
-    move' p = foldEvery [2,3] (0.25 <~) $ p
-    move'' p = foldEvery [3,4] (0.25 ~>) $ p 
+    move'' p = foldEvery [2,3] (0.25 <~) $ p
+    move' p = foldEvery [3,4] (0.25 ~>) $ p 
     move''' p = foldEvery [2,3] (0.25 ~>) $ p 
-
+    delays = [(1/2048), (1/1024), (1/512), (1/256), (1/128), (1/64), (1/32), (1/16), (1/8)]
+    randDelay p = ((|=| delay (scale 0.5 0.7 $ shift' 5001 $ rand)) . (|=| delaytime (shift' 5002 $ choose delays)) . (|=| delayfeedback (scale 0.5 0.9 $ shift' 5003 $ rand))) $ p
+    crumble = slow 2 $ sound "[k*16 ~]/2 ~" # n (run 32)
+    rando = randDelay
+    foldEVery = foldEvery 
+    stupid = randDelay
+    weird = randDelay
+    fml = id
+    lol = id
+    ffs = id
+    tfw = id
+    u = id
+    pls = id
+    wot = id
+    m8 = id
+    conditionalsux = id
+    accelrate = accelerate
+    discretize = discretise
+    fuckery p = every 5 (rip 0.5 0.1) $ every 6 (rip' 0 1 8 0.5 0.1) $ every 7 (|=| coarse "{4 8 6 12 16}%14") $ every 8 (|=| accelerate "-0.5 0.5") $ p

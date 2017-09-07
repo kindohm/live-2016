@@ -1,0 +1,95 @@
+bps (200/120)
+
+c1 $ stack [
+up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" |=| shape "0.95" |=| crush "{2.1 2.2 2.5 2.3 2.4}%1" |=| cut "1"
+|=| coarse "{4 16 8 2}%1"]
+
+
+c1 $ stack [
+    whenmod 10 7 (|*| speed "0.9") $
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+    # coarse "{4 16 8 2}%1",
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[scree]" # shape "0.9" # speed "[0.5 0.25 0.75 1]/12" # cut "2"
+    # coarse "[4 16 8 2]/16" # gain "0.8"]
+
+c1 $ whenmod 12 8 (iter 4) $
+    whenmod 10 8 (trunc 0.25) $
+    foldEvery [3,4] (5.25 <~) $
+    stack [
+        sound "ch*8" # shape "0.5" # speed "0.9" # end "1",
+        whenmod 10 7 (|*| speed "0.9") $
+        up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+            # coarse "{4 16 8 2}%1",
+        up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[scree]" # shape "0.9" # speed "[0.5 0.25 0.75 1]/12" # cut "2"
+            # coarse "[4 16 8 2]/16" # gain "0.8"]
+
+c1 $
+stack [
+    sound "ch*8" # shape "0.5" # speed "0.9" # end "1",
+    whenmod 10 7 (|*| speed "0.9") $
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+        # coarse "{4 16 8 2}%1",
+    sound "{~ sdeep ~}%2" # shape "0.9"] # delaytime "0.5" # delayfeedback "0.5"
+
+hush
+
+c1 $
+stack [
+    brakk "brkh1*8" # shape "0.5" |=| gain "1.2",
+    sound "ch*8" # shape "0.8" # speed "0.9" # end "0.25",
+    whenmod 10 7 (|*| speed "0.9") $
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+    # coarse "{4 16 8 2}%1",
+    sound "{~ sdeep ~}%2" # shape "0.9"] # delaytime "0.5" # delayfeedback "0.5"
+
+c1 $
+stack [
+    brakk "brkh1*8" # shape "0.5" |=| gain "1.2",
+    whenmod 10 7 (|*| speed "0.9") $
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+        # coarse "{4 16 8 2}%1",
+    sound "~ sdeep" # shape "0.9"] # delaytime "0.5" # delayfeedback "0.5"
+
+c1 $
+stack [
+    brakk "brkh1*8" # shape "0.5" |=| gain "1.2",
+    sound "~ sdeep" # shape "0.9"] # delaytime "0.5" # delayfeedback "0.5"
+
+c1 $
+stack [
+    brakk "brkh1*8" # shape "0.5" |=| gain "1.2",
+    sound "~ sdeep" # shape "0.9",
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[scree]" # shape "0.9" # speed "[0.5 0.25 0.75 1]/12" # cut "2"
+        # coarse "[4 16 8 2]/16"] # delaytime "0.5" # delayfeedback "0.5"
+
+c1 $
+stack [
+    brakk "brkh1*8" # shape "0.5" |=| gain "1",
+    sound "~ sdeep" # shape "0.9",
+    whenmod 10 7 (|*| speed "0.9") $
+        up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+        # coarse "{4 16 8 2}%1",
+    up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[scree]" # shape "0.9" # speed "[0.5 0.25 0.75 1]/12" # cut "2"
+        # coarse "[4 16 8 2]/16" # gain "0.8"] # delaytime "0.5" # delayfeedback "0.5"
+
+d1 $
+stack [
+sound "~ sdeep" # shape "0.9",
+whenmod 10 7 (|*| speed "0.9") $
+up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+# coarse "{4 16 8 2}%1",
+up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[scree]" # shape "0.9" # speed "[0.5 0.25 0.75 1]/12" # cut "2"
+# coarse "[4 16 8 2]/16"] # delaytime "0.5" # delayfeedback "0.5"
+
+d1 $
+stack [
+sound "~ sdeep" # shape "0.9",
+whenmod 10 7 (|*| speed "0.9") $
+up "{0 0*2 [~ 0] [~ 0] ~ 0 0*4 ~ 0}%4" |=| sound "[kl:1]" # shape "0.95" # crush "{2.1 2.2 2.5 2.3 2.4}%1" # cut "1"
+# coarse "{4 16 8 2}%1"] # delaytime "0.5" # delayfeedback "0.5"
+
+d1 $
+stack [
+sound "~ sdeep" # shape "0.9"] # delaytime "0.5" # delayfeedback "0.5"
+
+hush

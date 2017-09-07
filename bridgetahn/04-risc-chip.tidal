@@ -4,13 +4,8 @@ let pat0 = "{0 ~ ~ ~ ~}%4"
     pat1 = "{1 ~ ~ ~ ~}%4"
     patmod p = foldEvery [2,3,4] (0.25 ~>) $ rep' 5 $ p
 
-do
-  bpm 140
-  hush
-
-c2 $ slow 2 $
-sound "milong:2([9 7 11 10]/4,16)"
-|=| begin "{0.05 0.05 0.05}%1" |=| cut "921" |=| gain "0.9"
+c2 $ slow 2 $ sound "milong:2([9 7 11 10]/4,16)"
+  |=| begin "{0.05 0.05 0.05}%1" |=| cut "921" |=| gain "0.9"
 
 c2 $ sound "milong:2/4" |=| cut "921" |=| gain "0.9"
 
@@ -18,13 +13,13 @@ hush
 
 c1 $ 
   stack [
-    whenmod 12 9 (gtfo) $ degradeBy 0.3 $ brakk "amenall2*8" # gain "1",
-    patmod $ n pat0 # s "risckit" |=| gain "1.1",
-    iter 8 $ sound "~ risckit:2",
-    every 7 (stut' 5 0.0625 (|*| gain "0.5")) $
+    gtfo $ whenmod 12 9 (gtfo) $ degradeBy 0.3 $ brakk "amenall2*8" # gain "1",
+    gtfo $ patmod $ n pat0 # s "risckit" |=| gain "1.1",
+    gtfo $ iter 8 $ sound "~ risckit:2",
+    gtfo $ every 7 (stut' 5 0.0625 (|*| gain "0.5")) $
       whenmod 4 2 (0.125 ~>) $ sound "~ risckit:1",
-    whenmod 7 5 (slow (4/3)) $ whenmod 5 3 (density 2) $ sound "risckit:4*8",
-    sound "risckit:7/16",
+    gtfo $ whenmod 7 5 (slow (4/3)) $ whenmod 5 3 (density 2) $ sound "risckit:4*8",
+    gtfo $ sound "risckit:7/16",
     whenmod 22 17 (const $ sound "~") $
       rarely (|=| up "-1") $ patmod $ (|+| n (slow 49 $ irand 49)) $ n pat0
         |=| s "riscm" |=| cut "20" |=| gain "0.95",

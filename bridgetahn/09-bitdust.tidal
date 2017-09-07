@@ -20,30 +20,30 @@ c1 silence
 
 c2 $
 stack [
-(# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
 
 c2 $
 stack [
-(# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
-kick]
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
+    kick]
 
 c2 $
 stack [
-twopads,
-rarely (one) $ kick2,
-whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1",
-s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
-every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
-rarely (stut' 4 (0.0625*3) (|*| gain "0.85")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ]
+    twopads,
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.85")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ]
 
 -- out
-d2 $
+c2 $ 
 stack [
-rarely (one) $ kick2,
-whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1.1",
-s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
-every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
-rarely (stut' 4 (0.0625*3) (|*| gain "0.95")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ]
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1.1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.95")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ] 
 
 
 hush

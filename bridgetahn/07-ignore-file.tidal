@@ -20,7 +20,7 @@ c1 $ sound "if:2(3,8)" |=| cut "3"
 
 -- main
 c1 $
-  every 4 (break) $
+  every 4999 (break) $
   stack [
     sound "if(3,8)" |=| cut "1",
     sound "if:1(3,8)" |=| cut "2",
@@ -29,15 +29,18 @@ c1 $
     sound "~ ifs" |=| gain "1.05"]
 
 -- part 2 transition with swell
-c2 $ sound "ifswell/4" |=| gain "0.7" |=| cut "81" |=| shape "0.3"
-c2 silence
+c2 $ sound "ifswell(3,8)" |=| gain "0.7" |=| cut "81" |=| shape "0.3"
 
-c1 $
-stack [
-sound "if:2(3,8)" |=| cut "3",
-sound "ifh*8",
-sound "ifk(3,8)",
-sound "~ ifs [~ ifs] ~"]
+--c2 silence
+
+do
+    c2 silence
+    c1 $
+        stack [
+        sound "if:2(3,8)" |=| cut "3",
+        sound "ifh*8",
+        sound "ifk(3,8)",
+        sound "~ ifs [~ ifs] ~"]
 
 -- part 2 intro
 c1 $
@@ -45,7 +48,7 @@ stack [
 sound "if:2(3,8)" |=| cut "3",
 slow 2 $ sound "ifgab*2 ifgab ~ ~" |=| cut "4" |=| shape "0.5",
 slow 4 $ sound "[~ [~ ifgab:1*2]] ifgab:1(3,8) ~ ~" |=| cut "4" |=| shape "0.4" |=| speed "1 [1 [~ 1.02] ~ 1.05] 1 1",
-(|*| speed "0.95") $ slowcat [s "~", s "~", s "~", brakk "amenall2*8"] |=| shape "0" # gain "1.1",
+(|*| speed "0.95") $ (|=| n "{0 1 2 0 1 2 0 1 3 4}%8") $ slowcat [s "~", s "~", s "~", brakk "amenall2*8"] |=| shape "0.1" # gain "1.2",
 sound "ifh*8" |=| gain "0.7"]
 
 -- part 2 intro trans
@@ -62,7 +65,7 @@ stack [
     sound "~ ifs" |=| gain "1",
     slow 2 $ sound "ifgab*2 ifgab ~ ~" |=| cut "4" |=| shape "0.4",
     slow 4 $ sound "[~ [~ ifgab:1*2]] ifgab:1(3,8) ~ ~" |=| cut "4" |=| shape "0.3" |=| speed "1 [1 [~ 1.02] ~ 1.05] 1 1",
-    degradeBy 0.15 $ slowcat [brakk "amenall2*8" |=| shape "0" # gain "1.1"],
+    degradeBy 0.1 $ (|=| n "{0 1 2 0 1 2 0 1 3 4}%8") $ slowcat [brakk "amenall2*8" |=| shape "0.1" # gain "1.2"],
     sound "ifh*8" |=| gain "0.7"]
 
 
