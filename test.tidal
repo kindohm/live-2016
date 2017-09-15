@@ -1,17 +1,21 @@
 
+do
+  let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
+  c1 $ every 5 (rip 0.25 0.125) $
+    every 6 (|=| coarse "12 16 8 6 4") $
+    every 7 (rip' 0 1 8 0.25 0.125) $
+    every 8 (|=| accelerate "-1 1") $
+    every 4 (stut' 1 (0.125*3) (|*| speed "1.5")) $
+      stack [
+      degrade $
+          gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) |=| cut "-1",
+      rep' 3 $ struct struc $ sound "cck" # n "[5 0]/6" |=| cut "2",
+      rep' 3 $ struct struc $ sound "ccstab" # n "[5 0]/6" # gain "1.1"
+          |=| cut "1" # speed "[0.5 0.75 0.5 1]/13" # shape "0.2",
+      whenmod 15 11 (gtfo) $ sound "~ cccp",
+      struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+          # delay "0.3"
+          # delaytime (scale 0.005 0.333 $ slow 3 tri1)
+          # delayfeedback (scale 0.5 0.95 $ slow 4.33 tri1) ]
 
-d1 $ spreadChoose _fast [2..50] $
-  degradeBy 0.9 $ shift $
-    s (choose["k", "kl"])
-    # lpf (scale 100 1000 $ slow 1.2 rand)
-    # pan (rand)
-    # rel (scale 0.1 0.7 $ slow 1.3 rand)
-    # delay "0.5"
-    # delayt (scale (1/4096) (1/8) $ slow 1.4 rand)
-    # delayfb (scale 0.5 0.9 $ slow 1.5 rand)
-
-    erebus silence
-
-    volca silence
-
-    hush
+          hush

@@ -4,7 +4,7 @@ c1 $
     stack [
         gtfo $ rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift $
             rarely (|+| n "10") $
-            shift $ degradeBy 0.3 $ sound "fl1*8" # cut "3" # n "[0 5]/12",
+            shift $ degradeBy 0.3 $ sound "fl1*8" # cut "3" # n "[0]/12" # gain "1.1",
         degradeBy 0.6 $ sound "lift" # n (irand 30) # gain "0.9" # speed "0.5"  ]
         # delaytime "0" # delayfeedback "0"
 

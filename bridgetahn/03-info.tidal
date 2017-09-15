@@ -1,7 +1,7 @@
 bpm 170
 
 c3 $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
-  (|=| cutoff (scale 100 1000 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:1" "[0 1]/8")
+  (|=| cutoff (scale 100 3000 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:1" "[0 1]/8")
     |=| resonance "0.1" |=| gain "1.1"
     # delaytime "0" # delayfeedback "0"
 
