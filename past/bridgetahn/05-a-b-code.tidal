@@ -1,3 +1,4 @@
+-- a b code
 bps (140/120)
 
 -- possible itnro 2
@@ -35,8 +36,8 @@ do
 hush
 
 
--- part deux
-
+-- part deux NOOOOOOOOOOO
+-- NOOOOOOOOOOOOOOOOO
 bps (170/120)
 
 -- new intro
@@ -48,6 +49,7 @@ slow "{4 8 6 12 16}%2" $ spread' (striate' 64) ((*0.1) <$> (fast 1.1 $ scale 0.2
 rarely (off (0.125*3) (|*| speed "1.25")) $
   off (0.25*3) (|+| n "<4 2 3>") $
     sound "alstab" # n "<0 1 2>" # up "[-12 -15]/8" # gain "<1.2 1.3>"
+    # delay "0.5" # delayfeedback "0.5" # delaytime "0.5"
 
 hush
 
@@ -68,3 +70,5 @@ stack [
         struct "x([3 5]/2,8)" $ sound "als" # cut "-1" # gain "1" ] ]
       
 hush
+
+---- END NOOOOOOOOOOOOOOOOOOOOOO

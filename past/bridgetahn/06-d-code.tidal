@@ -1,3 +1,4 @@
+-- d code
 bps (180/120)
 
 let npat = "[0 2 4 6]/16"
@@ -20,7 +21,7 @@ c1 $
       stack [
         whenmod 16 4 (gtfo) $
           every 3 (|*| speed (choose [0.9,0.8,0.7])) $
-          rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "namevox([3 5 7]/3,16)" # cut "819" # gain "1",
+          rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "namevox([3 5 7]/3,16)" # cut "819" # gain "1.1",
         rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "name([3 5 7]/3,16)" # n npat # gain "1",
         slow 2 $ (|+| n "1") $ sound "~ name [~ name] ~" # n npat # shape "0.2" # gain "1"],
     every 8 (|=| accelerate "0.5 -0.5") $

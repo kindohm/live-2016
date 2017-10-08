@@ -1,0 +1,27 @@
+-- river cairn
+
+bpm 210
+
+-- reference
+let pat = "{1 ~ 0 0 0*2 0*2 0*2 ~ ~ 1*2 1 0 1*2 1*2 [1 0] [1 0] 1 0 0 0}%8"
+let pat1 = "{~ ~ 0 0 0*2 0*2 0*2 ~ ~ ~   ~ 0 ~   ~   [~ 0] [~ 0] ~ 0 0 0}%8"
+let pat2 = "{1 ~ ~ ~ ~   ~   ~   ~ ~ 1*2 1 ~ 1*2 1*2 [1 ~] [1 ~] 1 ~ ~ ~}%8"
+
+-- real
+
+do
+    let xxpat = "{~ ~ 0 0 0*2 0*2 0*2 ~ ~ ~   ~ 0 ~   ~   [~ 0] [~ 0] ~ 0 0 0}%8"
+    let yypat = "{1 ~ ~ ~ ~   ~   ~   ~ ~ 1*2 1 ~ 1*2 1*2 [1 ~] [1 ~] 1 ~ ~ ~}%8"
+    let xx = gain (inverse <$> xxpat)
+    let yy = gain (yypat)
+    c1 $ 
+        stack [        
+            yy # sound "y0" # n (irand 21) # cut "1" # gain "1.1" # end (shift $ choose [0.3..1]),
+            gtfo $ xx # sound "x" # n "0" # cut "2" # gain "1",
+            gtfo $ xx # sound "x" # n "1" # gain "0.8",
+            gtfo $ (0.5 <~) $ xx # sound "x" # n "2" # gain "0.8" # cut "4" # speed (scale 1 1.25 $ saw)] # coarse "3"
+
+            hush
+
+
+

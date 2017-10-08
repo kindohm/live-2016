@@ -1,3 +1,4 @@
+-- info
 bpm 170
 
 c3 $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $

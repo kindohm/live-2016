@@ -1,3 +1,4 @@
+-- ignore file
 bps (220/120)
 
 let break p = within (0.1225, 0.375) (const $ sound "~") . within (0, 0.1225) (|=| end "0.5") $ p
