@@ -1,3 +1,5 @@
+-- bit dust
+
 bpm 140
 
 let pad1intro = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[0 1]/4 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
