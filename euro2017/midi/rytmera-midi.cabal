@@ -1,0 +1,19 @@
+name:                rytmera-midi
+version:             0.0.5
+synopsis:            custom tidal-midi module
+homepage:            http://tidal.lurk.org/
+license:             GPL-3
+author:              Mike Hodnick
+maintainer:          Mike Hodnick <mike@kindohm.com>
+Stability:           Experimental
+Copyright:           (c) Mike Hodnick, 2017
+category:            Sound
+build-type:          Simple
+cabal-version:       >=1.4
+
+Description: Custom Tidal MIDI synths for Mike
+
+library
+  Exposed-modules: Rytmera.Rytm, Rytmera.Harmor
+
+  Build-depends: base < 5, tidal-midi == 0.9.*, tidal, PortMidi, process, hashable, containers, hosc, time, bytestring
