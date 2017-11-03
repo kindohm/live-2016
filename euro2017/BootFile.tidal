@@ -28,7 +28,7 @@ harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
 
 let bps x = cps (x/2)
 let bpm x = bps (x/120)
-let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,c1,c2,c3,c4,c5,c6,c7,c8,c9,harmor]
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,harmor]
 let solo = (>>) hush
 
 :set prompt "tidal> "

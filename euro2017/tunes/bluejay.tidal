@@ -1,0 +1,21 @@
+-- bluejay
+bps (180/120)
+
+-- orig
+let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+
+-- orig
+do
+    let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+    c1 $ 
+        stack [
+            gtfo $ rarely ((|=| s "cps1") . (|=| n (irand 10)) . (|=| speed (scale 0.8 1.2 $ slow 1.1 rand))) $ 
+                whenmod 8 4 (|+| n "1") $ gain pat # s "kbj" # cut "2" # n "[0 4]/9",
+            gain pat # sound "stab1" # cut "1" # n (irand 10) # speed "1" # shape "0.1",
+            gtfo $ whenmod 10 5 (0.125 <~) $ s "ss" # shape "0.2", 
+            gtfo $ sometimes (stut' 1 (0.0625) (|*| gain "0.95")) $ shift $ s "spike1*8" 
+                # gain (scale 0.9 1.2 $ slow 1.3 rand) # gain "0.95"
+                # pan (scale 0.3 0.7 $ slow 1.4 rand) ]
+            # delay "0" # delaytime "0" # delayfeedback "0"
+
+hush

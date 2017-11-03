@@ -1,0 +1,40 @@
+bps (170/120)
+
+let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
+    pmod1' p = sometimesBy 0.1 (sometimesBy 0.1 (pmod1) . shift' 1 . sometimesBy 0.1 (pmod1) . shift' 1 . pmod1) $ p
+
+
+    hush
+
+harmor $ density 1 $ (|+| note "-0") $
+    (|=| x (scale 0.8 0.99 $ slow 9 tri1)) $
+    (|=| y (scale 0.1 0.9 $ slow 10 tri1)) $
+    (|=| z (scale 0.1 0.9 $ slow 11 tri1)) $
+    whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
+    every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+      note "0 4 7 11 12 16 19 23"
+      |=| dur "0.1"
+      |=| gain "0.9"
+      # nudge "0.41"
+
+d1 $ whenmod 8 4 (move) $ whenmod 10 8 (jux rev) $  
+    every 5 (rip 0.5 0.1) $ 
+    every 6 (crushit) $ every 7 (# coarse "{16 32 24 12 6 8}%7") $
+    stack [        
+        degradeBy 0.2 $ slowcat [brakk "jung1*8", brakk "jung3*8", brakk "ion1*8"],
+        rep 10 $ sound "{mintkit/4 ~ ~ ~ ~}%4" # gain 0.85,
+        rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ mintkit:2 ~ ~ ~}%2",
+        rarely (0.25 ~>) $ sound "~ mintkit:1",
+        sound "{mintkit:3*4 mintkit:3*2 [mintkit:4 ~ ~ mintkit:4] mintkit:3 ~ ~ ~}%4" |=| cut "82",
+        sound "{mintkit:5/6 ~ ~ ~ ~}%4" |=| cut "888",
+        every 8 (# accelerate "-1 1") $ sound "~ [~ mintkit:6/4] ~ ~" |=| gain "1.1",
+        gtfo $ sometimesBy 0.1 (stut' 1 (0.0625) (|*| speed "2")) $ 
+            shift $ sometimesBy 0.1 (stut' 1 (0.0625) (|*| speed "2")) $ 
+            density 2 $ s "mintstab(3,8)" 
+            |=| n (discretise (1/14) $ slow 1.1 $ irand 33) 
+            |=| gain "1.2" # lpf "400" # cut "3383" ]
+        
+      
+d1 $ sound "mintbd"
+
+      hush

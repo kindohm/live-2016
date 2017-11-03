@@ -1,0 +1,105 @@
+-- bit dust
+
+bpm 140
+
+let pad1intro = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[0 1]/4 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    pad1 = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    pad2 = rep' 7 $ s "{bitpad2 ~ ~ ~ ~ ~ ~}%4" # n "{[1] ~ ~ ~ ~ ~ ~}%4" |=| cut "1"
+    onepad = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2]/6 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    onepad' = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    twopads = rep' 7 $ whenmod 22 16 (const $ (|=| gain "1") $ s "{bitpad2 ~ ~ ~ ~ ~ ~}%4" # n "[0 1]/2" |=| cut "1" |=| gain "1") $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    kick = rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "bitkit" # n "[0 1]/6" |=| cut "2" |=| gain "1"
+    kick2 = rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "bitkit" # n "[0 1]/6" |=| cut "2" |=| gain "1"
+    one p = stut' 1 (0.125/2) (|*| gain "1") $ p
+    one' p = rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    one'' p = sometimes (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    rep n p = stut' (n-1) (0.125*3) (|*| gain "1") $ p
+    rep' n p = stut' (n-1) (0.125/2*3) (|*| gain "1") $ p
+
+hush
+
+c1 silence
+
+c2 $
+stack [
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
+
+c2 $
+stack [
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
+    kick]
+
+c2 $
+stack [
+    twopads,
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.85")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ]
+
+-- out
+c2 $ 
+stack [
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1.1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.95")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ] 
+
+
+hush
+
+-- bitdust
+bpm 140
+
+let pad1intro = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[0 1]/4 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    pad1 = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    pad2 = rep' 7 $ s "{bitpad2 ~ ~ ~ ~ ~ ~}%4" # n "{[1] ~ ~ ~ ~ ~ ~}%4" |=| cut "1"
+    onepad = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2]/6 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    onepad' = rep' 7 $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    twopads = rep' 7 $ whenmod 22 16 (const $ (|=| gain "1") $ s "{bitpad2 ~ ~ ~ ~ ~ ~}%4" # n "[0 1]/2" |=| cut "1" |=| gain "1") $ s "{bitpad1 ~ ~ ~ ~ ~ ~}%4" # n "{[1 0 2 3]/8 ~ ~ ~ ~ ~ ~}%4" # cut "1" # resonance "0.01" |=| gain "0.95"
+    kick = rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "bitkit" # n "[0 1]/6" |=| cut "2" |=| gain "1"
+    kick2 = rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "bitkit" # n "[0 1]/6" |=| cut "2" |=| gain "1"
+    one p = stut' 1 (0.125/2) (|*| gain "1") $ p
+    one' p = rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    one'' p = sometimes (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    rep n p = stut' (n-1) (0.125*3) (|*| gain "1") $ p
+    rep' n p = stut' (n-1) (0.125/2*3) (|*| gain "1") $ p
+
+hush
+
+c1 silence
+
+c2 $
+stack [
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro]
+
+c2 $
+stack [
+    (# cutoff (scale 1500 10000 $ rand)) $ pad1intro,
+    kick]
+
+c2 $
+stack [
+    twopads,
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.85")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ]
+
+-- out
+c2 $ 
+stack [
+    rarely (one) $ kick2,
+    whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "bitkit:7" |=| gain "1.1",
+    s "{bitkit bitkit*2 bitkit ~ [~ bitkit]*2 ~ bitkit ~ ~}%8" # n "{5 5 5 5 5 5 6}%16" |=| cut "3" |=| gain "1",
+    every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{bitkit:3 ~ ~ ~ ~}%4" |=| gain "1.02" |=| cut "7",
+    rarely (stut' 4 (0.0625*3) (|*| gain "0.95")) $ s "{~ bits:1 ~ [~ bits:1/2] ~}%4" # cut "4" |=| gain "1" ] 
+
+
+hush
+
+
+

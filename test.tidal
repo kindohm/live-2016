@@ -1,1 +1,50 @@
 awk 'FNR==1{print ""}{print}' *.tidal > _evverythinggggg.tidal
+
+-- test
+
+d1 $ sound "k*8?" # gain "1.2"
+hush
+
+let inverse 1 = 0
+    inverse 0 = 1
+
+bps (130/120)
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    d1 $ 
+        stack [ gain (pat) # sound "rytmerak" # cut "1",
+        gain (inverse <$> pat) # sound "rytmerars",
+        gain (inverse <$> pat) # sound "rytmerach",
+        gain (pat) # sound "rytmeracp"]
+    harmor $ 
+        velocity (inverse <$> pat) # note "[0,[5 9]/4,14,[16 19]/3]"
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0 1 $ slow 14 tri1)
+            # top "1"
+            # bottom "0"
+            # nudge "0.41"
+
+d1 $ (# n (discretise (1/4) $ slow 1.1 $ irand 10)) $ 
+    (|=| sound (discretise (1/4) $ choose ["k", "kl", "b", "amenall2", "fur1", "gnome", "cp", "peri"])) $ 
+    (1 <~) $ degradeBy 0.4 $ density 8 $ sound "k"    
+    # cut "33"
+    # lpf (scale 50 1000 $ slow 101 rand)
+
+    hush
+
+harmor $ note "0*8?" # nudge "0.41"
+    # hrwet (discretise (1/1) $ scale 0.7 1 $ slow 3 rand)
+    # hrdry (discretise (1/1) $ scale 0.5 1 $ slow 4 rand)
+    # hrer (discretise (1/1) $ scale 0.1 1 $ slow 5 rand)
+    # hrdiff (discretise (1/1) $ scale 0.1 1 $ slow 6 rand)
+    # hrsize (discretise (1/1) $ scale 0.01 1 $ slow 7 rand)
+    # hrdelay (discretise (1/1) $ scale 0 0.4 $ slow 8 rand)
+    # hrdecay (discretise (1/1) $ scale 0 0.01 $ slow 9 rand)
+
+d1 $ sound "teks(3,8)"
+
+
+
+            hush

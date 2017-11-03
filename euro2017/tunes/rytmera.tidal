@@ -1,0 +1,19 @@
+bps (130/120)
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    d1 $ 
+        stack [ gain (pat) # sound "rytmerak" # cut "1",
+        gain (inverse <$> pat) # sound "rytmerars",
+        gain (inverse <$> pat) # sound "rytmerach",
+        gain (pat) # sound "rytmeracp"]
+    harmor $ 
+        velocity (inverse <$> pat) # note "[0,[5 9]/4,14,[16 19]/3]"
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0 1 $ slow 14 tri1)
+            # top "1"
+            # bottom "0"
+            # nudge "0.41"
+
+            hush

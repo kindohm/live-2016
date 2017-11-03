@@ -2,3 +2,4 @@ scratch.tidal
 *.tidal~
 *.tidal#
 *.flp
+dist/
