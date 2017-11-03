@@ -1,35 +1,36 @@
 cps 0.65
 
-let k = s "i08k"
-    cp = s "i08cp"
-    ch = s "i08ch" |=| cut "-1"
-    oh = s "i08oh" |=| cut "-1"
-    b = s "i08b" |=| n (irand 100)
-    b2 = s "i08b2" |=| n (irand 100)
-    sd = s "i08s"
-    t = s "i08t"
-    perc = s "i08p"
+let k = s "socketkit:0"
+    cp = s "socketkit:3"
+    ch = s "socketkit:2" |=| cut "-1" # shape "0.3"
+    oh = s "socketkit:4" |=| cut "-1" # shape "0.35"
+    b = s "socket" |=| n (irand 100) |=| shape "0.5" # hpf "100"
+    b2 = s "socket2" |=| n (irand 100)
+    sd = s "socketkit:1"
+    t = s "socketkit:6"
+    perc = s "socketkit:5"
     jump p = stut' 4 (0.125) (|*| speed "2") $ p
 
-let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+let pat = "{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8"
+
+hush
+
+d1 $ sound "socketkit:7*8?"
 
 do
-  let pat = ("{1*2 0*2 1*2 0*2 1*2 1*2 0 0 0 1 1 0 0*2 0*2}%8")
+  let pat = "{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8"
   let x = gain pat
   let y = gain (inverse <$> pat)
-  c1 $
+  d1 $
       stack [
-      x # b |=| shape "0.3",
+      (|*| gain "1.1") $ x # b,
       y # k,
-      (0.125 <~) $ y # t,
-      y # cp,
-      x # ch,
-      y # oh,
-      (0.125 ~>) $ y # sd]
+      gtfo $ (0.125 <~) $ x # t,
+      gtfo $ (|*| gain "1.2") $ x # cp,
+      gtfo $ y # ch,
+      gtfo $ x # oh,
+      gtfo $ (|*| gain "1.2") $ (0.25 ~>) $ x # sd]
 
 
 hush
 
-do
-  erebus silence
-  m silence

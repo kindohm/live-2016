@@ -1,32 +1,25 @@
-bpm 150
+bps (150/120)
 
 -- kick rep 24, synth rep 23
 let progwav = (|+| up "{0 0 0 2 2}%1")
-    basspat = "{009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ ~}%16"
+    basspat = "{leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ ~}%16"
     basspat2 = "{leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ ~}%16"
 
 d1 $ sound "clues/2"
 
 hush
 
-d1 $ slow 3 $
-whenmod 13 10 (iter 8) $
-foldEvery [3,4] (0.25 <~) $
-every 5 (|=| coarse "{16 12 8}%16") $
-every 6 (rip 0.5 0.1) $
-every 7 (rip' 0 1 16 0.5 0.125) $
-every 9 (|=| accelerate "-1 1") $
-every 10 (stut' 1 (0.125*3) (|*| speed "1.5")) $
-stack [
-  sound "{run:1 ~ ~}%16" # cut "87",
-  gtfo $ progwav $ s basspat |=| n (shift $ irand 12) |=| gain "1" # cut "1112",
-  progwav $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "2",
-  whenmod 7 4 (0.125 ~>) $ sound "9cp*4",
-  sound "~ 9s" |=| gain "1.1",
-  foldEvery [2,3] (density 2) $ sound "ch*8" |=| gain "0.8",
-  sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1",
+d1 $
+stack [  
+  progwav $ s basspat |=| n (shift $ irand 12) |=| gain "1" # cut "1112",
+  progwav $ rep' 24 $ sound "{leankit/4 ~ ~ ~ ~}%4" |=| cut "2",
+  whenmod 7 4 (0.125 ~>) $ sound "leankit:2*4",
+  sound "~ s" |=| gain "1.1",
+  foldEvery [2,3] (density 2) $ sometimesBy 0.1 (# s "leankit:4") $ 
+    sound "leankit:3*8" |=| gain "1" # cut "816",
+  sound "{leankit:5/8 ~ ~ ~ ~}%4" |=| gain "1",
   sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
-    sound (samples "{009m2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" |=| cut "81"]
+    sound (samples "{leanm2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" |=| cut "81"]
 
 
 hush

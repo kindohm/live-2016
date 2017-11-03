@@ -2,7 +2,7 @@ awk 'FNR==1{print ""}{print}' *.tidal > _evverythinggggg.tidal
 
 -- test
 
-d1 $ sound "k*8?" # gain "1.2"
+d1 $ sound "k*8?" # gain "1"
 hush
 
 let inverse 1 = 0
