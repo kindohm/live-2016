@@ -1,0 +1,38 @@
+-- c code
+bps (140/120)
+
+hush
+
+do
+    let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
+    d1 $ whenmod 5 3 (rev) $ slow "<4 8 24 16 12>" $ superimpose (0.5 <~) $ trunc 0.5 $
+        striate "32 16 128 64" $ 
+        rep' 3 $ struct struc $ sound "ccstab" 
+            # n (slow 18 $ run 6) 
+            # gain "1"
+            # speed "[0.5 0.75 0.5 1 0.25]/13" 
+            # shape "0.2" 
+            # delaytime "0.875" # delay "0.25" # delayfeedback "0.5"
+
+hush
+
+do
+    let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
+    d1 $ 
+        stack [
+         degrade $
+            gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) |=| cut "-1",
+        rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) |=| cut "2",
+        rep' 3 $ struct struc $ sound "ccstab" # n (slow 18 $ run 6) # gain "1"
+            |=| cut "1" # speed "[0.5 0.75 0.5 1]/13" # shape "0.2",
+        whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2" # shape "0.1",
+        struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+            # gain "1.1"
+            # delay "0.3"
+            # delaytime (scale 0.005 0.333 $ slow 3 tri1)
+            # delayfeedback (scale 0.5 0.95 $ slow 4.33 tri1) ]
+            # delaytime "0" # delayfeedback "0"
+
+            hush
+
+            
