@@ -2,7 +2,7 @@ bps (130/120)
 
 do
     let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
-    d1 $ 
+    d1 $ gtfo $
         stack [ gain (pat) # sound "rytmerak" # cut "1",
         gain (inverse <$> pat) # sound "rytmerars",
         gain (inverse <$> pat) # sound "rytmerach",

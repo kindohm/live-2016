@@ -4,7 +4,7 @@ bps (140/120)
 -- possible itnro 2
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
-  c1 $ (|+| gain "0") $ foldEvery [3,4] (0.25 <~) $
+  d1 $ (|+| gain "0") $ foldEvery [3,4] (0.25 <~) $
     stack [
       (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.1 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
         # cut "1" # speed "0.25",
@@ -18,7 +18,7 @@ hush
     
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
-  c1 $ (|+| gain "0.1") $ 
+  d1 $ (|+| gain "0.1") $ 
     foldEvery [3,4] (0.25 <~) $
     every 6 (|=| coarse "{32 24 16 12 8 }%16") $
     stack [
@@ -35,40 +35,3 @@ do
 
 hush
 
-
--- part deux NOOOOOOOOOOO
--- NOOOOOOOOOOOOOOOOO
-bps (170/120)
-
--- new intro
-c1 $ (|+| gain "-0.1") $ (# room "0.1") $ (# size "0.98") $ 
-(# cutoff (scale 60 3000 $ shift' 282 rand)) $ (#resonance "0.1") $
-foldEvery [3,4] (5.25 ~>) $
-every 2 (jux rev) $  
-slow "{4 8 6 12 16}%2" $ spread' (striate' 64) ((*0.1) <$> (fast 1.1 $ scale 0.25 0.5 $ sine)) $ 
-rarely (off (0.125*3) (|*| speed "1.25")) $
-  off (0.25*3) (|+| n "<4 2 3>") $
-    sound "alstab" # n "<0 1 2>" # up "[-12 -15]/8" # gain "<1.2 1.3>"
-    # delay "0.5" # delayfeedback "0.5" # delaytime "0.5"
-
-hush
-
-
--- full
-c1 $ (|+| gain "0.1") $ foldEvery [3,4] (0.25 ~>) $
-stack [
-  gtfo $ degradeBy 0.25 $ runWith 4 (density 2) $ iter 4 $ jux rev $
-    off 0.25 (|+| n "<1 3 5 2>") $ struct "x(3,8) *2" $ n "<0 1 4>" # sound "[jung5 jung6 jung7]/8"
-      # unit "c" # speed "8" # gain "1",
-  runWith 2 (density 2) $
-    off (0.25*3) (|+| n "<4 2 3>") $
-    stack [
-      sound "alstab" # n "<0 1 2>" # cut "3" # up "[-12 -15]/8" # shape "0.1" # gain "<1.2 1.2 1.3>",
-      sound "alk" # n "<0 1 2>" # cut "4" # gain "1",
-      gtfo $ whenmod 16 4 (gtfo) $ off (0.125*3) (|+| n "{1 2 3}%16") $
-        foldEvery [2,3] (slow 2) $
-        struct "x([3 5]/2,8)" $ sound "als" # cut "-1" # gain "1" ] ]
-      
-hush
-
----- END NOOOOOOOOOOOOOOOOOOOOOO
