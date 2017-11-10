@@ -18,15 +18,19 @@ hush
 
 do
     let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
-    d1 $ 
+    d1 $ whenmod 20 17 (iter 8) $ 
+        whenmod 22 20 (density 1.25) $
+        move $ every 5 (rip 0.5 0.1) $ every 6 (|=| coarse "{16 8 4 24 32}%7") $
+        every 7 (# accelerate "-1 1") $ 
         stack [
-        gtfo $ degrade $
+        degradeBy 0.3 $ brakk "ion1*8" # gain "1.1",
+        degrade $
             gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) |=| cut "-1",
         rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) |=| cut "2",
         rep' 3 $ struct struc $ sound "ccstab" # n (slow 18 $ run 6) # gain "1"
             |=| cut "1" # speed "[0.5 0.75 0.5 1]/13" # shape "0.2",
-        gtfo $ whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2" # shape "0.1",
-        gtfo $ struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+        whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2" # shape "0.1",
+        struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
             # gain "1.1"
             # delay "0.3"
             # delaytime (scale 0.005 0.333 $ slow 3 tri1)

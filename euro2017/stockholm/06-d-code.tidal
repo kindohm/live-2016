@@ -12,26 +12,23 @@ d1 $ move $
   whenmod 13 11 (|=| accelerate "1") $
     slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"
 
-d1 $ 
-  move $ 
+d1 $ degradeBy 0.9 $ whenmod 20 17 (iter 8) $
+  move $ every 5 (rip 0.5 0.1) $ 
+    every 6 (rip' 0 1 8 0.5 0.125) $ 
+    every 7 (crushit) $ every 8 (|=| coarse "{8 12 16 32 24}%7") $
   stack [
-    -- break
-    degradeBy 0.3 $ brakk "fur1*8" # gain "0.95",
+    whenmod 10 5 (gtfo) $ 
+      degradeBy 0.3 $ brakk "fur1*8" # gain "0.95",
     every 8 (|=| accelerate "0.5 -0.5") $
       whenmod 13 11 (|=| accelerate "1") $
       stack [
-        -- vox
         whenmod 16 4 (gtfo) $
           every 3 (|*| speed (choose [0.9,0.8,0.7])) $
           rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "namevox([3 5 7]/3,16)" # cut "819" # gain "1.1",
-        -- kicks
         rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "name([3 5 7]/3,16)" # n npat # gain "1",
-        -- snares
         slow 2 $ (|+| n "1") $ sound "~ name [~ name] ~" # n npat # shape "0.2" # gain "1"],
-    -- vacuums 
     every 8 (|=| accelerate "0.5 -0.5") $
       whenmod 13 11 (|=| accelerate "1") $
-      slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"] 
-      
+      slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"] # delaytime "0" # delayfeedback "0"
 
 hush

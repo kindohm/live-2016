@@ -11,6 +11,19 @@ infonormality
 socket?
 falcon?
 
+
+mint
+rytmera
+bluejay
+c-code
+a-code
+d-code
+infonormality
+.lean()
+mesabi
+bit dust
+
+
 berlin
 ------
 bluejay

@@ -1,0 +1,14 @@
+-- fl
+bps (200/120)
+
+d1 $ 
+    stack [
+        rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift $
+            rarely (|+| n "10") $
+            shift $ degradeBy 0.3 $ sound "fl1*8" # cut "3" # n "[7 8]/12" # gain "1.1"
+            # hpf "150" # hresonance "0.1",
+        degradeBy 0.5 $ sound "lift" # n (irand 30) # gain "0.9" # speed "0.5"  ]
+
+hush
+
+

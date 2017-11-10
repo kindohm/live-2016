@@ -6,17 +6,15 @@ hush
 do
     let patk = "{1   ~ 1 1 ~ }%8"
     let patc = "{1/2 ~ ~ ~ ~ }%8"
-    d2 $ stack [
-        sometimes (# s "mestab2") $ gain patk # s "mestab2" 
+    t1 (wait 2) $ stack [
+        sometimes (# s "mestab1") $ gain patk # s "mestab1" 
             # n (discretise (1/5) $ slow 1.1 $ irand 24) # cut 1,
-        sometimes (# s "meskit2") $ gain patk # s "meskit2" 
-            # cut 2 # hpf 50,
-        (|*| gain "1.2") $ gain patc # s "cp" 
-                # n "0"
-         ]
+        sometimes (# s "meskit1") $ gain patk # s "meskit1" 
+            # cut 2,
+        gain patc # s "cp" 
+                # n "0"]
 
 hush
-
 -- start
 do
     let patk = "{1   ~ 1 1 ~ }%8"

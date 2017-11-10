@@ -16,7 +16,7 @@ d1 $
   move $ 
   stack [
     -- break
-    degradeBy 0.3 $ brakk "fur1*8" # gain "0.95",
+    gtfo $ degradeBy 0.3 $ brakk "fur1*8" # gain "0.95",
     every 8 (|=| accelerate "0.5 -0.5") $
       whenmod 13 11 (|=| accelerate "1") $
       stack [
@@ -28,10 +28,9 @@ d1 $
         rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "name([3 5 7]/3,16)" # n npat # gain "1",
         -- snares
         slow 2 $ (|+| n "1") $ sound "~ name [~ name] ~" # n npat # shape "0.2" # gain "1"],
-    -- vacuums 
+    -- vaccuums
     every 8 (|=| accelerate "0.5 -0.5") $
       whenmod 13 11 (|=| accelerate "1") $
-      slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"] 
-      
+      slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1" # speed "0.5" # shape "0.4"] # delaytime "0" # delayfeedback "0"
 
 hush

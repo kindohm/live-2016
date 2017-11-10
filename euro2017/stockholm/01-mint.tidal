@@ -7,35 +7,35 @@ let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
     hush
 
 harmor $ density 1 $ (|+| note "-0") $
-    (|=| x (scale 0.6 0.9 $ slow 9 tri1)) $
-    (|=| y (scale 0.1 0.1 $ slow 10 tri1)) $
-    (|=| z (scale 0.5 0.51 $ slow 11 tri1)) $
+    (|=| x (scale 0.7 0.9 $ slow 9 tri1)) $
+    (|=| y (scale 0.1 0.9 $ slow 10 tri1)) $
+    (|=| z (scale 0.3 0.7 $ slow 11 tri1)) $
     whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
     every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
       note "0 4 7 11 12 16 19 23"
       |=| dur "0.1"
       |=| gain "0.9"
-      # nudge "0.41"
+      # nudge "0.67"
 
-harmor silence
+      harmor silence
 
-d1 $ 
-    move $ whenmod 9 7 (jux rev) $
-    every 5 (rip 0.5 0.1) $ every 6 (rip' 0 1 8 0.5 0.1) $ every 8 (# accelerate "-1 1") $
-    every 7 (crushit) $ every 9 (|=| coarse "{16 8 12 24 32}%16") $
+d1 $ whenmod 16 13 (iter 8) $ 
+    whenmod 10 8 (jux rev) $
+    move $ every 5 (rip 0.5 0.1) $ every 6 (rip' 0 1 8 0.5 0.1) $
+    every 7 (crushit) $ every 8 (|=| accelerate "-1 1") $
     stack [        
-        degradeBy 0.3 $ slowcat [brakk "brk1*8", brakk "brk2*8" ],
-        rep 10 $ sound "{mintkit/4 ~ ~ ~ ~}%4" # gain 0.85,
+        gtfo $ degradeBy 0.2 $ brakk "brk2*8" # gain "1.1",
+        gtfo $ rep 10 $ sound "{mintkit/4 ~ ~ ~ ~}%4" # gain 0.85,
         rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ mintkit:2 ~ ~ ~}%2",
         rarely (0.25 ~>) $ sound "~ mintkit:1",
         sound "{mintkit:3*4 mintkit:3*2 [mintkit:4 ~ ~ mintkit:4] mintkit:3 ~ ~ ~}%4" |=| cut "82",
         sound "{mintkit:5/6 ~ ~ ~ ~}%4" |=| cut "888",
         every 8 (# accelerate "-1 1") $ sound "~ [~ mintkit:6/4] ~ ~" |=| gain "1.1",
-        gtfo $ sometimesBy 0.1 (stut' 1 (0.0625) (|*| speed "2")) $ 
+        sometimesBy 0.1 (stut' 1 (0.0625) (|*| speed "2")) $ 
             shift $ sometimesBy 0.1 (stut' 1 (0.0625) (|*| speed "2")) $ 
             density 2 $ s "mintstab(3,8)" 
             |=| n (discretise (1/14) $ slow 1.1 $ irand 33) 
-            |=| gain "1.2" # lpf "10000" # rel "0.5" # hpf "100" # cut "3383" ]
+            |=| gain "1.2" # lpf "10000" # rel "0.5" # hpf "100" # cut "3383" ] 
         
       
 d1 $ sound "mintbd"

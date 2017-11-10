@@ -1,9 +1,7 @@
 -- a b code
 bps (140/120)
 
-d1 silence
-
--- possible itnro 2
+-- possible intro 2
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
   d2 $ (|+| gain "0") $ foldEvery [3,4] (0.25 <~) $
@@ -16,23 +14,24 @@ do
           # accelerate (choose [-1, 1])
     ]
 
+
+
 hush
     
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
-  d2 $ (|+| gain "0.1") $ 
-    foldEvery [3,4] (0.25 <~) $
-    every 7 (crushit) $
-    every 8 (|=| accelerate "-1 1 0.5 -0.5") $
+  d2 $ (|+| gain "0.1") $  
+    move $ 
     every 6 (|=| coarse "{32 24 16 12 8 }%16") $
-    every 9 (rip 0.5 0.1) $
+    every 7 (rip 0.5 0.1) $
+    every 9 (rip' 0 1 8 0.5 0.25) $
+    every 8 (crushit) $
     stack [
-      degradeBy 0.2 $ brakk "jung5*8" # gain "1.1",
       degradeBy 0.4 $
         sound "revkit*16" # n (density 2.3 $ run 7) # gain "0.8",
       (# n "[1 0 3]/5") $ (|+| gain "[0 -0.1 0]/5") $ rarely (stut' 2 (0.0625) (|*| gain "1")) $
         rep' 8 $ gain pat # sound "alk" # cut "10",
-      (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.15 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
+      gtfo $ (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.15 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
         # cut "1" # speed "<1 1 1 0.5>",
       sound "~ alcp" # gain "1",
       whenmod 14 7 (degrade) $ jux (iter 16) $
@@ -41,4 +40,4 @@ do
 
 hush
 
-hush
+
