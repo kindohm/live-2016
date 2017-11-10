@@ -1,17 +1,199 @@
+bpm 140
 
-cps 2.2 
+flood "kindohm "
+
+-- intro
+d3 $ sometimes (jux (iter 8)) $ shift $ sometimes (|=| speed (slow 0.4 $ choose [0.5, 0.25, 0.75])) $ 
+    shift $
+    (|=| cutoff (slow 44 $ scale 50 3000 $ rand)) $ slow 16 $ 
+        striate 128 $ sound (samples "dr:0" "[0 1]/8")
+        # hpf 100
+        # resonance "0.1" # gain "1.1"
+        # orbit "1"
+        # delaytime "0.3333" # delayfeedback "0.5" # delay "0.5"
+
+d1 $ sound "legends:1*16" # cut "3" # gain "0.9"
+
+d3 silence
 
 hush
 
+-- bluejay
+bps (180/120)
 
-d1 $  
-    sometimesBy 0.5 (density (randcat 
-        ["1","2","[2 3]", "2", "[4 6]", "3", "8", "[2 4]","3", "4", "6", "1"])) $
-        s "sq" 
+do
+    let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+    d1 $ whenmod 18 15 (iter 8) $ whenmod 8 6 (jux (iter 8)) $
+        move $ every 5 (rip 0.5 0.1) $ every 6 (rip' 0 1 8 0.25 0.25) $
+         every 7 (crushit) $
+        stack [
+            degradeBy 0.2 $ brakk "brkh4*8",
+            rarely ((|=| s "cps1") . (|=| n (irand 10)) . (|=| speed (scale 0.8 1.2 $ slow 1.1 rand))) $ 
+                whenmod 8 4 (|+| n "1") $ gain pat # s "kbj" # cut "2" # n "[0 4]/9",
+            whenmod 8 4 (# up "-2") $ 
+                gain pat # sound "stab1" # cut "1" # n (irand 10) # speed "1" # shape "0" # begin "0.0001",
+            whenmod 10 5 (0.125 <~) $ s "ss" # shape "0.2", 
+            sometimes (stut' 1 (0.0625) (|*| gain "0.95")) $ shift $ s "spike1*8" 
+                # gain (scale 0.9 1.2 $ slow 1.3 rand) # gain "0.95"
+                # pan (scale 0.3 0.7 $ slow 1.4 rand) ]
+    
+-- .lean()
+bps (150/120)
+
+let progwav = (|+| up "{0 0 0 2 2}%1")
+    basspat = "{leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ ~}%16"
+    basspat2 = "{leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ ~}%16"
+
+d1 $ move $ every 5 (rip 0.25 0.25) $ every 6 (rip' 0 1 12 0.25 0.125) $
+    every 7 (stut' 1 (0.125*3) (|*| speed "1.5")) $
+stack [
+    degradeBy 0.1 $ brakk "funky*8",
+    sound "{run:1 ~ ~}%16" # rel "0.5",
+    progwav $ s basspat |=| n (shift $ irand 12) |=| gain "1" # cut "1112",
+    progwav $ rep' 24 $ sound "{leankit/4 ~ ~ ~ ~}%4" |=| cut "2",
+    whenmod 7 4 (0.125 ~>) $ sound "leankit:2*4",
+    sound "~ s" |=| gain "1.1",
+    foldEvery [2,3] (density 2) $ sometimesBy 0.1 (# s "leankit:4") $ 
+        sound "leankit:3*8" |=| gain "1" # cut "816",
+    sound "{leankit:5/8 ~ ~ ~ ~}%4" |=| gain "1",
+    sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
+        sound (samples "{leanm2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" ]
+        # orbit "0"
+        # lpf "400"
+
+-- c code
+bps (140/120)
+
+do
+    let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
+    d2 $ whenmod 5 3 (rev) $ slow "<4 8 24 16 12>" $ 
+        superimpose (0.5 <~) $ trunc 0.5 $
+        striate "32 16 128 64" $ 
+        rep' 3 $ struct struc $ sound "ccstab" 
+            # n (slow 18 $ run 6) 
+            # gain "1"
+            # speed "[0.5 0.75 0.5 1 0.25]/13" 
+            # shape "0.2" 
+            # delaytime "0.875" # delay "0.25" # delayfeedback "0.5"
+            # orbit "1"
 
 hush
+
+do
+    let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
+    d2 $ 
+        every 5 (rip 0.5 0.125) $ every 6 (crushit) $ every 7 (rip' 0 1 12 0.25 0.0625) $
+        every 8 (# coarse "{16 32 24 12 8 4}%7") $
+        every 9 (# accelerate "{-1 1 0.5 -0.5}%6") $
+        stack [
+            degradeBy 0.1 $ slowcat [brakk "jung1*8", brakk "jung3*8", brakk "jung4*8" ],
+            degrade $
+                gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) |=| cut "-1",
+            rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) |=| cut "2",
+            rep' 3 $ struct struc $ sound "ccstab" # n (slow 18 $ run 6) # gain "1"
+                |=| cut "1" # speed "[0.5 0.75 0.5 1]/13" # gain "1.1",
+            whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2" # shape "0.1",
+            struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+                # gain "1.1"]
+
+            
+            
+-- a code
+bps (140/120)
+
+do
+  let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
+  d1 $ (|+| gain "0.1") $ foldEvery [3,4] (0.25 <~) $
+    stack [
+      (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.1 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
+        # cut "1" # speed "0.25",
+      sound "~ alcp" # gain "1",
+      gtfo $ jux (iter 16) $
+        sound "revkit([5 3 7]/3,8)" # cut "100" # end "1" # gain "0.7" # speed "2"
+          # accelerate (choose [-1, 1])
+    ]
+
+hush
+    
+do
+  let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
+  d1 $ iter 8 $ (|+| gain "0.1") $ 
+    move $
+    every 5 (rip 0.5 0.1) $ every 6 (crushit) $ whenmod 8 6 (jux rev) $
+    every 7 (rev) $
+    stack [      
+      degradeBy 0.4 $
+        sound "revkit*16" # n (density 2.3 $ run 7) # gain "0.8",
+      (# n "[1 0 3]/5") $ (|+| gain "[0 -0.1 0]/5") $ rarely (stut' 2 (0.0625) (|*| gain "1")) $
+        rep' 8 $ gain pat # sound "alk" # cut "10",
+      (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.15 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
+        # cut "1" # speed "<1 1 1 0.5>",
+      sound "~ alcp" # gain "1",
+      whenmod 14 7 (degrade) $ jux (iter 16) $
+        sound "als([5 3 7]/3,8)" # cut "100" # end "0.05" # gain "0.8" # speed "1"
+    ]
 
 
     
+-- d code
+bps (180/120)
+
+let npat = "[0 2 4 6]/16"
+
+hush
+
+d2 $ move $
+  every 9 (rev) $
+  every 5 (|=| coarse (shift' 3 $ choose [4,6..18])) $
+  every 8 (|=| accelerate "0.5 -0.5") $
+  whenmod 13 11 (|=| accelerate "1") $
+    slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1.1" # speed "0.5" # shape "0.4"
+
+d1 $ 
+  move $ whenmod 8 6 (jux rev) $ every 5 (rip' 0 1 12 0.25 0.125) $ every 6 (crushit) $ 
+    every 7 (stut' 4 (0.0625) (|*| gain "0.9")) $
+    every 8 (rev) $ every 9 (|*| speed "-1") $
+  stack [
+    -- break
+    whenmod 10 6 (gtfo) $ degradeBy 0.1 $ brakk "fur1*8" # gain "0.95",
+    every 8 (|=| accelerate "0.5 -0.5") $
+      whenmod 13 11 (|=| accelerate "1") $
+      stack [
+        -- vox
+        whenmod 16 4 (gtfo) $
+          every 3 (|*| speed (choose [0.9,0.8,0.7])) $
+          rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "namevox([3 5 7]/3,16)" # cut "819" # gain "1.1",
+        -- kicks
+        rarely (stut' 1 (0.0625) (|*| gain "1")) $ sound "name([3 5 7]/3,16)" # n npat # gain "1",
+        -- snares
+        slow 2 $ (|+| n "1") $ sound "~ name [~ name] ~" # n npat # shape "0.2" # gain "1"],
+    -- vaccuums
+        gtfo $ every 8 (|=| accelerate "0.5 -0.5") $
+        whenmod 13 11 (|=| accelerate "1") $
+        slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1.1" # speed "0.5" # shape "0.4"] 
+      
+
+
+bps (240/120)
+
+hush
+
+
+
+
+-- mesabi
+bps (240/120)
+
+do
+    let patk = "{1   ~ 1 1 ~ }%8"
+    let patc = "{1/2 ~ ~ ~ ~ }%8"
+    d1 $ stack [
+        sometimes (# s "mestab1") $ gain patk # s "mestab1" 
+            # n (discretise (1/5) $ slow 1.1 $ irand 24) # cut 1,
+        sometimes (# s "meskit1") $ gain patk # s "meskit1" 
+            # cut 2,
+        gain patc # s "cp" # n "0" # shape "0.1"
+        ]
+
 hush
 

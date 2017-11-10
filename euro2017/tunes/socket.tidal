@@ -11,12 +11,6 @@ let k = s "socketkit:0"
     perc = s "socketkit:5"
     jump p = stut' 4 (0.125) (|*| speed "2") $ p
 
-let pat = "{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8"
-
-hush
-
-d1 $ sound "socketkit:7*8?"
-
 do
   let pat = "{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8"
   let x = gain pat
