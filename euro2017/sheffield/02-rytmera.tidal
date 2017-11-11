@@ -1,0 +1,15 @@
+bps (130/120)
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    d1 $  
+        stack [ 
+        gtfo $ gain (pat) # sound "rytmerak" # rel "1",
+        gtfo $ gain (inverse <$> pat) # sound "rytmerars",
+        gtfo $ gain (inverse <$> pat) # sound "rytmerach" # cut "88",
+        gtfo $ gain (pat) # sound "rytmeracp",
+        gain (inverse <$> pat) # sound "rytmera" 
+            # n (discretise (1/2) $ shift' 71 $ irand (128)) # gain "1.1",
+        gtfo $ gain (inverse <$> pat) # sound "rytmera" 
+            # n "34" # gain "1.1"]
+

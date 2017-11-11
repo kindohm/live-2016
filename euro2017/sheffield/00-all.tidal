@@ -33,24 +33,24 @@ do
                 # gain (scale 0.9 1.2 $ slow 1.3 rand) # gain "0.95"
                 # pan (scale 0.3 0.7 $ slow 1.4 rand) ]
     
--- .lean()
-bps (150/120)
+-- rytmera
+bps (130/120)
 
-let progwav = (|+| up "{0 0 0 2 2}%1")
-    basspat = "{leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ leanb2 ~ ~ ~}%16"
-    basspat2 = "{leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ leanb ~ ~ ~}%16"
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    d1 $  
+        stack [ 
+        gtfo $ gain (pat) # sound "rytmerak" # rel "1",
+        gtfo $ gain (inverse <$> pat) # sound "rytmerars",
+        gtfo $ gain (inverse <$> pat) # sound "rytmerach" # cut "88",
+        gtfo $ gain (pat) # sound "rytmeracp",
+        gain (inverse <$> pat) # sound "rytmera" 
+            # n (discretise (1/2) $ shift' 71 $ irand (128)) # gain "1.1",
+        gtfo $ gain (inverse <$> pat) # sound "rytmera" 
+            # n "34" # gain "1.1"]
 
-d1 $
-stack [  
-    progwav $ s basspat |=| n (shift $ irand 12) |=| gain "1" # cut "1112",
-    gtfo $ progwav $ rep' 24 $ sound "{leankit/4 ~ ~ ~ ~}%4" |=| cut "2",
-    gtfo $ whenmod 7 4 (0.125 ~>) $ sound "leankit:2*4",
-    gtfo $ sound "~ s" |=| gain "1.1",
-    gtfo $ foldEvery [2,3] (density 2) $ sometimesBy 0.1 (# s "leankit:4") $ 
-        sound "leankit:3*8" |=| gain "1" # cut "816",
-    gtfo $ sound "{leankit:5/8 ~ ~ ~ ~}%4" |=| gain "1",
-    gtfo $ sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
-        sound (samples "{leanm2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" |=| cut "81"]
+                                
+
 
 -- c code
 bps (140/120)
@@ -159,23 +159,39 @@ d1 $
       slow 2 $ rep' 6 $ sound "namesy" # n "[0 1]/8" # cut "23" # gain "1.1" # speed "0.5" # shape "0.4"] # delaytime "0" # delayfeedback "0"
 
 
-      bps (240/120)
-      
-      hush
-      
-      
-      do
-          let patk = "{1   ~ 1 1 ~  1 ~ ~ ~ ~ ~ ~ ~ }%8"
-          let patc = "{1/2 ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ }%8"
-          d1 $ stack [
-              sometimes (# s "mestab1") $ gain patk # s "mestab2" 
-                  # n (discretise (1/5) $ slow 1.1 $ irand 24) # cut 1,
-              sometimes (# s "meskit1") $ gain patk # s "meskit2" 
-                  # cut 2,
-              gain patc # s "cp" 
-                      # n "0"
-               ]
-      
+-- socket
+cps 0.65
+
+let k = s "socketkit:0"
+    cp = s "socketkit:3"
+    ch = s "socketkit:2" |=| cut "-1" # shape "0.3"
+    oh = s "socketkit:4" |=| cut "-1" # shape "0.35"
+    b = s "socket" |=| n (irand 100) |=| shape "0.5" # hpf "100"
+    b2 = s "socket2" |=| n (irand 100)
+    sd = s "socketkit:1"
+    t = s "socketkit:6"
+    perc = s "socketkit:5"
+    jump p = stut' 4 (0.125) (|*| speed "2") $ p
+
+do
+  let pat = "{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8"
+  let x = gain pat
+  let y = gain (inverse <$> pat)
+  d1 $
+      stack [
+      (|*| gain "1.1") $ x # b,
+      y # k,
+      gtfo $ (0.125 <~) $ x # t,
+      gtfo $ (|*| gain "1.2") $ x # cp,
+      gtfo $ y # ch,
+      gtfo $ x # oh,
+      gtfo $ (|*| gain "1.2") $ (0.25 ~>) $ x # sd]
+
+
+hush
+
+
+
 
 -- mesabi
 bps (240/120)
