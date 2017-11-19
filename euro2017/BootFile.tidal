@@ -4,16 +4,18 @@
 
 (cps, nudger, getNow) <- cpsUtils'
 
--- import Sound.Tidal.Context
--- import Sound.Tidal.MIDI.Stream
--- import Sound.Tidal.MIDI.Context
+import Sound.Tidal.Context
+import Sound.Tidal.MIDI.Stream
+import Sound.Tidal.MIDI.Context
 
--- displayOutputDevices >>= putStrLn
+displayOutputDevices >>= putStrLn
 
--- import Rytmera.Harmor
--- devs <- midiDevices
+import Rytmera.Harmor
+devs <- midiDevices
 
--- harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
+--harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
+rytm <- midiStream devs "Elektron Analog Rytm" 1 harmorController
+ml <- midiStream devs "Scarlett 18i8 USB" 15 harmorController
 
 (d1,t1) <- superDirtSetters getNow
 (d2,t2) <- superDirtSetters getNow
