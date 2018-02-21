@@ -1,0 +1,49 @@
+bps (180/120)
+
+let pat  = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    patx = "{1 ~ 1 1 ~ 1 ~ 1 1 1 ~ ~ ~}%8"
+    domidi = midicmd "[noteOn, control]"
+    dis p = discretise (1/(13/2)) $ p
+
+d1 $ (|*| amp "0.7") $ amp pat # stack [
+      (|*| ctlNum prism) $ ctlNum pat # control (dis $ scale 0 127 $ shift' 1 $ rand),
+      (|*| ctlNum tremdepth) $ ctlNum pat # control (dis $ scale 0 127 $ shift' 2 $ rand),
+      (|*| ctlNum tremspeed) $ ctlNum pat # control (dis $ scale 0 127 $ shift' 3 $ rand),
+      (|*| ctlNum x) $ ctlNum pat # control (dis $ scale 13 95 $ shift' 4 $ rand),
+      (|*| ctlNum y) $ ctlNum pat # control (dis $ scale 13 127 $ shift' 5 $ rand),
+      (|*| ctlNum z) $ ctlNum pat # control (dis $ scale 0 95 $ shift' 6 $ rand)]
+    # s "harmor" # articulator # domidi # legato "1"
+    # nudge "0.23"
+
+-- oh what a simple sample synth
+d1 $ amp patx # s "artsy" # cut "817" # n (dis $ irand 48) # gain "0.9"
+
+d2 $ stack [
+    gain (inv <$> pat) # s "artbd" # n "1",
+    gain (inv <$> pat) # s "artch" # n "2",
+    whenmod 10 5 (slow 2) $ density 16 $ s "artch" # n "3" # gain "0.8",
+    gain (pat) # s "artcp" ]
+
+
+hush
+
+d2 $ stack [
+    gain (pat) # s "artbd" # n "0",
+    gain (pat) # s "artch" # n "0",
+    whenmod 10 5 (slow 2) $ density 16 $ s "artch" # n "1" # gain "0.9",
+    gain (inv <$> pat) # s "artcp" # n "1" ]
+
+
+
+-- synth sampling
+d1 $ amp "1/3" # stack [
+      (|*| ctlNum prism) $ ctlNum 1 # control (scale 0 127 $ shift' 1 $ rand),
+      (|*| ctlNum tremdepth) $ ctlNum 1 # control (scale 0 127 $ shift' 2 $ rand),
+      (|*| ctlNum tremspeed) $ ctlNum 1 # control (scale 0 127 $ shift' 3 $ rand),
+      (|*| ctlNum x) $ ctlNum 1 # control (scale 13 95 $ shift' 4 $ rand),
+      (|*| ctlNum y) $ ctlNum 1 # control (scale 13 127 $ shift' 5 $ rand),
+      (|*| ctlNum z) $ ctlNum 1 # control (scale 0 95 $ shift' 6 $ rand)]
+    # s "harmor" # articulator # domidi # legato "0.7"
+    # nudge "0.23"
+
+hush

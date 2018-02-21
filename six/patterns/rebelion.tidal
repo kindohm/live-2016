@@ -1,0 +1,27 @@
+bps (145/120)
+
+let
+    domidi = midicmd "[noteOn, control]"
+
+do
+    let pat = "{1 ~ ~ 1 ~ 1 ~ ~}%16"
+        cpp = "{1 ~ ~ ~ ~ ~ ~ ~}%16"
+    d1 $ (|*| amp "0.6") $ amp pat # stack [
+          (|*| ctlNum timbre) $ ctlNum pat # control (scale 0 127 $ slow 28 tri),
+          (|*| ctlNum revdecay) $ ctlNum pat # control (scale 0 70 $ slow 29 tri),
+          (|*| ctlNum x) $ ctlNum pat # control (scale 0 127 $ slow 30 tri),
+          (|*| ctlNum y) $ ctlNum pat # control (scale 0 127 $ slow 31 tri),
+          (|*| ctlNum z) $ ctlNum pat # control (scale 0 127 $ slow 32 tri)]
+        # s "harmor" # n "[0,2,4]" # rebelion # domidi
+        # nudge "0.23"
+    d2 $
+        (|*| gain "1.1") $ stack [
+        gain (pat) # s "[rebbd]" # cut "1011" # speed "1",
+        slow 2 $ gain cpp # s "[rebcp]" # cut "101",
+        gtfo $ whenmod 20 10 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut "200" # gain "0.8",
+        whenmod 12 6 (gtfo) $ ((0.0625) <~) $ gain pat # s "rebtom" # gain "0.9" ]
+
+
+d2 silence
+
+hush

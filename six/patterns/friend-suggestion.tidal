@@ -1,0 +1,57 @@
+bps (140/120)
+
+do
+    let dis p = discretise (1/4) $ p
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1,1.1..3]) $
+                    spaceOut (map (1/) [1,1.25..3]) $
+                    degradeBy 0.25 $
+                    shift $ p
+    d1 $ stack [
+        (|+| n "[0 1]/40") $ timemod $ n "[0 [0 2]/2]" # s "friend" # gain "[1.1 [1.1 1.2]/2]",
+        whenmod 40 20 (const $ timemod $ s "friendsy1*2" # cut "3892" # n (irand 32) # gain "1.1") $
+          timemod $ s "friendsy2*2" # cut "3892" # n (irand 32) # gain "1.1" # shape "0.2" ]
+
+
+-- play
+do
+    let dis p = discretise (1/4) $ p
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1,1.1..3]) $
+                    spaceOut (map (1/) [1,1.25..3]) $
+                    degradeBy 0.25 $
+                    shift $ p
+    d1 $ whenmod 8 6 (jux rev) $ every 7 (|*| speed (shift' 2 $ choose [-1,1])) $
+        every 6 (# accelerate "{-1 1 -0.5 0.5}%6") $
+        every 4 (rip 0.5 0.1) $ every 5 (rip' 0 1 8 0.125 0.125) $ stack [
+        (|+| n "[0 1]/40") $ timemod $ n "[0 0]" # s "friend" # gain "[1.1 [1.1 1.2]/2]",
+        whenmod 40 20 (const $ timemod $ s "friendsy1*2" # cut "3892" # n (irand 32) # gain "1.1") $
+          timemod $ s "friendsy2*2" # cut "3892" # n (irand 32) # gain "1.1" # shape "0.2",
+          degradeBy 0.2 $ brakk "jung4*8" # shape "0.2" ]
+
+
+hush
+
+
+-- orig synths
+d1 $ (# amp "[0.01 0.7]/40") $ timemod $ density 2 $ n "0"
+    # stack [
+      ctlNum x # control (scale 0 127 $ slow 60 tri),
+      ctlNum y # control (scale 0 127 $ slow 62 tri),
+      ctlNum z # control (scale 0 63 $ slow 64 tri) ]
+    # s "harmor" # domidi # friend1 # nudge "0.23"
+d2 $ (# amp "[0.7 0.01]/40") $ timemod $ density 2 $ n "0"
+    # stack [
+      ctlNum x # control (scale 0 127 $ slow 60 tri),
+      ctlNum y # control (scale 0 127 $ slow 62 tri),
+      ctlNum z # control (scale 0 63 $ slow 64 tri) ]
+    # s "harmor" # domidi # friend2 # nudge "0.23"
+
+
+-- sample slicing
+d1 $ (|*| amp "0.8") $ amp "1/5" # n "0"
+    # stack [
+      ctlNum x # control (scale 0 127 $ slow 60 rand),
+      ctlNum y # control (scale 0 127 $ slow 62 rand),
+      ctlNum z # control (scale 0 63 $ slow 64 rand) ]
+    # s "harmor" # domidi # friend2 # legato "0.975"
+
+hush

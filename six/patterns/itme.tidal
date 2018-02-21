@@ -1,0 +1,70 @@
+bps (160/120)
+
+bps (200/120)
+
+let dis p = discretise (1/4) $ p
+
+-- pad
+d1 $ (|*| amp "1") $  (|+| n (choose[-12,0])) $ (|+| n "6") $ (|=| n "[0,10,14]") $
+    off (0.0625*3) (# amp "1") $ amp "1*2" #
+    stack [
+    ctlNum x # control (dis $ scale 31 83 $ shift' 4 $ rand),
+    ctlNum y # control (dis $ scale 0 63 $ shift' 5 $ rand),
+    ctlNum z # control (dis $ scale 0 127 $ shift' 6 $ rand) ]
+      # s "harmor*2" # domidi # itmesynth # nudge "0.23"
+
+
+d1 silence
+
+
+    d2 silence
+
+-- drums
+let npat p = (|=| n "[0 1 0 2]/32") $ p
+
+d3 $
+    whenmod 19 16 (iter 8) $
+    whenmod 10 8 (jux rev) $
+    move $
+    every 8 (|*| speed (shift' 388 $ choose [1,-1])) $
+    every 4 (rip 0.5 0.1) $
+    every 5 (rip' 0 1 8 0.25 0.1) $
+    every 15 (|=| coarse "{16 8 12 4 24}%4") $
+      every 7 (|=| accelerate "{-1 1 0.5 -0.5}%7") $
+    stack [
+      npat $ randcat [off (0.0625) (|*| gain "0.9") $ gain "1", gain "1(3,8) 1(3,8)",
+        (0.25 <~) $ gain "~ 1(3,8)", gain "1*2 1 ~ ~", gain "~ ~ ~ 1"] # s "itmebd" # cut "100",
+      (# n (irand 20)) $ sometimesBy 0.25 (off (0.125*3) (|*| gain "1")) $ shift $ gain "~ 1"
+        # s "[itmecp1 itmecp2 itmecp1 itmecp3]/32" # cut "300",
+      (|*| gain "1") $ npat $ slow (discretise (1/8) $ slow 8311 $ choose [1,(4/3),2,(8/3)] ) $
+        (# gain (scale 0.8 1 $ slow 382 rand)) $ s "itmetom*16",
+        degradeBy 0.3 $ shift' 3 $
+             randcat[ brakk "nu*8", brakk "nu*8", brakk "ion3*8" ]
+           # gain "1" # shape "0.2",
+           (# n (dis $ irand 84)) $
+               slow (dis $ shift' 101 $ choose [1,(4/3),2,(8/3),4,(12/3)] ) $
+               s "itmevox*16" # cut "338" ]
+
+d4 silence
+
+d3 silence
+
+            hush
+
+
+            -- vox-synth
+            d2 $ (|*| amp "0.5") $
+              slow (dis $ slow 8311 $ choose [1,(4/3),2,(8/3),4,(12/3)] ) $
+                (|+| n (dis $ slow 37.1 $ choose [0,-12])) $ (|+| n "8") $ (|=| n "[0,-1]") $ n "0*16"
+                # stack [
+                ctlNum imgtime # control (dis $ scale 0 127 $ shift' 5 $ rand),
+                ctlNum imgspeed # control (dis $ scale 30 127 $ shift' 5 $ rand),
+                ctlNum y # control (dis $ scale 10 110 $ shift' 5 $ rand),
+                ctlNum z # control (dis $ scale 0 127 $ shift' 6 $ rand) ]
+                # s "harmor" # domidi # itmevox # amp "1" # nudge "0.23"
+
+
+hush
+
+
+d3 $ every 2 (crushit) $ sound "itmebd(3,8)"
