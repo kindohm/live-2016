@@ -1,0 +1,110 @@
+-- mons kit1
+
+bps (160/120)
+
+
+do
+    let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+    let cutout hangtime x vals = (|*| gain (discretise hangtime $ shift' x $ choose vals))
+    -- drums
+    d1 $ (|*| gain 1.1) $ stack [
+        -- kick/snare
+        cutout (1/4) 400 [1,1,1] $ sometimes (0.0625 <~) $
+            shift' 300 $
+            rarely (|+| note "0") $
+            shift' 606 $
+            gain pat # midinote 2,
+        -- perc
+        g $ cutout (1/4) 401 [1,1,1,0,0] $ sometimesBy 0.4 (|+| note 1) $ 
+            shift' 7078 $ gain "{[~ 1] ~ ~ 1*2 1 ~ [~ 1] ~ ~ 1 ~ 1 ~ ~ ~}%8" # midinote 6,
+        -- hat
+        g $ cutout (1/4) 402 [1,1,1,0,0] $ sometimes ((0.0625*9) ~>) $ gain "{1 1 1 1 1*2 1 ~ ~ ~ ~ ~}%8" # midinote 8,
+        gain "1*2" # ccn perf4 # ccv (scale 0 127 $ shift' 12 rand),
+        gain "1*4" # ccn perf7 # ccv (scale 0 80 $ shift' 17 rand),
+        gain "1*4" # ccn perf8 # ccv (scale 0 127 $ shift' 18 rand),
+        gain "1*4" # ccn perf3 # ccv (scale 0 127 $ shift' 13 rand) ] # s "midi"        
+    -- bass
+    d2 $ g $ cutout (1/4) 403 [1,1,1,0,0] $ stack [
+        (|*| gain 1.2) $ 
+            rarely (stut' (shift' 66 $ choose [1,2]) (shift' 5 $ choose [0.125,0.25,(0.125*3),(0.0625*3)]) (|+| note 12)) $ shift' 505 $
+            (|+| note "31") $ (|+| note (shift' 100 $ choose [-12,0,12,1])) $ 
+            gain (slowcat ["1*4?", "~", "~"]) # midinote (shift' 101 $ choose [0]),
+        gain "1*4" # ccn perf1 # ccv (scale 0 127 $ slow 10 sine) ] # s "midi"
+    -- lead
+    d3 $ g $ cutout (1/4) 404 [1,1,1,0,0] $ stack [
+        (|+| note "31") $ (|+| note (shift' 200 $ choose [-12,0,12,24])) $
+            (|+| note (shift' 2000 $ choose [0,1])) $
+            gain (slowcat ["{[1*2 1] 1*2 1*4 ~ ~}%4", "~"]) 
+            # midinote (shift' 101 $ choose [0]) # midichan 1,
+        gain "1*4" # ccn perf2 # ccv (scale 0 127 $ slow 11 sine)
+        ] # s "midi"
+    d4 $ stack [
+        ccv (discretise ( 1/2 ) $ shift' 70 $ choose [0]) # ccn scene ]# s "midi"
+
+hush
+
+
+        hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -- slicin
+
+        do
+            let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+            let cutout hangtime x vals = (|*| gain (discretise hangtime $ shift' x $ choose vals))
+            -- drums
+            d1 $ (|*| gain 1.1) $ stack [
+                -- kick/snare
+                g $ density 1.3 $ cutout (1/4) 400 [1,1,1] $ 
+                    shift' 300 $
+                    rarely (|+| note "0") $
+                    shift' 606 $
+                    gain 1 # midinote 3,
+                -- perc
+                cutout (1/4) 401 [1,1,1] $ sometimesBy 0.4 (|+| note 0) $ 
+                    gain "1" # midinote 6,
+                -- hat
+                g $ cutout (1/4) 402 [1,1,1,0,0] $ sometimes ((0.0625*9) ~>) $ gain "{1 1 1 1 1*2 1 ~ ~ ~ ~ ~}%8" # midinote 8,
+                gain "1*2" # ccn perf4 # ccv (scale 0 0 $ shift' 12 rand),
+                gain "1*4" # ccn perf7 # ccv (scale 0 80 $ shift' 17 rand),
+                gain "1*4" # ccn perf8 # ccv (scale 0 127 $ shift' 18 rand),
+                gain "1*4" # ccn perf3 # ccv (scale 0 127 $ shift' 13 rand) ] # s "midi"        
+        
+                
+
+                d2 $ slow 1.2 $ stack [
+                    (|*| gain 1.2) $ 
+                        sometimesBy 0 (stut' (shift' 66 $ choose [1,2]) (shift' 5 $ choose [0.125,0.25,(0.125*3),(0.0625*3)]) (|+| note 12)) $ shift' 505 $
+                        (|+| note "31") $ (|+| note (shift' 100 $ choose [-12,0,12,1])) $ 
+                        gain (slowcat ["1"]) # midinote (shift' 101 $ choose [0]),
+                    gain "1*4" # ccn perf1 # ccv (scale 0 127 $ slow 10 sine) ] # s "midi"
+            
+
+                    hush
+
+
+                    d3 $ slow 1.3 $ stack [
+                        (|+| note "31") $ (|+| note (shift' 200 $ choose [-12,0,12,24])) $
+                            (|+| note (shift' 2000 $ choose [0,1])) $
+                            gain (slowcat ["1", "~"]) 
+                            # midinote (shift' 101 $ choose [0]) # midichan 1,
+                        gain "1" # ccn perf2 # ccv (scale 0 127 $ slow 11 sine)
+                        ] # s "midi"
+                
+
+                        hush
+                        

@@ -1,0 +1,29 @@
+bps (240/120)
+
+d4 silence
+
+do
+    let patk = "{1   ~ 1 1 ~ }%8"
+    let patc = "{1/2 ~ ~ ~ ~ }%8"
+    let dis = (1/5)
+    d1 $ stack [
+        sometimes (# s "mestab2") $ gain patk # s "mestab2" 
+            # n (discretise dis $ slow 1.1 $ irand 24) # cut 1000,
+        sometimes (# s "meskit2") $ gain patk # s "meskit2" # cut 2000,
+        thicken $ gain patc # s "cp" # n "2" ] # bpf 2000
+
+        hush
+
+-- start
+do
+    let patk = "{1   ~ 1 1 ~ }%8"
+    let patc = "{1/2 ~ ~ ~ ~ }%8"
+    let dis = (1/5)
+    d1 $ (|*| gain 1.15) $ stack [
+        sometimes (# s "mestab2") $ gain patk # s "mestab2" 
+            # n (discretise dis $ slow 1.1 $ irand 24) # cut 1000,
+        sometimes (# s "meskit2") $ gain patk # s "meskit2" # cut 2000,
+        thicken $ gain patc # s "cp" # n "2" ]
+
+            
+            hush
