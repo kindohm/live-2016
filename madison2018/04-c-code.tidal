@@ -29,11 +29,11 @@ do
         stack [
         degrade $
             gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) # cut "-1",
-        rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) # cut "2",
+        g $ rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) # cut "2",
         rep' 3 $ struct struc $ sound "ccstab" # n (slow 18 $ run 6) # gain "1.1"
             # cut "1" # speed "[0.5 0.75 0.5 1]/13",
-        whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2",
-        struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+        g $ whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2",
+        g $ struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
             # gain "1.1"]
 
             hush

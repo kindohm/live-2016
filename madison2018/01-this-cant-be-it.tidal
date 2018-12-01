@@ -18,28 +18,29 @@ do
         , gain "1*16" # control (scale 0 0 $ slow 14.6801 sine) # ctlNum 8
         ] # s "midi" # midichan 13 # midicmd "control"
 
-
 -- just hats
-d3 $ stack [ s "cantch*16" ]      # gain 1.2
+d3 $ density 2.8 $ stack [ s "cantch*16" ]      # gain 1.1
 
 
 -- just hats n claps
-d3 $ stack [ 
-    s "cantch*16", 
-    (0.125 <~) $ s "cantcp" # nudge (scale 0 0.01 $ shift' 88 rand) ] # gain 1.2
+d3 $ density 2.8 $ stack [ 
+    s "cantch*16" # gain 1.1, 
+    (0.125 <~) $ s "cantcp" # nudge (scale 0 0.01 $ shift' 88 rand) # gain 1.2] 
+    
 
-
-d3 $  spike' $ 
+    
+d3 $ density 2.8 $ 
     stack [ 
-    whenmod 8 4 (# n 4) $ density (discretise (1/8) $ shift' 910 $ choose [2,2,2,1]) $ ((0.125*3) <~) $ s "cantk(3,8)" # cut 8 
-        # speed (discretise (1/8) $ shift' 82827 $ choose [1,1,2,4]) # gain 1 
-    ,   every 4 (within ((0.375 + 0.0625), 0.5) (# s "cantoh")) $ density 16 $ 
-        s "cantch" # cut 1001 # gain 1.1
-    ,  (0.125 <~) $ s "cantcp" # nudge (scale 0 0.01 $ shift' 88 rand) # gain 1.2] 
+        g $ whenmod 8 4 (# n 4) $ density (discretise (1/8) $ shift' 910 $ choose [2]) $ ((0.125*3) <~) $ 
+            s "cantk(3,8)" # cut 8 
+            # speed (discretise (1/8) $ shift' 82827 $ choose [4]) # gain 1 
+    ,   g $ every 3 (within ((0.375 + 0.0625), 0.5) (# s "cantoh")) $ density 16 $ 
+            s "cantch" # cut 1001 # gain 1.1
+    ,  g $ (0.125 <~) $ s "cantcp" # nudge (scale 0 0.01 $ shift' 88 rand) # gain 1.2] 
 
     d3 silence
 
-
+d3 silence
 
 
 hush

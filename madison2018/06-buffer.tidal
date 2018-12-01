@@ -8,7 +8,9 @@ let npat = "[0 2 4 6]/24"
             every 10 (|*| speed "-1") $ every 11 (randRev) $ 
             p
 
-d4 $ (# lpf (scale 500 2000 $ slow 20 tri)) $ 
+d4 silence
+
+d8 $ (# lpf (scale 500 2000 $ slow 20 tri)) $ 
   (# n "[1 0 2 3]/12") $ 
   (# up "[0,[-7 -5]/8,4,7,14]") $ 
   slow "{8 4 16 6 24 12}%4" $ 
@@ -20,22 +22,25 @@ d4 $ (# lpf (scale 500 2000 $ slow 20 tri)) $
   # size "0.9"
   # gain "0.9"
 
-d4 silence
+d8 silence
 
-d1 $  
-  stack [
+d1 $ stack [
     whenmod 8 4 (density 2) $ 
       whenmod 12 6 (stut' 1 (0.125) (|*| speed "1.25")) $
       sound "fur1(3,8)" # n "2" # speed "16" # unit "c" # bpf (scale 100 1000 $ slow 3 rand),
     g $ jux (iter 8) $ 
         whenmod 24 18 (gtfo) $ (|+| n npat) $ sound "~ name" 
-            # n "1" # lpf 2000 # speed "0.5" # shape "0.7",
-    whenmod 19 14 (gtfo) $ (|+| n npat) $ rarely (stut' 1 (0.125/2) (|*| speed "0.9")) $ 
+            # n "1" # lpf 10000 # speed "0.5" # end 0.5 # shape "0.7",
+    g $ whenmod 19 14 (gtfo) $ (|+| n npat) $ rarely (stut' 1 (0.125/2) (|*| speed "0.9")) $ 
       rep 10 $ sound "name/5" # n "0" # cut "11",
-    whenmod 17 13 (gtfo) $ whenmod 10 5 (stut' 1 (0.125/2*3) (|*| speed "1.5")) $ 
+    g $ whenmod 17 13 (gtfo) $ whenmod 10 5 (stut' 1 (0.125/2*3) (|*| speed "1.5")) $ 
       rep 8 $ sound "{namevox/13 ~ ~}%8" # cut "3" 
         # shape "0.3" # speed "0.5" # gain "1.05"] # orbit "0"
 
 
-d1 silence
-        hush
+d1
+
+silence
+
+
+hush

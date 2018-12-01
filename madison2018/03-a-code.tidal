@@ -1,26 +1,30 @@
 -- a b code
 bps (140/120)
 
+do
+  d1 silence
+  d2 silence
+  d3 silence
 
--- possible intro 2
+-- int
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
-  d4 $ (|*| gain 1.1) $ foldEvery [3,4] (0.25 <~) $
+  d4 $ (|*| gain 1.1) $ foldEvery [3,4,5] (0.25 <~) $
     stack [
       (# n "[1 0 2]/5") $ (|+| gain "[0.05 0.1 0.05]/5") $ rep' 8 $ gain pat # sound "alstab"
         # cut "1" # speed "0.25",
-      thicken' 0.9 0.9 $ sound "~ alcp" # gain "1",
-      jux (iter 16) $
+      g $ thicken' 0.9 0.9 $ sound "~ alcp" # gain "1",
+      g $ jux (iter 16) $
         sound "revkit(<5 9 3 11 7>,16)" # n (shift' 202 $ irand 20) # gain "0.7" # speed "2"
           # accelerate (choose [-1, 1])
     ]
+
 
 hush
     
 do
   let pat = "{1 ~ ~ 1 ~ ~ ~ ~}%2"
   d1 $ (|*| gain 1.1) $ 
-    foldEvery [3,4] (0.25 <~) $
     stack [
       degradeBy 0.4 $
         sound "revkit*16" # n (density 2.3 $ run 7) # gain "0.8",
@@ -33,5 +37,5 @@ do
         sound "als([5 3 7]/3,8)" # cut "100" # end "0.05" # gain "0.8" # speed "1"
     ]
 
-hush
 
+    
