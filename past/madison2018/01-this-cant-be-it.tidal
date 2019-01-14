@@ -1,0 +1,65 @@
+bps 0.5
+
+setcps 0.6666666
+
+hush
+
+
+flood "OH HAI MADISON "
+
+do
+    let dens = 1
+    d1 $ density dens $ sometimesBy 0 (stut' (shift' 20 $ choose [1,2]) (0.125*3) (|+| note (shift' 44 $ choose [5,7,12,14]))) $ 
+        (|+| note "-7") $ slow 4 $ note "{[0 4] 2 -24 ~ [ 4 11] ~ ~ [0] [14 16] ~ 11 ~ ~}%16" 
+            # s "midi" # midichan 13 # gain 1.15
+    d2 $ density dens $ stack [ 
+        gain "1*16" # control (range 0 127 $ slow 13.1 sine) # ctlNum 1
+        , gain "1*16" # control (range 127 127 $ slow 11.31 sine) # ctlNum 2
+        , gain "1*16" # control (range 0 127 $ slow 12.25 sine) # ctlNum 3
+        , gain "1*16" # control (range 70 127 $ slow 10.212 sine) # ctlNum 4
+        , gain "1*16" # control (range 0 127 $ slow 8.41 sine) # ctlNum 5
+        , gain "1*16" # control (range 40 90 $ slow 9.587 sine) # ctlNum 6
+        , gain "1*16" # control (range 80 127 $ slow 14.6801 sine) # ctlNum 7
+        , gain "1*16" # control (range 0 0 $ slow 14.6801 sine) # ctlNum 8
+        ] # s "midi" # midichan 13 # midicmd "control"
+
+-- just hats
+d3 $ density dens $ stack [ s "cantch*16" ]      # gain 1.1
+
+
+-- just hats n claps
+d3 $ density dens $ stack [ 
+    s "cantch*16" # gain 1.1, 
+    (0.125 ~>) $ s "cantcp" # gain 1.2] 
+    
+
+    d3 silence
+
+    
+d3 $ density dens $ 
+    stack [ (|*| speed "1") $
+        whenmod 8 4 (# n 4) $ density (discretise (1/8) $ shift' 910 $ choose [2]) $ ((0.125*3) <~) $ 
+            s "cantk(3,8)" # cut 8 
+            # speed (discretise (1/8) $ shift' 82827 $ choose [1]) # gain 1 
+    ,   every 3 (within ((0.375 + 0.0625), 0.5) (# s "cantoh")) $ density 16 $ 
+            s "cantch" # cut 1001 # gain 1.1
+    ,  (0.125 ~>) $ s "cantcp" # nudge (range 0 0.01 $ shift' 88 rand) # gain 1.2] 
+
+    d3 silence
+
+d3 silence
+
+
+
+hush
+
+
+
+
+
+
+
+
+
+
+

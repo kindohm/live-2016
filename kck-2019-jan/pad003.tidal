@@ -1,0 +1,19 @@
+setcps 1.5
+
+hush
+
+do
+  let bank = "[sarb1]/32"
+  let m p = id $ p
+  let kickpat = randcat ["1(3,8)", "1*4 ~", "~ 1*4", "[~ 1 1 ~] ~", "1*4", "1*2 1", "1 1*2", "1(5,8)"]
+  d2 $ 
+    m $
+    stack [
+      gain kickpat # sbank bank "k" # n (irand 4) # cut "1",
+      shift $ gain kickpat # sbank bank "sd" # n (shift' 2 $ irand 4) # cut "2",
+      shift' 10 $ gain "1*8?" # sbank bank "p" # n (shift' 3 $ irand 8) # cut "3",
+      (0.125 <~) $ move $ sometimes (density 2) $ shift' 12 $ sbank bank "b" # n (shift' 4 $ irand 10) # cut "4",
+      sometimes (density 2) $ shift' 11 $ move $ sbank bank "m" # n (shift' 5 $ irand 10) # cut "5",
+      (|* gain "[1 1]/32") $ degradeBy 0.6 $ shift' 20 $ sbank bank "pad" # n (shift' 6 $ irand 18) # cut "6"  ]
+
+

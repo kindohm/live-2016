@@ -40,21 +40,21 @@ do
         vary' 501 0 6 $ control 60 # ctlNum 2, -- vol d
         vary 502 $ control 120 # ctlNum 3, -- vol s
         vary 503 $ control 120 # ctlNum 4, -- vol r
-        vary 504 $ control 34 # ctlNum 5, -- pitch a
+        vary 504 $ control 14 # ctlNum 5, -- pitch a
         vary 505 $ control 60 # ctlNum 6, -- pitch d
         vary' 506 0 20 $ control 80 # ctlNum 7, -- pitch s
-        vary 507 $ control 30 # ctlNum 8, -- pitch r
+        vary 507 $ control 80 # ctlNum 8, -- pitch r
         vary 508 $ control 70 # ctlNum 9,  -- filter a
         vary 509 $ control 64 # ctlNum 10, -- filter d
         vary 510 $ control 64 # ctlNum 11, -- filter s
-        vary 511 $ control 64 # ctlNum 12, -- filter r
-        vary 512 $ control 64 # ctlNum 13, -- filter cutoff
-        vary 513 $ control 20 # ctlNum 14, -- filter env
+        vary 511 $ control 94 # ctlNum 12, -- filter r
+        vary 512 $ control 104 # ctlNum 13, -- filter cutoff
+        vary 513 $ control 70 # ctlNum 14, -- filter env
         vary 514 $ control 10 # ctlNum 15, -- ph width
-        vary 515 $ control 20 # ctlNum 16, -- ph offset
-        vary 516 $ control 40 # ctlNum 17, -- ph w a
+        vary 515 $ control 10 # ctlNum 16, -- ph offset
+        vary 516 $ control 70 # ctlNum 17, -- ph w a
         vary 517 $ control 50 # ctlNum 18, -- ph w d
-        vary 518 $ control 80 # ctlNum 19, -- ph w s
+        vary 518 $ control 30 # ctlNum 19, -- ph w s
         vary 519 $ control 40 # ctlNum 20, -- ph w r
         vary 520 $ control 50 # ctlNum 21, -- ph offset a
         vary 521 $ control 80 # ctlNum 22, -- ph offset d

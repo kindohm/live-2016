@@ -1,0 +1,29 @@
+setcps (150/120/2)
+
+
+hush
+
+do
+    let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
+        vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ ~}%16"
+        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
+        chan = 14
+        deg p = degradeBy 0 $ p
+    d4  $ deg $
+      stack [
+        gain (pat) # s "rebbd" # cut 1011,
+        slow 2 $ gain cpp # s "rebcp" # cut 101,
+        whenmod 20 15 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
+        ((0.0625) <~) $ (|* gain 0.95) $ gain pat # s "rebtom"]
+    d2 $ deg $ (|* gain 1.15) $ gain pat # note "[0,2,4]" # s "midi" # midichan chan
+    d3 $ deg $ stack [ 
+            control (range 0 127 $ slow 30 tri) # ctlNum 1,
+            control (range 0 127 $ slow 28 tri) # ctlNum 2,
+            control (range 0 127 $ slow 29 tri) # ctlNum 3,
+            control (range 0 127 $ slow 31 tri) # ctlNum 5
+        ] 
+        # s "midi" # midichan chan # midicmd "control"
+
+
+
+        hush

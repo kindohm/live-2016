@@ -1,0 +1,54 @@
+-- bluejay
+setcps (180/120/2)
+
+let clutchIn i t = transition tidal (Sound.Tidal.Transition.clutchIn t) i
+
+let pat = "{1 1*2 ~ ~ ~ 1 ~ 1*2 1 ~ 1 1 ~ ~ [~ 1] ~ 1 [~ 1] ~ 1 ~}%8"
+
+    d4 $ (|* gain "1.1") $ 
+        stack [
+            rarely ((# s "cps1") . (# n (irand 10)) . (# speed (range 0.8 1.2 $ slow 1.1 rand))) $
+                whenmod 8 4 (|+ n "1") $ gain pat # s "kbj" # cut 2 # n "[0 4]/9",
+            gain pat # sound (choose ["stab1"]) # cut 1 # n (irand 10) # begin 0.0001,
+            jux (iter 8) $ 
+                whenmod 10 5 (0.125 <~) $ s "ss" # shape 0.2,
+            sometimes (stutWith 2 (0.0625) (|* gain 0.95)) $ shift $ s "spike1*8"
+                # gain (range 0.7 1 $ slow 1.3 rand) # pan (range 0.3 0.7 $ slow 1.4 rand) ]
+
+
+
+                hush
+
+
+d4 $ (|* gain 1.1) $
+    stack [
+        rarely ((|* gain "1.1") . (# s "cpr") . (# n (slow 20 $ irand 10)) . (# speed (range 0.8 1.2 $ slow 1.1 rand))) $
+            whenmod 8 4 (|+| n "0") $ (|* gain "[1.05 1.1]/9") $ gain pat # s "[k fk]/9" # cut "2",
+        gain pat # sound "bj2"
+            # lpf 3000
+            # hpf 300
+            # cut "1"
+            # n (slow 12 $ choose[1,2,3]),
+        whenmod 10 5 (0.125 <~) $ s "uls" # gain "1.2" # speed "[1.5 0.8]/3" # shape "0.2",
+        (# gain 0) $ sometimes (slow 2) $ shift $ s "wet:3*12"
+            # gain (range 0.6 1 $ slow 1.3 rand)
+            # pan (range 0.3 0.7 $ slow 1.4 rand)
+            # speed "2" ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+hush

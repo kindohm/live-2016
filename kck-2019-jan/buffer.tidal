@@ -1,0 +1,60 @@
+setcps (160/120/2)
+
+let npat = "[0 2 4 6]/24"
+    randRev p = (# room (range 0.1 0.8 $ slow 1.7 rand)) $ (# size (range 0.1 0.9 $ slow 1.5 rand)) $ p
+    mod p = whenmod 9 7 (jux rev) $ whenmod 16 13 (smash 4 [3,1,2]) $ 
+            every 6 (randDelay) $ every 5 (rip 0.5 0.1) $ every 7 (crushit) $
+            every 8 (rip' 0 1 8 0.25 0.25) $ every 9 (# accelerate "{-1 1 0.5 -0.5}%9") $ 
+            every 10 (|*| speed "-1") $ every 11 (randRev) $ 
+            p
+
+
+
+d4 silence
+
+d8 $ (# lpf (range 500 2000 $ slow 20 tri)) $ 
+  (# n "[1 0 2 3]/12") $ 
+  (# up "[0,[-7 -5]/8,4,7,14]") $ 
+  slow "{8 4 16 6 24 12}%4" $ 
+  striate' 128 (1/10) $ 
+  sound "ccstab"
+  # hpf "100" 
+  # orbit "1" 
+  # room "0.2" 
+  # size "0.9"
+  # gain "0.9"
+
+d8 silence
+
+d1 $  stack [
+    whenmod 8 4 (density 2) $ 
+      whenmod 12 6 (stutWith 2 (0.125) (|* speed "1.25")) $
+      sound "fur1(3,8)" # n "2" # speed "16" # unit "c" # bpf (range 100 1000 $ slow 3 rand),
+    whenmod 24 18 (gtfo) $ jux (iter 8) $ (|+ n npat) $ sound "~ name" 
+            # n "1" # lpf 1500 # speed "0.5" # end 0.5 # shape "0.7",
+    whenmod 19 14 (gtfo) $ (|+ n npat) $ rarely (stutWith 2 (0.125/2) (|* speed "0.9")) $ 
+      rep 10 $ sound "name/5" # n "0" # cut "11",
+    whenmod 17 13 (gtfo) $ whenmod 10 5 (stutWith 2 (0.125/2*3) (|* speed "1.5")) $ 
+      rep 8 $ sound "{namevox/13 ~ ~}%8" # cut "3" 
+        # shape "0.3" # speed "0.5" # gain "1.05"] # orbit "0"
+
+
+
+
+
+
+hush
+
+
+
+
+
+
+
+
+d1
+
+silence
+
+
+hush

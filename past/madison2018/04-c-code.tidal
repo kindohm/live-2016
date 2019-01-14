@@ -21,21 +21,44 @@ do
             # room 0.5
             # size 0.9
 
+
+
 hush
+
+d1 silence
 
 do
     let struc = "{x ~ ~ ~ ~ ~ [x] ~ ~ [~ x] ~ ~}%8"
-    d1 $ (|*| gain 1.1) $ 
+    d1 $ degradeBy 0.7 $ (|*| gain 1.1) $ 
+        whenmod 16 14 (slow 2 . (|*| speed 0.5)) $
+        whenmod 17 14 (iter 8) $
+        whenmod 12 10 (jux rev) $
+        whenmod 8 4 (move) $
+        every 5 (rip 0.5 0.1) $
+        every 6 (rip' 0 1 8 0.25 0.25) $
         stack [
+        whenmod 20 10 (g) $ brakk "think*4" # speed 4,
         degrade $
             gain "1*16" # sound "[cckit1 cckit2]/10" # n (irand 10) # cut "-1",
-        g $ rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) # cut "2",
+        rep' 3 $ struct struc $ sound "cck" # n (slow 18 $ run 6) # cut "2",
         rep' 3 $ struct struc $ sound "ccstab" # n (slow 18 $ run 6) # gain "1.1"
             # cut "1" # speed "[0.5 0.75 0.5 1]/13",
-        g $ whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2",
-        g $ struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
+        whenmod 15 11 (gtfo) $ sound "~ cccp" # gain "1.2",
+        struct "{~ x [~ x] [~ x/2] ~}%2" $ sound "ccs" # n "[0 1 2]/32" # speed "1.5"
             # gain "1.1"]
 
             hush
 
             
+
+
+
+
+
+
+
+
+
+
+
+
