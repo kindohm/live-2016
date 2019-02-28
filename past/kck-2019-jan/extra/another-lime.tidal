@@ -1,0 +1,61 @@
+setcps (160/120/2)
+
+hush
+
+do
+    let dis p = discretise (1/3) $ p
+    let vary = 0.25
+    let speeds = slow (discretise 1 $ choose [1,1,1,2,2]) $ degradeBy 0.4 $ shift $ s (randcat( 
+                    (replicate 5 "midi*1") 
+                    ++ (replicate 5 "midi*4") 
+                    ++ (replicate 10 "midi*5") 
+                    ++ (replicate 10 "midi*6") 
+                    ++ (replicate 7 "midi*7") 
+                    ++ (replicate 8 "midi*8") 
+                    ++ (replicate 10 "midi*10") 
+                    ++ (replicate 10 "midi*12") 
+                    ++ (replicate 10 "midi*14") 
+                    ++ (replicate 10 "midi*16") 
+                    ++ (replicate 10 "midi*18") 
+                    ++ (replicate 10 "midi*20") 
+                ))
+    -- cp:7 or cps1
+    d1 $ sometimesBy vary ((# s "cps1") . (# speed 1)) $ shift $ speeds # s "k:7" # gain 1.2 # cut 80012
+    d2 $ sometimesBy vary (# gain 0.6) $ shift $ speeds # note "-6" # midichan 12 # gain 1.1
+    -- d3 $ sometimesBy vary (# control 127) $ shift 
+       -- $ speeds # control 0 # ctlNum 100 # midichan 12 # midicmd "control"
+    d4 $ stack [ 
+        speeds # ctlNum 1 # control (dis $ range 0 127 $ shift' 300 rand) 
+      , speeds # ctlNum 2 # control (dis $ range 0 127 $ shift' 301 rand) 
+      , speeds # ctlNum 3 # control (dis $ range 0 127 $ shift' 302 rand) 
+      , speeds # ctlNum 4 # control (dis $ range 0 127 $ shift' 303 rand) 
+      , speeds # ctlNum 5 # control (dis $ shift' 304 $ choose [0,127]) 
+      , speeds # ctlNum 6 # control (dis $ range 0 127 $ shift' 305 rand) 
+      , speeds # ctlNum 7 # control (dis $ range 0 127 $ shift' 306 rand) 
+      ] 
+      # midichan 12 # midicmd "control"
+
+hush
+
+
+d7 $ control "0*8" # ctlNum 4 # s "midi" # midichan 15 # midicmd "control"
+
+
+
+-- meh
+do
+    let speeds p = degradeBy 0.4 $ shift' 100 $ fast (discretise 4 $ shift' 100 $ choose [4,8,16]) $ p
+    d1 $ speeds $ midinote "0" # s "midi" # gain 1.15
+    d3 $ whenmod 40 30 (g) $ speeds $ midinote "8" # s "midi" # gain 1.15
+    d2 $ whenmod 10 5 (0.125 ~>) $ shift $  midinote "~ [3]" # s "midi" # gain 1.15 # nudge (scale 0 0.1 $ slow 33 rand)
+    d9 $ g $ superimpose (whenmod 30 20 (2 ~>) . whenmod 20 10 (0.0625 ~>) . (# gain 1.15)) $ speeds $ note "[-6]" # s "midi" # midichan 15 # gain 1.15
+    d8 $ (# control (shift' 300 $ choose [0,0,0,127])) $ speeds $ control 0 # ctlNum 100 # s "midi" # midichan 15 # midicmd "control"
+
+
+
+
+
+
+
+
+    hush    

@@ -5,12 +5,11 @@ hush
 let npat p = (# n "[0 1 0 2]/32") $ p
     dis p = discretise (1/4) $ p
 
-d1 $ move $ 
-    every 5 (rip 0.9 0.1) $ every 6 (rip' 0 1 8 0.9 0.1) $ every 7 (crushit) $ every 8 (# accelerate "-0.5 0.5") $
-    every 4 (chop 4) $ every 9 (|* speed "-1") $
-    whenmod 12 10 (slow 1.5 . (|* speed 0.8)) $
-    stack [
-        shift' 100 $ degradeBy 0.4 $ randcat [brakk "jung6*8", brakk "jung4*8", brakk "jung5*8" ],
+d2 $ spike' $ whenmod 10 5 (move)
+    $ every 5 (rip 0.8 0.0625)
+    $ every 6 (rip' 0 1 12 0.8 0.125)
+    $ every 7 (# accelerate "-1 1")
+    $ stack [
         -- pad
         (# pan (range 0.3 0.7 $ slow 3.1 rand)) $ 
             (# n (slow 160 $ run 40)) $ off (0.0625*3) (id) $ s "itmepad*2" # cut (slow 44.3 $ choose [3000,3001,3002]) # gain "0.95",
@@ -30,6 +29,6 @@ d1 $ move $
         -- vox
         whenmod 25 15 (g) $ (# n (slow 320 $ run 80)) $
             slow (dis $ shift' 101 $ choose [1,(4/3),2,(8/3),4,(12/3)] ) $
-            s "itmevox*16" # cut "338" ]
+            s "itmevox*16" # cut "338" # gain 0.95 ]
 
 hush

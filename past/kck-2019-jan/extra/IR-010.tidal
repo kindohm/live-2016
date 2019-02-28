@@ -1,0 +1,48 @@
+setcps 0.75
+
+hush
+
+do
+    let ksamps = ["teeny1", "teeny3", "teeny2", "teeny4"]
+    let cpsamps = ["cpr", "teks:1", "cpr:1", "doru"]
+    let chsamps = ["ch:7", "ulh", "ch:6", "ch:4"]
+    let vsamps = ["numbers"]
+    let pickit samps = (discretise (1/3) $ shift' 54 $ choose samps)
+        complow = 1
+        comphigh = 2
+        revmod = 3
+        revdiff = 4
+        revspeed = 5
+        revsize = 6
+        revdecay = 7
+        revdry = 8
+        revwet = 9
+    d1 $ g
+        $ whenmod 25 20 (g)
+        $ foldEvery [4,7,10] (13 ~>)
+        $ whenmod 20 10 (sometimesBy 0.2 randDelay)
+        $ every 9 (crushit)
+        $ shift
+        $ sometimesBy 0.3 ((# s (pickit cpsamps))  . (# cut 2) . (# speed 0.7))
+        $ stutWith 2 0.5 (# s (pickit chsamps)) 
+        $ gain (density (shift' 2 $ choose [1,1,2,2,4,4,8,8,16,16]) "1")
+        # s (pickit ksamps) 
+        # cut "2" 
+        # shape 0.1
+    d2 
+        $ degradeBy 0.2
+        $ shift
+        $ superimpose ((1.25 ~>) . (|* speed (discretise (1/8.5) $ choose [2,0.5,0.75,1.25,1.5])))
+        $ sometimesBy 0.5 (stutWith 2 (0.125*3) (|* gain 0.9))
+        $ gain (density (shift' 2 $ choose [1,1,2,2,4,4,8,8,16,16]) "1")
+        # s (pickit vsamps)
+        # n (discretise (1/8) $ shift' 2343 $ (choose [8,5]))
+        # speed (discretise (1/9) $ shift' 909 $ choose [0.5,0.51..1])
+        # rel 2
+        # gain 1
+        # orbit 1
+        # room 0.2
+        # size 0.1
+        # begin (discretise (1/5) $ range 0 0.3 $ shrand 237489)
+
+        hush

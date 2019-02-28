@@ -1,3 +1,4 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "tidalcycles.bootTidalPath": "/Users/kindohm/code/live-2016/BootTidal-1.0-latency.hs"
 }

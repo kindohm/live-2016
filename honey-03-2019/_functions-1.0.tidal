@@ -6,6 +6,7 @@ let ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . stutWith c (e/(-8)) (|* gain d)) p
     spike p = ((# delaytime (range 0.001 0.3 $ slow 7.1 sine)) . (# delayfeedback (range 0.7 0.99 $ slow 6.71 sine))) $ p
     spike' p = (# delay "0.3") $ spike $ p
+    spike'' p = (# delay "0.4") $ ((# delaytime (range 0.001 0.1 $ slow 6.1 sine)) . (# delayfeedback (range 0.7 0.99 $ slow 5.71 sine))) $ p
     ghost'' a f p = superimpose (((a/2 + a*2) ~>) . f) $ superimpose (((a + a/2) ~>) . f) $ p
     ghost' a p = ghost'' a ((|* gain "0.7") . (# end "0.2") . (|* speed "1.25")) p
     ghost p = ghost' 0.125 p
@@ -107,6 +108,7 @@ let ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     roll' p = rollany (0.0625*3) $ p
     roll'' p = stutWith 2 (shift' 100000 $ choose [(0.0625*3), (0.125*3)]) id $ p
     rollAny = rollany
+    shrand n = shift' n $ rand
         
 
 

@@ -1,0 +1,44 @@
+setcps 1.4
+
+
+do
+    let pat1 = "1*4"
+        pat2 = "{1 1/3 1/2}%8"
+        randSpeed n = (discretise (1/6) $ shift' n $ range 0.6 1 $ shift' 81 rand)
+        complow = 1
+        comphigh = 2
+        revmod = 3
+        revdiff = 4
+        revspeed = 5
+        revsize = 6
+        revdecay = 7
+        revdry = 8
+        revwet = 9
+    d1 
+        $ (|* gain 1.2)
+        $ stack [
+            g $ 
+            (|* gain (discretise (1/8) $ shift' 99 $ choose [1,1,0])) $
+            sometimesBy 0.2 (within (0,1) 
+                ((0.125 <~) . 
+                (# speed (randSpeed 3)) . 
+                (# s (discretise (1/7) $ shift' 389 $ choose  ["cps1", "cpr", "ss" ])))) 
+            $ shift
+            $ sometimesBy 0.2 (stutWith 2 (0.125*3) (id)) 
+            $ gain (randcat [pat1, pat1, pat2]) 
+            # s (discretise (1/10) $ shift' 1000 $ choose ["kit5", "kit1", "kit3", "k:7"])
+            # speed (randSpeed 6)
+            # cut 1
+            , sometimesBy 0.2 (within (0,1) 
+            ((0.125 <~) . 
+            (# speed (randSpeed 3)) . 
+            (# n (shift' 3892 $ choose [0,1..10])) .
+            (# gain 0.9) .
+            (# s (discretise (1/7) $ shift' 389 $ choose  ["itmevox" ])))) 
+            $ (1 <~)
+            $ gain (randcat [pat1, pat1, pat2])
+            # s "itmepad" # cut 2 # gain 0.8 # n (discretise (1/5) $ shift' 706 $ choose [0,1..10])]
+        # delay 0
+        # room 0
+
+        hush

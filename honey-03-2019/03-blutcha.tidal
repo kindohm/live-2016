@@ -1,6 +1,22 @@
 setcps (60/120/2)
 
+d3 silence
+
+d8 $ s "pattonfull*16" # begin 0.5 # cut 1880
+
+d1 silence
+
+d8 $ s "pattonfull" # begin 0 # cut 1880 # gain 1.15
+
+d8 silence
+
+
+
 hush
+
+
+
+setcps (60/120/2)
 
 do
     let chan = 15
@@ -28,20 +44,20 @@ do
         vary 503 $ control 120 # ctlNum 4, -- vol r
         vary 504 $ control 14 # ctlNum 5, -- pitch a
         vary 505 $ control 60 # ctlNum 6, -- pitch d
-        vary' 506 0 20 $ control 80 # ctlNum 7, -- pitch s
-        vary 507 $ control 80 # ctlNum 8, -- pitch r
+        vary' 506 0 20 $ control 90 # ctlNum 7, -- pitch s
+        vary 507 $ control 30 # ctlNum 8, -- pitch r
         vary 508 $ control 70 # ctlNum 9,  -- filter a
         vary 509 $ control 64 # ctlNum 10, -- filter d
         vary 510 $ control 64 # ctlNum 11, -- filter s
         vary 511 $ control 94 # ctlNum 12, -- filter r
-        vary 512 $ control 104 # ctlNum 13, -- filter cutoff
-        vary 513 $ control 70 # ctlNum 14, -- filter env
-        vary 514 $ control 10 # ctlNum 15, -- ph width
-        vary 515 $ control 10 # ctlNum 16, -- ph offset
+        vary 512 $ control 38 # ctlNum 13, -- filter cutoff
+        vary 513 $ control 100 # ctlNum 14, -- filter env
+        vary 514 $ control 5 # ctlNum 15, -- ph width
+        vary 515 $ control 100 # ctlNum 16, -- ph offset
         vary 516 $ control 70 # ctlNum 17, -- ph w a
         vary 517 $ control 50 # ctlNum 18, -- ph w d
         vary 518 $ control 30 # ctlNum 19, -- ph w s
-        vary 519 $ control 40 # ctlNum 20, -- ph w r
+        vary 519 $ control 60 # ctlNum 20, -- ph w r
         vary 520 $ control 50 # ctlNum 21, -- ph offset a
         vary 521 $ control 80 # ctlNum 22, -- ph offset d
         vary 522 $ control 50 # ctlNum 23, -- ph offset s
@@ -49,3 +65,5 @@ do
         vary' 524 0 127 $ control 0 # ctlNum 25    -- unison pitch
             ] # s "midi" # midicmd "control" # midichan chan
     
+
+            hush
