@@ -19,11 +19,13 @@ s.waitForBoot {
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/blutcha/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/c-code/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/d-code/*");
+	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/friend-suggestion/*");
 	//~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/info/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/it-me/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/lime/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/rebellion/*");
-	//~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/risc-chip/*");
+	// ~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/sleep/*");
+	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/risc-chip/*");
 	~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/shared/*");
 	//~dirt.loadSoundFiles("~/studio/tidal-samples/tracks/this-cant-be-it/*");
 
@@ -32,6 +34,7 @@ s.waitForBoot {
 
 	s.sync;
 	~dirt.start(57120, [0, 0]);
+
 
 	MIDIClient.init;
     ~midiOut = MIDIOut.newByName("Scarlett 2i4 USB", "Scarlett 2i4 USB");

@@ -7,14 +7,8 @@ do
         randSpeed n = (discretise (1/6) $ shift' n $ range 0.6 1 $ shift' 81 rand)
     d1 
         $ (|* gain 1.1)
-        $ whenmod 25 22 (iter 8)
-        $ whenmod 11 7 (move)
-        $ every 10 (crushit) 
-        $ every 8 (rip 0.8 0.0625)
-        $ every 9 (rip' 0 1 8 0.8 0.125)
-        $ shift' 8 
-        $ every (discretise (1/4) $ shift' 76 $ choose [10,11..20]) (randDelay) 
         $ stack [
+            -- kit n clap!
             (|* gain (discretise (1/8) $ shift' 99 $ choose [1,1,1,0])) 
                 $ sometimesBy 0.2 (within (0,1) 
                     ((0.125 <~) . 
@@ -26,7 +20,7 @@ do
                 # s (discretise (1/10) $ shift' 1000 $ choose ["kit5", "kit1", "kit3", "k:7"])
                 # speed (randSpeed 6)
                 # cut 1
-            , sometimesBy 0.2 (within (0,1) 
+            , sometimesBy 0.2 (within (0,1) -- vox
                     ((0.125 <~) . 
                     (# speed (randSpeed 3)) . 
                     (# n (shift' 3892 $ choose [0,1..10])) .

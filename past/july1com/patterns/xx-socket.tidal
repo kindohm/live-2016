@@ -1,0 +1,31 @@
+cps 0.65
+
+let k = n "0" # s "socketkit"
+    cp = n "3" # s "socketkit"
+    ch = n "2" # s "socketkit" # cut "37731"
+    oh = n "4"  # s "socketkit" # cut "3773"
+    b = n (irand 100)  # s "socket"
+    b2 = n (irand 100) # s "socket2"
+    sd = n "1" # s "socketkit"
+    t = n 6 # s "socketkit"
+    perc = n 5 # s "socketkit"
+    jump p = stut' 4 (0.125) (|*| speed "2") $ p
+
+let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+
+do
+  let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+  let x = gain pat
+  let y = gain (inverse <$> pat)
+  d1 $
+      stack [
+      x # b |=| shape "0.3",
+      y # k,
+      gtfo $ ((0.0625) ~>) $ y # t,
+      y # cp,
+      (|*| gain 1.1) $ x # ch,
+      (|*| gain 1.1) $ y # oh,
+      gtfo $ (0.125 ~>) $ y # sd
+      ]
+
+

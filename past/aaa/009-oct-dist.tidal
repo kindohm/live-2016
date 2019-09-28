@@ -1,0 +1,56 @@
+setcps (240/120/2)
+
+hush
+
+d2 silence
+
+do
+    let patk = "{1   ~ 1 1 ~ }%8"
+    let patc = "{1/2 ~ ~ ~ ~ }%8"
+    let dis = (1/5)
+    d6 $ stack [
+        sometimes (# s "mestab2") $ gain patk # s "mestab2" 
+            # n (discretise dis $ slow 1.1 $ irand 24) # cut 1000,
+        sometimes (# s "meskit2") $ gain patk # s "meskit2" # cut 2000,
+        thicken $ gain patc # s "cp" # n "2" ] # bpf 2000
+
+do
+    d6 silence
+    asap $ s "milong:2" # cut 2343
+
+
+hush
+
+
+-- start
+do
+    let patk = "{1}%8"
+    let patc = "{1}%8"
+    let dis = (1/5)
+    let howOften = 1
+    d6 $ (|* gain 1.15) $ stack [
+        sometimesBy howOften (# s "mestab1") $ gain patk # s "mestab2" 
+            # n (discretise dis $ slow 1.1 $ irand 24) # cut 1000 # lpf 10000,
+        sometimesBy howOften (# s "meskit1") $ gain patk # s "meskit2" # cut 2000,
+        thicken $ gain patc # s "cp" # n "2" ] 
+        # cps ( (240/120/2) * 100)
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            hush

@@ -1,0 +1,31 @@
+bps (150/120)
+
+hush
+
+
+
+do
+    let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
+        vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ ~ }%16"
+        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
+    d1 $ 
+      stack [
+        degradeBy 0.2 $ brakk "think*4" # speed 4,
+        gain (pat) # s "rebbd" # cut 1011,
+        slow 2 $ gain cpp # s "rebcp" # cut 101,
+        whenmod 20 15 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
+        ((0.0625) <~) $ gain pat # s "rebtom"]
+    d2 $ stdmidinudge $ (|*| gain 1.1) $ gain pat # note "[0,2,4]" # s "midi" # midichan 15
+    d3 $ stdmidinudge $ stack [ 
+            control (scale 0 127 $ slow 30 tri) # ctlNum 1,
+            control (scale 0 127 $ slow 28 tri) # ctlNum 2,
+            control (scale 0 127 $ slow 29 tri) # ctlNum 3,
+            control (scale 0 127 $ slow 31 tri) # ctlNum 5
+        ] 
+        # s "midi" # midichan 15 # midicmd "control"
+
+hush
+
+hush
+
+

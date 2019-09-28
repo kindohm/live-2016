@@ -1,0 +1,7 @@
+setcps (1/0.788)
+
+
+setcps 1
+
+
+d1 $ sound "rainfull/4" |=| cut "1"

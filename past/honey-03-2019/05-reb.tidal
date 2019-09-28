@@ -1,0 +1,56 @@
+setcps (150/120/2)
+
+
+d1 silence
+
+hush
+
+flood "right where we left off. "
+
+do
+  let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
+      vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ ~}%16"
+      cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
+      chan = 14
+      deg = 0.0
+  d4 
+    $ degradeBy deg
+    $ stack [
+      g $ (|* gain 1.05) $ brakk "funky*8",
+      g $ gain (pat) 
+        # s "rebsd" 
+        # cut 1011,
+      slow 2 
+        $ gain cpp 
+        # s "rebcp" 
+        # cut 101,
+      g $ whenmod 16 8 (gtfo) 
+        $ n "{0 0 1}%16" 
+        # s "rebch" 
+        # cut 200 
+        # gain 0.8,
+      g $ ((0.0625) <~) 
+        $ (|* gain 0.95) 
+        $ gain pat 
+        # s "rebtom"]
+  d5 
+    $ degradeBy deg
+    $ (|* gain 1.1) 
+    $ gain pat 
+    # note "[0,2,4]" 
+    # s "midi" 
+    # midichan chan
+  d6 
+    $ stack [ 
+      control (range 0 127 $ slow 34 tri) # ctlNum 1,
+      control (range 0 127 $ slow 32 tri) # ctlNum 2,
+      control (range 0 127 $ slow 33 tri) # ctlNum 3,
+      control (range 0 127 $ slow 35 tri) # ctlNum 5
+    ] 
+    # s "midi" 
+    # midichan chan 
+    # midicmd "control"
+
+
+
+        hush

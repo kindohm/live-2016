@@ -1,0 +1,41 @@
+bpm 170
+
+hush
+
+d1 $ 
+
+
+
+
+let pmod1 p = stut' 1 0.0625 (|+| note (choose [36,24,12,36,-12])) $ p
+    pmod1' p = sometimesBy 0.1 (sometimesBy 0.1 (pmod1) . shift' 1 . sometimesBy 0.1 (pmod1) . shift' 1 . pmod1) $ p
+
+-- erebus
+-- OSC2 16
+do
+    d2 $     
+        every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+            note "0 4 7 11 12 16 19 23" # s "midi" # midichan "6" 
+    d3 $ gain "1*8" # control (scale 0 127 $ slow 15 sine) # ctlNum 1 # s "midi" # midichan "6" # midicmd "control"
+
+hush
+
+d1 silence
+
+-- drums
+d1 $ degradeBy 0.8 $ 
+    stack [        
+        g $ degradeBy 0.3 $ shift' 18181 $  slowcat [brakk "brk1*8", brakk "brk2*8", brakk "brk3*8" ],
+        g $ sometimesBy 0.2 (off 0.0625 ((|*| speed "2") )) $ shift $
+            density 2 $ s "mintstab(3,8)" # n (discretise (1/8) $ irand 33) 
+            # lpf (scale 500 5000 $ slow 20 sine) # cut "8831"
+            # gain "0.4",
+        rep 10 $ n "{0/4 ~ ~ ~ ~}%4" # s "mintkit" # cut "1" # gain "0.9",
+        rarely (0.125 ~>) $ shift $ n "{~ ~ ~ 2 ~ ~ ~}%2" # s "mintkit" # gain "1.1",
+        rarely (0.25 ~>) $ n "~ 1" # s "mintkit" # gain "0.95",
+        n "{3*4 3*2 [4 ~ ~ 4] 3 ~ ~ ~}%4" # s "mintkit" # cut "82" # gain "1",
+        n "{5/16 ~ ~ ~ ~}%4" # s "mintkit" # cut "2",
+        n "~ [~ 6/4] ~ ~" # s "mintkit" # gain "1.1"]
+
+
+hush

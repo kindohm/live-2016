@@ -1,0 +1,58 @@
+setcps 0.58333
+
+hush
+
+d8 
+    $ jux (foldEvery [2..4] (3.75 <~)) 
+    $ slow (discretise 1 $ shift' 3 $ choose [2..4])
+    $ superimpose ((# speed "0.25") . (slow 1.06)) 
+    $ rarely (# accelerate "[-1 1]*3") 
+    $ striate' 128 (1/20)
+    $ foldEvery [2,3] (fast 1.25) $ sound "trans1"
+    # hpf (range 200 2000 $ every 2 (rev) $ foldEvery [2..6] (density 2) $ saw)
+    # speed "{1 -1.5 0.5 0.75 1.25 2 0.5}%1"
+    # gain 0.6
+    # orbit 0
+    # lpf 5000
+
+
+    
+flood "hey. "
+
+d1 silence
+
+d1 
+    $ degradeBy 0.5 
+    $ whenmod 20 17 (iter 8)
+    $ whenmod 11 9 (jux rev)
+    $ whenmod 10 7 move
+    $ every 4 (rip 0.8 0.125)
+    $ every 5 crushit
+    $ every 6 (# accelerate "-1 1")
+    $ sometimesBy 0.2 randDelay
+    $ every 7 (sometimes (|* speed "-1"))
+    $ stack [
+        deg 0.5 333 $ randcat [ brakk "jung4*8", brakk "jung5*8" ],
+        whenmod 8 4 (# n 2) $
+            sometimes one $ shift $ deg 0.4 5 $ s "bluek(<3 5>,16, <0 5 2 3>)" # n 1
+        , sometimes roll $ shift $ deg 0.3 77 $ s "~ bluecp" # gain 0.9 # n (shift' 90 $ irand 20)
+        , deg 0.3 4 
+            $ s "{peri tite peri doru tite}%16" # speed 2 # n (shift' 88 $ irand 20)
+    ] # orbit 1
+
+flood "do you like computer music? "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

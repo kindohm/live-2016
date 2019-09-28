@@ -1,8 +1,16 @@
 setcps 0.5
 
-let super = superimpose ((|* gain (range 0.8 1 $ slow 12 sine)) . (# orbit 1) . (# hpf (range 40 2000 $ slow 10 sine)) . (# hpq 0.1) . (# lpq 0.1) . (# lpf (range 40 3000 $ slow 11 sine)) . iter 32 . fast 3)
+let super = superimpose ((|* gain (range 0.5 0.8 $ slow 12 sine)) . 
+                        (# orbit 1) . 
+                        (# hpf (range 40 2000 $ slow 10 sine)) . 
+                        (# hpq 0.1) . 
+                        (# lpq 0.1) . 
+                        (# lpf (range 40 3000 $ slow 11 sine)) . 
+                        iter 32 . 
+                        fast 3)
 
 d1 
+    $ super
     $ stack [
         rarely (one) $ shift' 33 $ s "k(3,8) ~" 
             # n 7
@@ -15,7 +23,6 @@ d1
             $ striate' (discretise 1 $ shift' 77 $ choose [32,16,64,8,128]) (discretise 1 $ shift' 10 $ choose [0.1,0.11..0.5]) 
             $ s "s"
             # n 0
-            # shape 0.5
             # speed (discretise (1/3) $ slow 44 $ choose [0.25,0.251..2])
         , foldEvery [3,5,7,9] (fast (4/3)) 
             $ s "ch*4" 
@@ -25,12 +32,13 @@ d1
             $ superimpose ((|* speed 1.1) . (# pan 0))
             $ striate' (discretise 1 $ shift' 379 $ choose [256,1024,512]) (discretise 1 $ shift' 9917 $ choose [0.01,0.012..0.1]) 
             $ s "mi" 
-            # n 69
+            # n 6234
             # speed "[1.1]/2"
             # pan 1
-            # gain 1
+            # gain 0.9
+            # lpf 4000
     ]
-    # cps ( (range 1 1.1 $ slow 10 sine) * (discretise 1 $ range 0.5 0.6 $ shrand 32891) )
+    # cps ( (range 0.8 1.1 $ slow 10 sine) * (discretise 1 $ range 0.5 0.6 $ shrand 32891) )
     # orbit 0
     # delay 0
 

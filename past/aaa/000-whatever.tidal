@@ -1,0 +1,94 @@
+d1 
+    $ (# speed (range 0.8 1.1 $ slow 4.1 sine))
+    $ stack [
+        gtfo $ s "mi*40" # n "<7 9 8>"
+        , s "k*40" # n 7
+        , gtfo $ s "~ ~ ~ [s [s [s s]]]" # speed 0.9
+        , s "~ ~ ~ ch*40"
+        , s "b:8*40"
+    ]
+    # legato (range 0.01 2 $ saw)
+    # cps (range 0.5 0.005 $ saw)
+    
+d1 $ s "k*8"
+
+
+
+
+
+
+
+setcps 1
+
+
+
+d1 $ every 3 (rev) $ stack [
+    gtfo $ s "mi*40"  # n 10
+    , s "k*40" # n 7
+    , gtfo $ s "~ ~ ~ ch*40"
+    , gtfo $ s "~ ~ ~ s" # shape 0.2
+    , gtfo $ s "b:8*40"
+    ] # legato (range 1 0.001 $ saw)
+    # cps (range 0.5 0.5 $ saw)
+
+    # speed (range 0.95 1.05 $ slow 2 sine)
+
+    hush
+
+
+
+
+
+
+
+
+
+
+
+    d1 silence
+
+flood "how do you like this algorithm? "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

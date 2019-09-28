@@ -1,0 +1,29 @@
+cps 1
+
+do
+    let list1 = [0.05,0.1..1]
+    let list2 = [1,0.95..0.05]
+    let sp p = spaceOut (list2) $ p
+    d9 $ (# lpf (scale 100 10000 $ slow 10 sine)) $ (# speed (scale 0.5 1.2 $ slow 13 sine)) $ sp $ s "[k*8]" # n 0 # gain 1.1
+    d6 $ (# lpf (scale 300 2000 $ slow 11 sine)) $ (# speed (scale 1 1.01 $ slow 12 sine)) $ sp $ s "[cp*4]" # n 0 # gain 0.9
+    d5 $ s "cpr/6" # lpf 2000
+    d7 $ stdmidinudge $ slow 16 $ gain "1" # note "[0,7,14,-2]" # s "midi" # midichan 13
+    d8 $ stdmidinudge $ stack [ 
+            gain "1*4" # control (scale 0 127 $ slow 36 sine) # ctlNum 1, 
+            gain "1*4" # control (scale 0 127 $ slow 37 sine) # ctlNum 2, 
+            gain "1*4" # control (scale 0 127 $ slow 32 sine) # ctlNum 3,
+            gain "1*4" # control (scale 0 127 $ slow 33 sine) # ctlNum 4,
+            gain "1*4" # control (scale 0 127 $ slow 34 sine) # ctlNum 5,
+            gain "1*4" # control (scale 0 127 $ slow 35 sine) # ctlNum 6
+            ] 
+            # s "midi" # midichan 13 # midicmd "control"
+
+            d4 silence
+
+            hush
+
+do
+    d1 silence
+    d2 silence
+    d3 silence
+    d4 silence

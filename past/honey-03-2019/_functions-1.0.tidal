@@ -85,10 +85,6 @@ let ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     uni = ctlNum 25
     g = gtfo
     del = gtfo
-    slice pi pn p = begin b # end e # p
-      where b = (\i n -> (div' i n)) <$> pi <*> pn
-            e = (\i n -> (div' i n) + (div' 1 n)) <$> pi <*> pn
-            div' a b = fromIntegral (a `mod` b) / fromIntegral b
     r = run
     ri a = rev (r a) -- run inverted
     rodd a = (((r a) + 1) * 2) - 1 -- run of odd numbers
@@ -109,8 +105,9 @@ let ripOLD a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     roll'' p = stutWith 2 (shift' 100000 $ choose [(0.0625*3), (0.125*3)]) id $ p
     rollAny = rollany
     shrand n = shift' n $ rand
-        
-
+    squee p = stutWith 16 (0.0625/2) ( (|* gain 0.95) . (|* speed 1.1) ) $ p
+    squee' p = stutWith 16 (0.0625/4) ( (|* gain 0.95) . (|* speed 1.1) ) $ p
+    creak = squee
 
 d1 $ note "0" # s "midi/2" # midichan 6
 

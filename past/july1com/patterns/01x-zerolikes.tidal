@@ -1,0 +1,34 @@
+bps (200/120)
+
+
+-- erebus
+-- osc1 16, osc2 whatever
+d3 $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose[0,12,0])) $ shift' 81 $
+    degrade $ shift' 82 $ (|+| note "-24") $ (|+| note "9") $  (|+| note (choose mpent)) $ note "0"
+        # s "midi" # midichan "6"
+
+
+d1 $
+stack [
+    slow 2 $ sound "k*4 ~ ~ ~" # n (run 30),
+    gtfo $ slow 2 $ sound "~ ~ sdeep/2 cp/3" # n (irand 30),
+    every 4 (# speed "-1") $
+        sound "~ cpr/3" # coarse "{0 4 8 16 32}%8",
+    foldEvery [2,3,4] (density 2) $ sound "ch:8*2" # gain "0.8",
+    gtfo $ degradeBy 0.5 $ sound "{peri*2 doru*2 peri*2 tite peri*2}%4" # n (run 33) # speed "2" # end "0.5" ]
+
+d2 $ stut' 8 (0.125*3) (|*| gain "0.9") $
+    rarely (|*| speed "0.5") $
+  gain "{1*4 1*4 ~ ~ ~ ~ ~}%2" # s "zlkeys2" # n (irand 30) # cut "783"
+  # cutoff (scale 1000 2000 $ slow 7 tri1)
+  # pan rand
+  # gain "1"
+
+d2 silence
+
+hush
+
+d4 $ slow 8 $ stack [sound "{zlpad ~ ~}%8" # n (shift' 771 $ irand 25) # pan (shift' 112 $ rand),
+    sound "{zlpad ~ ~ ~ ~}%8" # n (shift' 772 $ irand 25) # pan (shift' 383 $ rand)] # gain 0.9
+
+hush

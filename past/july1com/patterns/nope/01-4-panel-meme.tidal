@@ -1,0 +1,52 @@
+bps (110/120)
+
+hush
+
+do
+    let x a b p = sometimesBy 0.15 (stut' (shift' a $ choose [4,8]) (shift' b $ choose [0.0625,(0.0625/2), (0.0625/4), (0.0625/8)]) (|*| gain 0.99)) $ p
+    let mod p = id $ p
+    d1 $ 
+        mod $
+        x 115 116 $ stack [
+        shift $
+        sometimesBy 0.25 (stut' 1 (0.0625) ((# s (discretise (1/4) $ shift' 70911 $ choose ["ss", "cps1", "cps1", "cps1"])) . (# n (shift' 383 $ irand 5)) . stut' 1 (0.0625*3) ( (# hpf 2000) . (# shape 0.5) . (# speed 0.4) ) )) $
+        shift $
+        degradeBy 0.6 $
+        shift $    
+        fast (discretise 1 $ shift' 383 $ choose [4,8,16]) $
+        gain 1 #
+        s (discretise (1/4) $ shift' 709 $ choose ["kit5", "kit3", "kit3", "kit3"]) # n 0 # speed 0.8 ,
+        gtfo $ (# lpf (scale 100 500 $ slow 10 tri)) $ 
+            (# hpf (scale 40 500 $ slow 11 tri)) $
+            slow (discretise 2 $ choose [1,1.2..4]) $ (jux rev $ slow 16 $ striate' 512 (1/5) $ sound "deeper" ) 
+                # resonance (scale 0.05 0.1 $ slow 12 tri) # shape 0.5 # gain 0.95 ]
+    d2 $ ((0.0625*3) ~>) $ mod $
+        x 117 118 $
+        shift $ shift $
+        degradeBy 0.6 $
+        shift $    
+        fast (discretise 1 $ shift' 383 $ choose [4,8,16]) $
+        gain 1 #
+        s "ch" # n 0 # speed 0.8
+    d3 $ move $
+        (|+| note (shift' 8109 $ choose [0,-12,-24,-36])) $ 
+        density (shift' 881 $ choose [1,1.5..8]) $ 
+        s "midi/4" # midichan 12 # note (shift' 181 $ choose [0,2,4,-3])
+    d4 $ move $
+        density (shift' 881 $ choose [1,1.5..8]) $ 
+        gain "1/4" #
+        stack [
+            control (scale 0 127 $ shift' 130 rand) # ctlNum 50,
+            control (scale 0 32 $ shift' 10 rand) # phw,
+            control (scale 0 70 $ shift' 11 rand) # phoff,
+            control (scale 0 127 $ shift' 12 rand) # filt,
+            control (scale 0 50 $ shift' 13 rand) # filtEnv,
+            control (scale 0 127 $ shift' 14 rand) # pitcha,
+            control (scale 0 127 $ shift' 15 rand) # pitchd,
+            control (scale 30 80 $ shift' 16 rand) # pitchs,
+            control (scale 0 127 $ shift' 174 rand) # pitchr
+            ] # s "midi/4" # midichan 12 # midicmd "control"
+
+hush
+
+d2 $ density 16 $ control "0" # ctlNum 50 # s "midi" # midicmd "control" # midichan 12

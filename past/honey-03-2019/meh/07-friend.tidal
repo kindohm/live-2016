@@ -1,0 +1,24 @@
+
+
+setcps (140/120/2)
+
+let friendChan = 13
+
+do
+    let dis p = discretise (1/4) $ p
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [0.5,0.6..5]) $
+                    spaceOut (map (1/) [1,1.25..5]) $
+                    degradeBy 0.25 $
+                    shift $ p
+    let mod p = degradeBy 0 $ p
+    d1 $ mod $ timemod $ note "0*2" # sound "midi" # midichan friendChan
+    d2 $ mod $ stack [
+        timemod $ (|* control "[1 0.5]/20") $ ctlNum "1*2" # control (range 0 127 $ slow 30 tri),
+        timemod $ (|* control "[1 0.5]/20") $ ctlNum "2*2" # control (range 0 127 $ slow 31 tri),
+        timemod $ (|* control "[1 0.5]/20") $ ctlNum "3*2" # control (range 0 127 $ slow 32 tri),
+        timemod $ ctlNum "5*2" # control "[127]/20"] 
+            # sound "midi" # midichan friendChan # midicmd "control"
+    d3 $ mod $ timemod $ (|+ n "[0 1]/20") $ n "[0 [0 2]/2]" # s "friend" # lpf "[10000 [10000 10000]/2]"
+    
+
+hush

@@ -1,0 +1,63 @@
+setcps (60/120/2)
+
+hush
+
+asap $ s "milong:2" # cut 2882 
+
+do
+  let chan = 15
+  let dis p = discretise (1) $ p
+  let pat = "{1@2 1@1 1@3 1@1 1@3 1@4 1@5 1 1 1?}%8"
+  let mod p = density 1 $ whenmod 13 10 (slow 2) $ shift' 88 $ sometimes ((0.0625/2) ~>) $ shift' 9 $ p
+  let vary' a min max p = (|+ control (dis $ shift' a $ choose[min..max])) $ p
+  let vary a p = vary' a (-3) 3 $ p
+  let shiftover p = ((0.0625/2) ~>) $ p
+  -- drums                
+  d3 
+    $ (# gain 1.15) 
+    $ stack [ 
+      mod $ gain pat # s "blutk" # cut 808 # n (shift' 1001 $ irand 5),
+      (|* gain 1.1) $ 
+        sometimesBy 0.25 (superimpose ((# n 1) . ((0.125/4) <~))) $ shift $ gain "1*4" # s "blutch" # cut 707,
+      degradeBy 0.4 $ shift' 2000 $ s "[~ blutcp]*2" # n (shift' 1002 $ irand 5) ]
+  -- synth
+  d1 
+    $ whenmod 11 8 shiftover 
+    $ (|* gain (range 1 1.05 $ slow 3 rand)) $ mod 
+    $ gain pat # note "{0 3 -2 14 -3}%16" # s "midi" # midichan chan
+  -- cc's
+  d2 
+    $ mod $ gain pat 
+    # stack [ 
+      control 0 # ctlNum 100,
+      control 0 # ctlNum 1, -- vol a
+      vary' 501 0 6 $ control 60 # ctlNum 2, -- vol d
+      vary 502 $ control 120 # ctlNum 3, -- vol s
+      vary 503 $ control 120 # ctlNum 4, -- vol r
+      vary 504 $ control 14 # ctlNum 5, -- pitch a
+      vary 505 $ control 60 # ctlNum 6, -- pitch d
+      vary' 506 0 20 $ control 120 # ctlNum 7, -- pitch s
+      vary 507 $ control 30 # ctlNum 8, -- pitch r
+      vary 508 $ control 70 # ctlNum 9,  -- filter a
+      vary 509 $ control 64 # ctlNum 10, -- filter d
+      vary 510 $ control 64 # ctlNum 11, -- filter s
+      vary 511 $ control 94 # ctlNum 12, -- filter r
+      vary 512 $ control 48 # ctlNum 13, -- filter cutoff
+      vary 513 $ control 120 # ctlNum 14, -- filter env
+      vary 514 $ control 20 # ctlNum 15, -- ph width
+      vary 515 $ control 80 # ctlNum 16, -- ph offset
+      vary 516 $ control 70 # ctlNum 17, -- ph w a
+      vary 517 $ control 50 # ctlNum 18, -- ph w d
+      vary 518 $ control 30 # ctlNum 19, -- ph w s
+      vary 519 $ control 60 # ctlNum 20, -- ph w r
+      vary 520 $ control 50 # ctlNum 21, -- ph offset a
+      vary 521 $ control 80 # ctlNum 22, -- ph offset d
+      vary 522 $ control 40 # ctlNum 23, -- ph offset s
+      vary 523 $ control 60 # ctlNum 24,  -- ph offset r
+      vary' 524 0 127 $ control 80 # ctlNum 25    -- unison pitch
+      ] 
+      # s "midi" # midicmd "control" # midichan chan
+      # cps (60/120/2)
+    
+
+            hush

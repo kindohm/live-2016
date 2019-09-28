@@ -1,0 +1,9 @@
+setcps (140/120/2)
+
+d1 $ note "-14" # s "midi" # midichan 13
+
+d2 $ degradeBy 0.5 $ s "kit3*16" # speed 0.6
+
+d3 $ (1 <~) $ degradeBy 0.5 $ s "cp*16" # n 1 # speed 0.8 # end 0.1 # cut 23 
+
+hush

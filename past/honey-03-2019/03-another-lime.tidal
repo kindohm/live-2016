@@ -1,0 +1,51 @@
+setcps (160/120/2)
+
+let 
+    x = 1
+    y = 2
+    z = 3
+    xfade = 5
+    phwidth = 6
+    phoffset = 7
+    prism = 8
+
+hush
+
+flood "hows it going out there? "
+
+do
+  let dis p = discretise (1/4) $ p
+      vary = 0.2
+      speeds = slow (discretise 1 $ choose [1,1,1,2]) 
+                  $ degradeBy 0.6 $ shift $ s (randcat( 
+                  (replicate 5 "midi*1") 
+                  ++ (replicate 5 "midi*2") 
+                  ++ (replicate 5 "midi*3") 
+                  ++ (replicate 5 "midi*4") 
+                  ++ (replicate 10 "midi*5") 
+                  ++ (replicate 10 "midi*6") 
+                  ++ (replicate 7 "midi*7") 
+                  ++ (replicate 8 "midi*8") 
+                  ++ (replicate 10 "midi*10") 
+                  ++ (replicate 10 "midi*12") 
+                  ++ (replicate 10 "midi*14") 
+                  ++ (replicate 10 "midi*16") 
+                  ++ (replicate 10 "midi*18") 
+                  ++ (replicate 10 "midi*20") 
+              ))
+  d1 $ sometimesBy vary (# n 3) $ shift $ speeds # n 2 # s "limekit" # gain 1.1 # cut 1
+  d2 $ (|* gain 1) $ stack [ 
+      sometimesBy vary (# gain 0.4) $ shift $ speeds # note "-6" # gain 1.1
+    , sometimesBy vary (# ccv 127) $ shift $ speeds # ccv 0 # ccn 100
+    , speeds # ccn x # ccv (dis $ range 0 127 $ shift' 300 rand) 
+    , speeds # ccn y # ccv (dis $ range 0 127 $ shift' 301 rand) 
+    , speeds # ccn z # ccv (dis $ range 0 127 $ shift' 302 rand) 
+    , speeds # ccn 4 # ccv (range 127 127 $ shift' 303 rand) 
+    , speeds # ccn xfade # ccv (dis $ shift' 304 $ choose [0,127]) 
+    , speeds # ccn phwidth # ccv (dis $ range 0 80 $ shift' 305 rand) 
+    , speeds # ccn phoffset # ccv (dis $ range 0 127 $ shift' 306 rand) 
+    , speeds # ccn prism # ccv (dis $ range 0 127 $ shift' 307 rand) 
+    ] 
+    # midichan 12 # cps (160/120/2)
+
+hush

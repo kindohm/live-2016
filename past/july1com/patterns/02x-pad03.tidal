@@ -1,0 +1,32 @@
+bps (180/120)
+
+hush
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+do
+  let bank = "[blog2 blog1]/16"
+  d5 $ degradeBy 0.8 $shift $
+    every 7 (rip 0.5 0.125) $  every 6 (rip' 0 1 8 0.25 0.125) $ 
+    every 8 (# accelerate "-1 1") $ 
+    stack [
+    degradeBy 0.3 $ slowcat [ brakk "jung3*8", brakk "jung1*8" ],
+    (0.125 ~>) $ sound "sub/4",
+    (|*| gain "0.9") $ (# gain "[1 0.8]") $ degradeBy 0.75 $ shift $ gain "0(3,8)" 
+        # sbank bank "pad" 
+        # cutoff (scale 500 4000 $ slow 30 sine) # n (shift $ irand 6) # cut 1,
+    foldEvery [2,3] (sometimes (0.125 ~>)) $ shift' 8 $ gain "~ 0/2" 
+        # sbank bank "sd" # n (shift' 2 $ irand 5) # cut 2,
+    move $ slow 2 $ gain "0(3,8) ~" 
+        # sbank bank "k" # n (shift' 3 $ irand 4) # cut 3,
+    sometimes (fast 2) $ shift' 2 $ degradeBy 0.5 $ shift' 2000 $ gain "0*8" 
+        # sbank bank "p" # n (shift' 4 $ irand 17) # cut 4 # cutoff "10000",
+    gain "{[~ 0]*2 ~ ~ ~ ~ ~ ~}%2" 
+        # sbank bank "b" # n (shift' 5 $ irand 25) # cut 5,
+    degradeBy 0.6 $ shift' 17 $ gain "{~ 0 ~}%4" 
+        # sbank bank "m" # cut 6 ] # gain 1
+
+hush
